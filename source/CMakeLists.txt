@@ -13,6 +13,7 @@ qt5_wrap_ui(UI_HEADERS
 add_executable(${PROJECT_NAME}
 	LogoTest.cpp
 	testdata.cpp
+	MetaDataModel.cpp
 	mainwindow.cpp
 	${UI_HEADERS}
 )
