@@ -2,8 +2,11 @@
 
 void TestData::Meta::write(QJsonObject &json)
 {
-	json["participant"] = m_participant;
-	json["instructor"] = m_instructor;
+	json["participant name"] = m_participant;
+	json["instructor name"] = m_instructor;
+	json["date of birth"] = m_dateOfBirth.toString(Qt::TextDate);
+	json["date of test"] = m_dateOfTest.toString(Qt::TextDate);
+	json["remarks"] = m_remarks;
 }
 
 void TestData::SubTest1::write(QJsonObject &json)

@@ -17,6 +17,10 @@ add_executable(${PROJECT_NAME}
 	${UI_HEADERS}
 )
 
+set_target_properties(${PROJECT_NAME}
+	PROPERTIES CXX_STANDARD 14
+)
+
 target_include_directories(${PROJECT_NAME}
 	PRIVATE
 		${CMAKE_CURRENT_BINARY_DIR}

@@ -2,6 +2,7 @@
 
 #include <QJsonObject>
 #include <QString>
+#include <QDate>
 
 class TestData
 {
@@ -11,6 +12,9 @@ private:
 	private:
 		QString m_participant;
 		QString m_instructor;
+		QDate m_dateOfBirth;
+		QDate m_dateOfTest;
+		QString m_remarks;
 
 	public:
 		void write(QJsonObject &json);
