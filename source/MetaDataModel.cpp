@@ -39,3 +39,45 @@ QVariant MetaDataModel::data(const QModelIndex &index, int role) const
 
 	return QVariant();
 }
+
+void MetaDataModel::write(QJsonObject &json)
+{
+	json["participant name"] = m_participant;
+	json["instructor name"] = m_instructor;
+	json["date of birth"] = m_dateOfBirth.toString(Qt::TextDate);
+	json["date of test"] = m_dateOfTest.toString(Qt::TextDate);
+	json["remarks"] = m_remarks;
+}
+
+void MetaDataModel::read(const QJsonObject &json)
+{
+	const auto &participant = json["participant name"];
+	if (participant.isString())
+	{
+		m_participant = participant.toString();
+	}
+
+	const auto &instructor = json["instructor name"];
+	if (instructor.isString())
+	{
+		m_instructor = instructor.toString();
+	}
+
+	const auto &dateOfBirth = json["date of birth"];
+	if (dateOfBirth.isString())
+	{
+		m_dateOfBirth.fromString(dateOfBirth.toString());
+	}
+
+	const auto &dateOfTest = json["date of test"];
+	if (dateOfTest.isString())
+	{
+		m_dateOfTest.fromString(dateOfTest.toString());
+	}
+
+	const auto &remarks = json["remarks"];
+	if (remarks.isString())
+	{
+		m_remarks = remarks.toString();
+	}
+}
