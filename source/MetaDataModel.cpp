@@ -40,7 +40,7 @@ QVariant MetaDataModel::data(const QModelIndex &index, int role) const
 	return QVariant();
 }
 
-void MetaDataModel::write(QJsonObject &json)
+void MetaDataModel::write(QJsonObject &json) const
 {
 	json["participant name"] = m_participant;
 	json["instructor name"] = m_instructor;

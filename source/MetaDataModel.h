@@ -23,6 +23,6 @@ public:
 	QVariant data(
 		const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-	void write(QJsonObject &json);
+	void write(QJsonObject &json) const;
 	void read(const QJsonObject &json);
 };
