@@ -40,12 +40,71 @@ QVariant MetaDataModel::data(const QModelIndex &index, int role) const
 	return QVariant();
 }
 
+Qt::ItemFlags MetaDataModel::flags(const QModelIndex &index) const
+{
+	return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+}
+
+bool MetaDataModel::setData(
+	const QModelIndex &index, const QVariant &value, int role)
+{
+	if (role != Qt::EditRole)
+	{
+		return QAbstractTableModel::setData(index, value, role);
+	}
+
+	bool valueChanged = false;
+
+	switch (index.column())
+	{
+		case 0:
+			if (value.toString() != m_participant)
+			{
+				m_participant = value.toString();
+				valueChanged = true;
+			}
+			break;
+		case 1:
+			if (value.toString() != m_instructor)
+			{
+				m_instructor = value.toString();
+				valueChanged = true;
+			}
+			break;
+		case 2:
+			if (value.toDate() != m_dateOfTest)
+			{
+				m_dateOfTest = value.toDate();
+				valueChanged = true;
+			}
+			break;
+		case 3:
+			if (value.toDate() != m_dateOfBirth)
+			{
+				m_dateOfBirth = value.toDate();
+				valueChanged = true;
+			}
+			break;
+		case 4:
+			if (value.toString() != m_remarks)
+			{
+				m_remarks = value.toString();
+				valueChanged = true;
+			}
+			break;
+		default:
+			break;
+	}
+
+	return valueChanged;
+}
+
 void MetaDataModel::write(QJsonObject &json) const
 {
 	json["participant name"] = m_participant;
 	json["instructor name"] = m_instructor;
-	json["date of birth"] = m_dateOfBirth.toString(Qt::TextDate);
-	json["date of test"] = m_dateOfTest.toString(Qt::TextDate);
+	json["date of birth"] = m_dateOfBirth.toString(Qt::ISODate);
+	json["date of test"] = m_dateOfTest.toString(Qt::ISODate);
 	json["remarks"] = m_remarks;
 }
 
@@ -66,13 +125,13 @@ void MetaDataModel::read(const QJsonObject &json)
 	const auto &dateOfBirth = json["date of birth"];
 	if (dateOfBirth.isString())
 	{
-		m_dateOfBirth.fromString(dateOfBirth.toString());
+		m_dateOfBirth = QDate::fromString(dateOfBirth.toString(), Qt::ISODate);
 	}
 
 	const auto &dateOfTest = json["date of test"];
 	if (dateOfTest.isString())
 	{
-		m_dateOfTest.fromString(dateOfTest.toString());
+		m_dateOfTest = QDate::fromString(dateOfTest.toString(), Qt::ISODate);
 	}
 
 	const auto &remarks = json["remarks"];

@@ -28,10 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
 	m_widgetMapper->addMapping(ui->lineEdit_2, 1);
 	m_widgetMapper->addMapping(ui->dateEdit, 2);
 	m_widgetMapper->addMapping(ui->dateEdit_2, 3);
-	m_widgetMapper->addMapping(ui->textEdit, 4);
+	m_widgetMapper->addMapping(ui->plainTextEdit, 4);
 	m_widgetMapper->toFirst();
-
-	connect(ui->calendarWidget, SIGNAL(selectionChanged()), m_widgetMapper, SLOT(submit()));
 }
 
 MainWindow::~MainWindow()
