@@ -8,6 +8,7 @@ set(CMAKE_AUTOMOC ON)
 
 qt5_wrap_ui(UI_HEADERS 
 	mainwindow.ui
+	MetaDataWidget.ui
 )
 
 add_executable(${PROJECT_NAME}
@@ -15,6 +16,7 @@ add_executable(${PROJECT_NAME}
 	DataModel.cpp
 	MetaDataModel.cpp
 	mainwindow.cpp
+	MetaDataWidget.cpp
 	${UI_HEADERS}
 )
 
@@ -24,6 +26,7 @@ set_target_properties(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
 	PRIVATE
+		${CMAKE_CURRENT_LIST_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
