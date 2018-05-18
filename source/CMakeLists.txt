@@ -5,10 +5,14 @@ project(LogoTest LANGUAGES CXX)
 find_package(Qt5Widgets REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 qt5_wrap_ui(UI_HEADERS 
 	mainwindow.ui
 	MetaDataWidget.ui
+)
+ qt5_add_resources(UI_RESOURCES
+	 mainwindow.qrc
 )
 
 add_executable(${PROJECT_NAME}
@@ -18,6 +22,7 @@ add_executable(${PROJECT_NAME}
 	mainwindow.cpp
 	MetaDataWidget.cpp
 	${UI_HEADERS}
+	${UI_RESOURCES}
 )
 
 set_target_properties(${PROJECT_NAME}

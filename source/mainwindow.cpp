@@ -17,13 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	ui->actionSave_as->setIcon(QIcon::fromTheme("document-save-as",
-		QIcon("/usr/share/gtk-doc/html/gtk2/document-save-as.png")));
-	ui->actionLoad->setIcon(QIcon::fromTheme("document-open",
-		QIcon("/usr/share/gtk-doc/html/gtk2/document-open.png")));
-
 	connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveAs()));
-	connect(ui->actionLoad, SIGNAL(triggered()), this, SLOT(load()));
+	connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(load()));
 
 	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
 }

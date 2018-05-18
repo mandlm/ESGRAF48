@@ -52,8 +52,8 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="actionOpen"/>
     <addaction name="actionSave_as"/>
-    <addaction name="actionLoad"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -68,20 +68,34 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionOpen"/>
    <addaction name="actionSave_as"/>
-   <addaction name="actionLoad"/>
   </widget>
   <action name="actionSave_as">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/images/document-save-as.png</normaloff>:/images/document-save-as.png</iconset>
+   </property>
    <property name="text">
     <string>Save as...</string>
    </property>
    <property name="toolTip">
     <string>Save as...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
-  <action name="actionLoad">
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+   </property>
    <property name="text">
-    <string>Load</string>
+    <string>Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
  </widget>
@@ -93,6 +107,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="mainwindow.qrc"/>
+ </resources>
  <connections/>
 </ui>
