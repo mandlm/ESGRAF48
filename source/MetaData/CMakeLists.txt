@@ -1,26 +1,19 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(LogoTest LANGUAGES CXX)
+project(MetaData LANGUAGES CXX)
 
 find_package(Qt5Widgets REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
 
 qt5_wrap_ui(UI_HEADERS 
-	mainwindow.ui
+	MetaDataWidget.ui
 )
 
-qt5_add_resources(UI_RESOURCES
-	mainwindow.qrc
-)
-
-add_executable(${PROJECT_NAME}
-	LogoTest.cpp
-	DataModel.cpp
-	mainwindow.cpp
+add_library(${PROJECT_NAME}
+	MetaDataModel.cpp
+	MetaDataWidget.cpp
 	${UI_HEADERS}
-	${UI_RESOURCES}
 )
 
 set_target_properties(${PROJECT_NAME}
@@ -29,14 +22,10 @@ set_target_properties(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
 	PRIVATE
-		${CMAKE_CURRENT_LIST_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
-		MetaData
 		Qt5::Widgets
 )
-
-add_subdirectory(MetaData)

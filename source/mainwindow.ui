@@ -103,7 +103,7 @@
   <customwidget>
    <class>MetaDataWidget</class>
    <extends>QWidget</extends>
-   <header>MetaDataWidget.h</header>
+   <header>MetaData/MetaDataWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 
 #include "DataModel.h"
-#include "MetaDataModel.h"
 
 #include <QJsonObject>
 #include <QJsonDocument>

@@ -72,16 +72,16 @@ bool MetaDataModel::setData(
 			}
 			break;
 		case 2:
-			if (value.toDate() != m_dateOfTest)
+			if (value.toDate() != m_dateOfBirth)
 			{
-				m_dateOfTest = value.toDate();
+				m_dateOfBirth = value.toDate();
 				valueChanged = true;
 			}
 			break;
 		case 3:
-			if (value.toDate() != m_dateOfBirth)
+			if (value.toDate() != m_dateOfTest)
 			{
-				m_dateOfBirth = value.toDate();
+				m_dateOfTest = value.toDate();
 				valueChanged = true;
 			}
 			break;
