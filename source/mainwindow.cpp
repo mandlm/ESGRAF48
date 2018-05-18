@@ -11,25 +11,21 @@
 #include <QDataWidgetMapper>
 
 MainWindow::MainWindow(QWidget *parent)
-	: QMainWindow(parent), ui(new Ui::MainWindow),
-	  m_dataModel(new DataModel(parent))
-	  , m_widgetMapper(new QDataWidgetMapper(parent))
+	: QMainWindow(parent)
+	, ui(new Ui::MainWindow)
+	, m_dataModel(new DataModel(parent))
 {
 	ui->setupUi(this);
 
-	ui->actionSave_as->setIcon(QIcon::fromTheme("document-save-as", QIcon("/usr/share/gtk-doc/html/gtk2/document-save-as.png")));
-	ui->actionLoad->setIcon(QIcon::fromTheme("document-open", QIcon("/usr/share/gtk-doc/html/gtk2/document-open.png")));
+	ui->actionSave_as->setIcon(QIcon::fromTheme("document-save-as",
+		QIcon("/usr/share/gtk-doc/html/gtk2/document-save-as.png")));
+	ui->actionLoad->setIcon(QIcon::fromTheme("document-open",
+		QIcon("/usr/share/gtk-doc/html/gtk2/document-open.png")));
 
 	connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveAs()));
 	connect(ui->actionLoad, SIGNAL(triggered()), this, SLOT(load()));
 
-	m_widgetMapper->setModel(&m_dataModel->m_metaData);
-	m_widgetMapper->addMapping(ui->lineEdit, 0);
-	m_widgetMapper->addMapping(ui->lineEdit_2, 1);
-	m_widgetMapper->addMapping(ui->dateEdit, 2);
-	m_widgetMapper->addMapping(ui->dateEdit_2, 3);
-	m_widgetMapper->addMapping(ui->plainTextEdit, 4);
-	m_widgetMapper->toFirst();
+	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
 }
 
 MainWindow::~MainWindow()
@@ -76,5 +72,5 @@ void MainWindow::load()
 
 	m_dataModel->read(loadDoc.object());
 
-	m_widgetMapper->toFirst();
+	ui->metaDataWidget->toFirst();
 }

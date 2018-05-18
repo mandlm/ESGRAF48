@@ -1,6 +1,8 @@
 #include "DataModel.h"
 
-DataModel::DataModel(QObject *parent) : QObject(parent), m_metaData(this)
+DataModel::DataModel(QObject *parent)
+	: QObject(parent)
+	, m_metaData(this)
 {
 }
 

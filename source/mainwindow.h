@@ -16,7 +16,6 @@ class MainWindow : public QMainWindow
 private:
 	Ui::MainWindow *ui;
 	DataModel *m_dataModel;
-	QDataWidgetMapper *m_widgetMapper;
 
 public:
 	MainWindow(QWidget *parent = nullptr);

@@ -2,8 +2,11 @@
 
 #include <QWidget>
 
+class QDataWidgetMapper;
+class MetaDataModel;
+
 namespace Ui {
-class MetaDataWidget;
+	class MetaDataWidget;
 };
 
 class MetaDataWidget : public QWidget
@@ -12,8 +15,12 @@ class MetaDataWidget : public QWidget
 
 private:
 	Ui::MetaDataWidget *ui;
+	QDataWidgetMapper *m_widgetMapper;
 
 public:
 	MetaDataWidget(QWidget *parent = nullptr);
 	~MetaDataWidget();
+
+	void setModel(MetaDataModel *model);
+	void toFirst();
 };
