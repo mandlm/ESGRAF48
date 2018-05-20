@@ -2,6 +2,8 @@
 
 #include <QMainWindow>
 
+#include <memory>
+
 class DataModel;
 class QDataWidgetMapper;
 
@@ -15,13 +17,14 @@ class MainWindow : public QMainWindow
 
 private:
 	Ui::MainWindow *ui;
-	DataModel *m_dataModel;
+	std::unique_ptr<DataModel> m_dataModel;
 
 public:
 	MainWindow(QWidget *parent = nullptr);
 	~MainWindow();
 
 public slots:
-	void saveAs();
-	void load();
+	void newFile();
+	void openFile();
+	void saveFileAs();
 };

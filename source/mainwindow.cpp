@@ -12,14 +12,14 @@
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 	, ui(new Ui::MainWindow)
-	, m_dataModel(new DataModel(parent))
 {
 	ui->setupUi(this);
 
-	connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveAs()));
-	connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(load()));
+	connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
+	connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
 
-	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
+	newFile();
 }
 
 MainWindow::~MainWindow()
@@ -27,26 +27,13 @@ MainWindow::~MainWindow()
 	delete ui;
 }
 
-void MainWindow::saveAs()
+void MainWindow::newFile()
 {
-	QString filename = QFileDialog::getSaveFileName(this);
-	if (filename.isEmpty())
-	{
-		return;
-	}
-
-	QJsonObject saveData;
-	m_dataModel->write(saveData);
-
-	QJsonDocument saveDoc(saveData);
-
-	QFile saveFile(filename);
-	saveFile.open(QFile::WriteOnly);
-	saveFile.write(saveDoc.toJson());
-	saveFile.close();
+	m_dataModel = std::make_unique<DataModel>(this);
+	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
 }
 
-void MainWindow::load()
+void MainWindow::openFile()
 {
 	QString filename = QFileDialog::getOpenFileName(this);
 	if (filename.isEmpty())
@@ -67,4 +54,23 @@ void MainWindow::load()
 	m_dataModel->read(loadDoc.object());
 
 	ui->metaDataWidget->toFirst();
+}
+
+void MainWindow::saveFileAs()
+{
+	QString filename = QFileDialog::getSaveFileName(this);
+	if (filename.isEmpty())
+	{
+		return;
+	}
+
+	QJsonObject saveData;
+	m_dataModel->write(saveData);
+
+	QJsonDocument saveDoc(saveData);
+
+	QFile saveFile(filename);
+	saveFile.open(QFile::WriteOnly);
+	saveFile.write(saveDoc.toJson());
+	saveFile.close();
 }

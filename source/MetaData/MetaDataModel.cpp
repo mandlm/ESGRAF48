@@ -4,6 +4,8 @@
 
 MetaDataModel::MetaDataModel(QObject *parent) : QAbstractTableModel(parent)
 {
+	m_dateOfBirth.setDate(2010, 01, 01);
+	m_dateOfTest = QDate::currentDate();
 }
 
 int MetaDataModel::rowCount(const QModelIndex &parent) const
