@@ -30,10 +30,15 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="GenusTab">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Subtest 3: Genus</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="GenusWidget" name="widget" native="true"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -127,6 +132,12 @@
    <class>MetaDataWidget</class>
    <extends>QWidget</extends>
    <header>MetaData/MetaDataWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GenusWidget</class>
+   <extends>QWidget</extends>
+   <header>Genus/GenusWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
