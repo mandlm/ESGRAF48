@@ -10,6 +10,7 @@ GenusWidget::GenusWidget(QWidget *parent)
 {
 	ui->setupUi(this);
 
+	ui->tableView->horizontalHeader()->hide();
 	ui->tableView->setModel(m_model);
 }
 
