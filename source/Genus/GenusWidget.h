@@ -2,6 +2,8 @@
 
 #include <QWidget>
 
+class GenusModel;
+
 namespace Ui {
 	class GenusWidget;
 };
@@ -12,6 +14,7 @@ class GenusWidget : public QWidget
 
 private:
 	Ui::GenusWidget *ui;
+	GenusModel *m_model;
 
 public:
 	GenusWidget(QWidget *parent = nullptr);

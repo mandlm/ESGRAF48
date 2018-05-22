@@ -12,6 +12,7 @@ qt5_wrap_ui(UI_HEADERS
 
 add_library(${PROJECT_NAME}
 	GenusWidget.cpp
+	GenusModel.cpp
 	${UI_HEADERS}
 )
 
