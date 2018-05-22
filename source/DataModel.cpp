@@ -3,6 +3,7 @@
 DataModel::DataModel(QObject *parent)
 	: QObject(parent)
 	, m_metaData(this)
+	, m_genus(this)
 {
 }
 
@@ -11,6 +12,10 @@ void DataModel::write(QJsonObject &target) const
 	QJsonObject metaData;
 	m_metaData.write(metaData);
 	target["MetaData"] = metaData;
+
+	QJsonObject genus;
+	m_genus.write(genus);
+	target["Genus"] = genus;
 }
 
 void DataModel::read(const QJsonObject &source)

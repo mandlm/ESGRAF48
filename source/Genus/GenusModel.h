@@ -30,16 +30,25 @@ public:
 	}
 };
 
-#include <QAbstractTableModel>
 #include <QJsonObject>
+
+#include <map>
+
+class CheckableItems : public std::map<size_t, CheckableItem>
+{
+	public:
+		using std::map<size_t, CheckableItem>::map;
+
+		void write(QJsonObject &json) const;
+};
+
+#include <QAbstractTableModel>
 
 class GenusModel : public QAbstractTableModel
 {
 	Q_OBJECT
 
 private:
-	using CheckableItems = std::map<size_t, CheckableItem>;
-
 	CheckableItems m_tiere = {{0, {"Tiger"}}, {1, {"Bär"}}, {2, {"Katze"}},
 		{3, {"Pferd"}}, {4, {"Gans"}}, {5, {"Elefant"}}, {6, {"Katze"}},
 		{7, {"Hund"}}};

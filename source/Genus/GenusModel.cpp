@@ -2,6 +2,15 @@
 
 #include <QDebug>
 
+void CheckableItems::write(QJsonObject &json) const
+{
+	for (const auto &pair : *this)
+	{
+		json[pair.second.getText().c_str()] =
+			pair.second.isChecked();
+	}
+}
+
 GenusModel::GenusModel(QObject *parent)
 	: QAbstractTableModel(parent)
 {
@@ -104,6 +113,17 @@ QVariant GenusModel::headerData(
 
 void GenusModel::write(QJsonObject &json) const
 {
+	QJsonObject tiere;
+	m_tiere.write(tiere);
+	json["Tiere"] = tiere;
+
+	QJsonObject futter;
+	m_futter.write(futter);
+	json["Futter"] = futter;
+
+	QJsonObject zirkus;
+	m_zirkus.write(zirkus);
+	json["Zirkus"] = zirkus;
 }
 
 void GenusModel::read(const QJsonObject &json)
@@ -125,7 +145,7 @@ bool GenusModel::isValidIndex(const QModelIndex &index) const
 	}
 }
 
-GenusModel::CheckableItems &GenusModel::getItems(const QModelIndex &index)
+CheckableItems &GenusModel::getItems(const QModelIndex &index)
 {
 	switch (index.row())
 	{
@@ -142,8 +162,7 @@ GenusModel::CheckableItems &GenusModel::getItems(const QModelIndex &index)
 	throw std::runtime_error("invalid index");
 }
 
-const GenusModel::CheckableItems &GenusModel::getItems(
-	const QModelIndex &index) const
+const CheckableItems &GenusModel::getItems(const QModelIndex &index) const
 {
 	switch (index.row())
 	{

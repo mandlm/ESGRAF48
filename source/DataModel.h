@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MetaData/MetaDataModel.h"
+#include "Genus/GenusModel.h"
 
 #include <QJsonObject>
 
@@ -10,6 +11,7 @@ class DataModel : public QObject
 
 public:
 	MetaDataModel m_metaData;
+	GenusModel m_genus;
 
 public:
 	DataModel(QObject *parent);
