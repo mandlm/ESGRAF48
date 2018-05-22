@@ -5,7 +5,7 @@
 class GenusModel;
 
 namespace Ui {
-	class GenusWidget;
+class GenusWidget;
 };
 
 class GenusWidget : public QWidget

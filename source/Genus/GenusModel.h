@@ -5,29 +5,29 @@
 class CheckableItem
 {
 private:
-    bool m_checked = false;
-    std::string m_text;
+	bool m_checked = false;
+	std::string m_text;
 
 public:
-    CheckableItem(const std::string &text)
-        : m_text(text)
-    {
-    }
+	CheckableItem(const std::string &text)
+		: m_text(text)
+	{
+	}
 
-    std::string getText() const
-    {
-        return m_text;
-    }
+	std::string getText() const
+	{
+		return m_text;
+	}
 
-    bool isChecked() const
-    {
-        return m_checked;
-    }
+	bool isChecked() const
+	{
+		return m_checked;
+	}
 
-    void setState(bool checked)
-    {
-        m_checked = checked;
-    }
+	void setState(bool checked)
+	{
+		m_checked = checked;
+	}
 };
 
 #include <QAbstractTableModel>
@@ -38,39 +38,18 @@ class GenusModel : public QAbstractTableModel
 	Q_OBJECT
 
 private:
-    using CheckableItems = std::map<size_t, CheckableItem>;
+	using CheckableItems = std::map<size_t, CheckableItem>;
 
-    CheckableItems m_tiere =
-    {
-        {0, {"Tiger"}},
-        {1, {"Bär"}},
-        {2, {"Katze"}},
-        {3, {"Pferd"}},
-        {4, {"Gans"}},
-        {5, {"Elefant"}},
-        {6, {"Katze"}},
-        {7, {"Hund"}}
-    };
+	CheckableItems m_tiere = {{0, {"Tiger"}}, {1, {"Bär"}}, {2, {"Katze"}},
+		{3, {"Pferd"}}, {4, {"Gans"}}, {5, {"Elefant"}}, {6, {"Katze"}},
+		{7, {"Hund"}}};
 
-    CheckableItems m_futter =
-    {
-        {0, {"Salat"}},
-        {1, {"Fleisch"}},
-        {2, {"Knocken"}},
-        {3, {"Banane"}},
-        {4, {"Apfel"}},
-        {5, {"Möhre"}},
-        {6, {"Honig"}},
-        {7, {"Zucker"}}
-    };
+	CheckableItems m_futter = {{0, {"Salat"}}, {1, {"Fleisch"}},
+		{2, {"Knocken"}}, {3, {"Banane"}}, {4, {"Apfel"}}, {5, {"Möhre"}},
+		{6, {"Honig"}}, {7, {"Zucker"}}};
 
-    CheckableItems m_zirkus =
-    {
-        {0, {"Kiste"}},
-        {1, {"Holz"}},
-        {2, {"Vorhang"}},
-        {3, {"Baum"}}
-    };
+	CheckableItems m_zirkus = {
+		{0, {"Kiste"}}, {1, {"Holz"}}, {2, {"Vorhang"}}, {3, {"Baum"}}};
 
 public:
 	GenusModel(QObject *parent);
@@ -89,12 +68,11 @@ public:
 	void read(const QJsonObject &json);
 
 private:
-    bool isValidIndex(const QModelIndex &index) const;
+	bool isValidIndex(const QModelIndex &index) const;
 
-    CheckableItems &getItems(const QModelIndex &index);
-    const CheckableItems &getItems(const QModelIndex &index) const;
+	CheckableItems &getItems(const QModelIndex &index);
+	const CheckableItems &getItems(const QModelIndex &index) const;
 
-    CheckableItem &getItem(const QModelIndex &index);
-    const CheckableItem &getItem(const QModelIndex &index) const;
+	CheckableItem &getItem(const QModelIndex &index);
+	const CheckableItem &getItem(const QModelIndex &index) const;
 };
-
