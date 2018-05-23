@@ -13,9 +13,9 @@ qt5_wrap_ui(UI_HEADERS
 add_library(${PROJECT_NAME}
 	GenusWidget.cpp
 	GenusModel.cpp
-        CheckableItem.cpp
-        CheckableItems.cpp
-        ${UI_HEADERS}
+	../CheckableItem.cpp
+	../CheckableItems.cpp
+	${UI_HEADERS}
 )
 
 set_target_properties(${PROJECT_NAME}

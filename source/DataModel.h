@@ -2,6 +2,7 @@
 
 #include "MetaData/MetaDataModel.h"
 #include "Genus/GenusModel.h"
+#include "VerbEnd/VerbEndModel.h"
 
 #include <QJsonObject>
 
@@ -11,6 +12,7 @@ class DataModel : public QObject
 
 public:
 	MetaDataModel m_metaData;
+	VerbEndModel m_verbEnd;
 	GenusModel m_genus;
 
 public:

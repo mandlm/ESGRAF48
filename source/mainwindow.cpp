@@ -31,6 +31,7 @@ void MainWindow::newFile()
 {
 	m_dataModel = std::make_unique<DataModel>(this);
 	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
+	ui->verbEndWidget->setModel(&m_dataModel->m_verbEnd);
     ui->genusWidget->setModel(&m_dataModel->m_genus);
 }
 

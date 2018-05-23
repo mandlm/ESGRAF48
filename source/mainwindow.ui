@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="MetaDataTab">
        <attribute name="title">
@@ -27,6 +27,16 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="MetaDataWidget" name="metaDataWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="VerbEndTab">
+       <attribute name="title">
+        <string>Subtest 2: Verbenstellungsregel (VE)</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="VerbEndWidget" name="verbEndWidget" native="true"/>
         </item>
        </layout>
       </widget>
@@ -138,6 +148,12 @@
    <class>GenusWidget</class>
    <extends>QWidget</extends>
    <header>Genus/GenusWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>VerbEndWidget</class>
+   <extends>QWidget</extends>
+   <header>VerbEnd/VerbEndWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

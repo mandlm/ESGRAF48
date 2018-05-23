@@ -5,19 +5,20 @@
 
 #include <QAbstractTableModel>
 
-class GenusModel : public QAbstractTableModel
+class VerbEndModel : public QAbstractTableModel
 {
 	Q_OBJECT
 
 private:
-	CheckableItems m_tiere = { "Tiger", "Bär", "Katze", "Pferd", "Gans",
-		"Elefant", "Katze", "Hund" };
-	CheckableItems m_futter = { "Salat", "Fleisch", "Knocken", "Banane",
-		"Apfel", "Möhre", "Honig", "Zucker" };
-	CheckableItems m_zirkus = { "Kiste", "Holz", "Vorhang", "Baum" };
+	CheckableItems m_telefonat = { "Kausal (1)", "Kausal (2)", "Relativ",
+		"Kausal (3)", "Final", "Temporal (1)", "Temporal (2)" };
+	CheckableItems m_zaubertrick = { "Relativ", "Final (1)", "Kausal (1)",
+		"Final (2)", "Temporal (1)", "Kausal (2)", "Temporal (2)" };
+	CheckableItems m_zauberregel = { "Temporal (1)", "Kausal", "Final",
+		"Relativ (1)", "Temporal (2)", "Relativ (2)" };
 
 public:
-	GenusModel(QObject *parent);
+	VerbEndModel(QObject *parent);
 	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 	QVariant data(
