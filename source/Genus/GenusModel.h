@@ -1,46 +1,7 @@
 #pragma once
 
-#include <string>
-
-class CheckableItem
-{
-private:
-	bool m_checked = false;
-	std::string m_text;
-
-public:
-	CheckableItem(const std::string &text)
-		: m_text(text)
-	{
-	}
-
-	std::string getText() const
-	{
-		return m_text;
-	}
-
-	bool isChecked() const
-	{
-		return m_checked;
-	}
-
-	void setState(bool checked)
-	{
-		m_checked = checked;
-	}
-};
-
-#include <QJsonObject>
-
-#include <map>
-
-class CheckableItems : public std::map<size_t, CheckableItem>
-{
-	public:
-		using std::map<size_t, CheckableItem>::map;
-
-		void write(QJsonObject &json) const;
-};
+#include "CheckableItem.h"
+#include "CheckableItems.h"
 
 #include <QAbstractTableModel>
 
