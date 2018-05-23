@@ -9,15 +9,15 @@ GenusWidget::GenusWidget(QWidget *parent)
 {
 	ui->setupUi(this);
 
-    ui->genusTableView->horizontalHeader()->hide();
+	ui->genusTableView->horizontalHeader()->hide();
 }
 
 GenusWidget::~GenusWidget()
 {
-    delete ui;
+	delete ui;
 }
 
 void GenusWidget::setModel(GenusModel *model)
 {
-    ui->genusTableView->setModel(model);
+	ui->genusTableView->setModel(model);
 }

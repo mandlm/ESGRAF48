@@ -3,13 +3,13 @@
 #include "CheckableItem.h"
 
 #include <QJsonObject>
-#include <map>
+#include <vector>
 
 class CheckableItems : public std::vector<CheckableItem>
 {
 public:
-    CheckableItems(std::initializer_list<std::string> itemNames);
+	CheckableItems(std::initializer_list<std::string> itemNames);
 
-    void write(QJsonArray &json) const;
-    void read(const QJsonArray &json);
+	void write(QJsonArray &json) const;
+	void read(const QJsonArray &json);
 };

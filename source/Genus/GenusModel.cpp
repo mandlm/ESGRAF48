@@ -105,35 +105,35 @@ QVariant GenusModel::headerData(
 
 void GenusModel::write(QJsonObject &json) const
 {
-    QJsonArray tiere;
+	QJsonArray tiere;
 	m_tiere.write(tiere);
 	json["Tiere"] = tiere;
 
-    QJsonArray futter;
+	QJsonArray futter;
 	m_futter.write(futter);
 	json["Futter"] = futter;
 
-    QJsonArray zirkus;
+	QJsonArray zirkus;
 	m_zirkus.write(zirkus);
 	json["Zirkus"] = zirkus;
 }
 
 void GenusModel::read(const QJsonObject &json)
 {
-    if (json["Tiere"].isArray())
-    {
-        m_tiere.read(json["Tiere"].toArray());
-    }
+	if (json["Tiere"].isArray())
+	{
+		m_tiere.read(json["Tiere"].toArray());
+	}
 
-    if (json["Futter"].isArray())
-    {
-        m_futter.read(json["Futter"].toArray());
-    }
+	if (json["Futter"].isArray())
+	{
+		m_futter.read(json["Futter"].toArray());
+	}
 
-    if (json["Zirkus"].isArray())
-    {
-        m_zirkus.read(json["Zirkus"].toArray());
-    }
+	if (json["Zirkus"].isArray())
+	{
+		m_zirkus.read(json["Zirkus"].toArray());
+	}
 }
 
 bool GenusModel::isValidIndex(const QModelIndex &index) const
@@ -141,11 +141,11 @@ bool GenusModel::isValidIndex(const QModelIndex &index) const
 	switch (index.row())
 	{
 		case 0:
-            return index.column() < m_tiere.size();
+			return index.column() < m_tiere.size();
 		case 1:
-            return index.column() < m_futter.size();
+			return index.column() < m_futter.size();
 		case 2:
-            return index.column() < m_zirkus.size();
+			return index.column() < m_zirkus.size();
 		default:
 			return false;
 	}
@@ -188,21 +188,21 @@ const CheckableItems &GenusModel::getItems(const QModelIndex &index) const
 CheckableItem &GenusModel::getItem(const QModelIndex &index)
 {
 	auto &items = getItems(index);
-    if (index.column() < items.size())
-    {
-        return items.at(index.column());
-    }
+	if (index.column() < items.size())
+	{
+		return items.at(index.column());
+	}
 
 	throw std::runtime_error("invalid index");
 }
 
 const CheckableItem &GenusModel::getItem(const QModelIndex &index) const
 {
-    auto &items = getItems(index);
-    if (index.column() < items.size())
-    {
-        return items.at(index.column());
-    }
+	auto &items = getItems(index);
+	if (index.column() < items.size())
+	{
+		return items.at(index.column());
+	}
 
 	throw std::runtime_error("invalid index");
 }

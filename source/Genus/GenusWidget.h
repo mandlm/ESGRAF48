@@ -19,5 +19,5 @@ public:
 	GenusWidget(QWidget *parent = nullptr);
 	~GenusWidget();
 
-    void setModel(GenusModel *model);
+	void setModel(GenusModel *model);
 };
