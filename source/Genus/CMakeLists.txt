@@ -6,7 +6,7 @@ find_package(Qt5Widgets REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 
-qt5_wrap_ui(UI_HEADERS 
+qt5_wrap_ui(GENUS_UI
 	GenusWidget.ui
 )
 
@@ -15,7 +15,7 @@ add_library(${PROJECT_NAME}
 	GenusModel.cpp
 	../CheckableItem.cpp
 	../CheckableItems.cpp
-	${UI_HEADERS}
+	${GENUS_UI}
 )
 
 set_target_properties(${PROJECT_NAME}

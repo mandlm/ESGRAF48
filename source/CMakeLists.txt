@@ -7,11 +7,11 @@ find_package(Qt5Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-qt5_wrap_ui(UI_HEADERS 
+qt5_wrap_ui(LOGO_TEST_UI
 	mainwindow.ui
 )
 
-qt5_add_resources(UI_RESOURCES
+qt5_add_resources(LOGO_TEST_QRC
 	mainwindow.qrc
 )
 
@@ -19,8 +19,8 @@ add_executable(${PROJECT_NAME}
 	LogoTest.cpp
 	DataModel.cpp
 	mainwindow.cpp
-	${UI_HEADERS}
-	${UI_RESOURCES}
+	${LOGO_TEST_UI}
+	${LOGO_TEST_QRC}
 )
 
 set_target_properties(${PROJECT_NAME}

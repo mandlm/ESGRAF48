@@ -6,14 +6,14 @@ find_package(Qt5Widgets REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 
-qt5_wrap_ui(UI_HEADERS 
+qt5_wrap_ui(META_DATA_UI
 	MetaDataWidget.ui
 )
 
 add_library(${PROJECT_NAME}
 	MetaDataModel.cpp
 	MetaDataWidget.cpp
-	${UI_HEADERS}
+	${META_DATA_UI}
 )
 
 set_target_properties(${PROJECT_NAME}
