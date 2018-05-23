@@ -10,16 +10,9 @@ class GenusModel : public QAbstractTableModel
 	Q_OBJECT
 
 private:
-	CheckableItems m_tiere = {{0, {"Tiger"}}, {1, {"Bär"}}, {2, {"Katze"}},
-		{3, {"Pferd"}}, {4, {"Gans"}}, {5, {"Elefant"}}, {6, {"Katze"}},
-		{7, {"Hund"}}};
-
-	CheckableItems m_futter = {{0, {"Salat"}}, {1, {"Fleisch"}},
-		{2, {"Knocken"}}, {3, {"Banane"}}, {4, {"Apfel"}}, {5, {"Möhre"}},
-		{6, {"Honig"}}, {7, {"Zucker"}}};
-
-	CheckableItems m_zirkus = {
-		{0, {"Kiste"}}, {1, {"Holz"}}, {2, {"Vorhang"}}, {3, {"Baum"}}};
+    CheckableItems m_tiere = { "Tiger", "Bär", "Katze", "Pferd", "Gans", "Elefant", "Katze", "Hund" };
+    CheckableItems m_futter = { "Salat", "Fleisch", "Knocken", "Banane", "Apfel", "Möhre", "Honig", "Zucker" };
+    CheckableItems m_zirkus = { "Kiste", "Holz", "Vorhang", "Baum" };
 
 public:
 	GenusModel(QObject *parent);

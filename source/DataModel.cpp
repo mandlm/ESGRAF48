@@ -25,4 +25,10 @@ void DataModel::read(const QJsonObject &source)
 	{
 		m_metaData.read(metaData.toObject());
 	}
+
+    const auto &genus = source["Genus"];
+    if (genus.isObject())
+    {
+        m_genus.read(genus.toObject());
+    }
 }

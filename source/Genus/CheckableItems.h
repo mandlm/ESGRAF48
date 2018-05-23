@@ -5,10 +5,11 @@
 #include <QJsonObject>
 #include <map>
 
-class CheckableItems : public std::map<size_t, CheckableItem>
+class CheckableItems : public std::vector<CheckableItem>
 {
 public:
-    using std::map<size_t, CheckableItem>::map;
+    CheckableItems(std::initializer_list<std::string> itemNames);
 
-    void write(QJsonObject &json) const;
+    void write(QJsonArray &json) const;
+    void read(const QJsonArray &json);
 };

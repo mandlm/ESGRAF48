@@ -6,15 +6,18 @@
 GenusWidget::GenusWidget(QWidget *parent)
 	: QWidget(parent)
 	, ui(new Ui::GenusWidget)
-	, m_model(new GenusModel(this))
 {
 	ui->setupUi(this);
 
-	ui->tableView->horizontalHeader()->hide();
-	ui->tableView->setModel(m_model);
+    ui->genusTableView->horizontalHeader()->hide();
 }
 
 GenusWidget::~GenusWidget()
 {
-	delete ui;
+    delete ui;
+}
+
+void GenusWidget::setModel(GenusModel *model)
+{
+    ui->genusTableView->setModel(model);
 }

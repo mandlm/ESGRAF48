@@ -14,9 +14,10 @@ class GenusWidget : public QWidget
 
 private:
 	Ui::GenusWidget *ui;
-	GenusModel *m_model;
 
 public:
 	GenusWidget(QWidget *parent = nullptr);
 	~GenusWidget();
+
+    void setModel(GenusModel *model);
 };
