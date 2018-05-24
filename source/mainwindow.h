@@ -18,6 +18,7 @@ class MainWindow : public QMainWindow
 private:
 	Ui::MainWindow *ui;
 	std::unique_ptr<DataModel> m_dataModel;
+    QString m_filename;
 
 public:
 	MainWindow(QWidget *parent = nullptr);
@@ -26,5 +27,9 @@ public:
 public slots:
 	void newFile();
 	void openFile();
+    void saveFile();
 	void saveFileAs();
+
+private:
+    void saveFile(const QString &filename);
 };

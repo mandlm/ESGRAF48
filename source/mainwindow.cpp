@@ -17,7 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 	connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 	connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
-	connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
+    connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
+    connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
 
 	newFile();
 }
@@ -33,6 +34,8 @@ void MainWindow::newFile()
 	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
 	ui->verbEndWidget->setModel(&m_dataModel->m_verbEnd);
     ui->genusWidget->setModel(&m_dataModel->m_genus);
+
+    m_filename = "";
 }
 
 void MainWindow::openFile()
@@ -55,7 +58,21 @@ void MainWindow::openFile()
 
 	m_dataModel->read(loadDoc.object());
 
-	ui->metaDataWidget->toFirst();
+    m_filename = filename;
+
+    ui->metaDataWidget->toFirst();
+}
+
+void MainWindow::saveFile()
+{
+    if (m_filename.isEmpty())
+    {
+        saveFileAs();
+    }
+    else
+    {
+        saveFile(m_filename);
+    }
 }
 
 void MainWindow::saveFileAs()
@@ -66,13 +83,20 @@ void MainWindow::saveFileAs()
 		return;
 	}
 
-	QJsonObject saveData;
-	m_dataModel->write(saveData);
+    saveFile(filename);
+}
 
-	QJsonDocument saveDoc(saveData);
+void MainWindow::saveFile(const QString &filename)
+{
+    QJsonObject saveData;
+    m_dataModel->write(saveData);
 
-	QFile saveFile(filename);
-	saveFile.open(QFile::WriteOnly);
-	saveFile.write(saveDoc.toJson());
-	saveFile.close();
+    QJsonDocument saveDoc(saveData);
+
+    QFile saveFile(filename);
+    saveFile.open(QFile::WriteOnly);
+    saveFile.write(saveDoc.toJson());
+    saveFile.close();
+
+    m_filename = filename;
 }
