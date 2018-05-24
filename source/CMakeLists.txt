@@ -35,7 +35,9 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
-                CheckableItem
+		CheckableItem
+		CheckableTest
+		CheckableTestModel
 		MetaData
 		VerbEnd
 		Genus
@@ -43,6 +45,8 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 add_subdirectory(CheckableItem)
+add_subdirectory(CheckableTest)
+add_subdirectory(CheckableTestModel)
 
 add_subdirectory(MetaData)
 add_subdirectory(VerbEnd)

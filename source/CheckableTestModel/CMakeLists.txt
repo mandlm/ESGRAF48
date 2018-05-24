@@ -1,19 +1,11 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(Genus LANGUAGES CXX)
+project(CheckableTestModel LANGUAGES CXX)
 
-find_package(Qt5Widgets REQUIRED)
-
-set(CMAKE_AUTOMOC ON)
-
-qt5_wrap_ui(GENUS_UI
-	GenusWidget.ui
-)
+find_package(Qt5Core REQUIRED)
 
 add_library(${PROJECT_NAME}
-	GenusWidget.cpp
-	GenusModel.cpp
-	${GENUS_UI}
+        CheckableTestModel.cpp
 )
 
 set_target_properties(${PROJECT_NAME}
@@ -21,14 +13,13 @@ set_target_properties(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME}
-	PRIVATE
-		${CMAKE_CURRENT_BINARY_DIR}
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
 		CheckableItem
 		CheckableTest
-		CheckableTestModel
-		Qt5::Widgets
+		Qt5::Core
 )

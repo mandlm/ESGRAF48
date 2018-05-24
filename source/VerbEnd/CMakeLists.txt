@@ -27,6 +27,8 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
-                CheckableItem
+		CheckableItem
+		CheckableTest
+		CheckableTestModel
 		Qt5::Widgets
 )
