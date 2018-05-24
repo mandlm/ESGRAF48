@@ -20,4 +20,25 @@ public:
 
 	void write(QJsonObject &target) const;
 	void read(const QJsonObject &source);
+
+private:
+	template <class ModelType>
+	void write(
+		const ModelType &model, QJsonObject &target, const char *name) const
+	{
+		QJsonObject jsonObject;
+		model.write(jsonObject);
+		target[name] = jsonObject;
+	}
+
+	template <class ModelType>
+	void read(
+		ModelType &model, const QJsonObject &source, const char *name) const
+	{
+		const auto &jsonObject = source[name];
+		if (jsonObject.isObject())
+		{
+			model.read(jsonObject.toObject());
+		}
+	}
 };
