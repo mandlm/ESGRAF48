@@ -35,11 +35,14 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
+                CheckableItem
 		MetaData
 		VerbEnd
 		Genus
 		Qt5::Widgets
 )
+
+add_subdirectory(CheckableItem)
 
 add_subdirectory(MetaData)
 add_subdirectory(VerbEnd)

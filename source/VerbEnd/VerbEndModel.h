@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../CheckableItem.h"
-#include "../CheckableItems.h"
+#include "CheckableItem.h"
+#include "CheckableItems.h"
 
 #include <QAbstractTableModel>
 

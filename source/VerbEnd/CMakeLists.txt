@@ -13,8 +13,6 @@ qt5_wrap_ui(UI_HEADERS
 add_library(${PROJECT_NAME}
 	VerbEndWidget.cpp
 	VerbEndModel.cpp
-	../CheckableItem.cpp
-	../CheckableItems.cpp
 	${UI_HEADERS}
 )
 
@@ -29,5 +27,6 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
+                CheckableItem
 		Qt5::Widgets
 )

@@ -13,8 +13,6 @@ qt5_wrap_ui(GENUS_UI
 add_library(${PROJECT_NAME}
 	GenusWidget.cpp
 	GenusModel.cpp
-	../CheckableItem.cpp
-	../CheckableItems.cpp
 	${GENUS_UI}
 )
 
@@ -29,5 +27,6 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
+                CheckableItem
 		Qt5::Widgets
 )
