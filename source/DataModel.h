@@ -1,8 +1,8 @@
 #pragma once
 
 #include "MetaData/MetaDataModel.h"
-#include "Genus/GenusModel.h"
-#include "VerbEnd/VerbEndModel.h"
+#include "GenusModel.h"
+#include "VerbEndModel.h"
 
 #include <QJsonObject>
 

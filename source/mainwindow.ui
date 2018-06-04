@@ -160,13 +160,13 @@
   <customwidget>
    <class>GenusWidget</class>
    <extends>QWidget</extends>
-   <header>Genus/GenusWidget.h</header>
+   <header>GenusWidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>VerbEndWidget</class>
    <extends>QWidget</extends>
-   <header>VerbEnd/VerbEndWidget.h</header>
+   <header>VerbEndWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

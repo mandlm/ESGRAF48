@@ -49,5 +49,4 @@ add_subdirectory(CheckableTest)
 add_subdirectory(CheckableTestModel)
 
 add_subdirectory(MetaData)
-add_subdirectory(VerbEnd)
-add_subdirectory(Genus)
+add_subdirectory(SubTests)

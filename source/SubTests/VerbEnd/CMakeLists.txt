@@ -21,6 +21,8 @@ set_target_properties(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME}
+	PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}
 	PRIVATE
 		${CMAKE_CURRENT_BINARY_DIR}
 )
