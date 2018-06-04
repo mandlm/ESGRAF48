@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="MetaDataTab">
        <attribute name="title">
@@ -47,6 +47,16 @@
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="GenusWidget" name="genusWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="PluralTab">
+       <attribute name="title">
+        <string>Subtest 5: Plural</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="PluralWidget" name="pluralWidget" native="true"/>
         </item>
        </layout>
       </widget>
@@ -167,6 +177,12 @@
    <class>VerbEndWidget</class>
    <extends>QWidget</extends>
    <header>VerbEndWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PluralWidget</class>
+   <extends>QWidget</extends>
+   <header>PluralWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

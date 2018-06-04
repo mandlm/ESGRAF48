@@ -34,6 +34,7 @@ void MainWindow::newFile()
 	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
 	ui->verbEndWidget->setModel(&m_dataModel->m_verbEnd);
     ui->genusWidget->setModel(&m_dataModel->m_genus);
+	ui->pluralWidget->setModel(&m_dataModel->m_plural);
 
     m_filename = "";
 }

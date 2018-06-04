@@ -40,6 +40,7 @@ target_link_libraries(${PROJECT_NAME}
 		CheckableTestModel
 		MetaData
 		VerbEnd
+		Plural
 		Genus
 		Qt5::Widgets
 )

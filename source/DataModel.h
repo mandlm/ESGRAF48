@@ -3,6 +3,7 @@
 #include "MetaData/MetaDataModel.h"
 #include "GenusModel.h"
 #include "VerbEndModel.h"
+#include "PluralModel.h"
 
 #include <QJsonObject>
 
@@ -14,6 +15,7 @@ public:
 	MetaDataModel m_metaData;
 	VerbEndModel m_verbEnd;
 	GenusModel m_genus;
+	PluralModel m_plural;
 
 public:
 	DataModel(QObject *parent);
