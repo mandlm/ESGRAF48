@@ -6,6 +6,7 @@ DataModel::DataModel(QObject *parent)
 	, m_verbEnd(this)
 	, m_genus(this)
 	, m_plural(this)
+	, m_results(this)
 {
 }
 

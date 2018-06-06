@@ -2,6 +2,8 @@
 
 #include <QWidget>
 
+class ResultModel;
+
 namespace Ui {
 class ResultWidget;
 };
@@ -16,4 +18,6 @@ private:
 public:
         ResultWidget(QWidget *parent = nullptr);
         ~ResultWidget();
+
+		void setModel(ResultModel *model);
 };

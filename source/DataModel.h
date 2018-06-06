@@ -5,6 +5,8 @@
 #include "VerbEndModel.h"
 #include "PluralModel.h"
 
+#include "ResultModel.h"
+
 #include <QJsonObject>
 
 class DataModel : public QObject
@@ -16,6 +18,8 @@ public:
 	VerbEndModel m_verbEnd;
 	GenusModel m_genus;
 	PluralModel m_plural;
+
+	ResultModel m_results;
 
 public:
 	DataModel(QObject *parent);

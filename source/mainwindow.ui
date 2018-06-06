@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>905</width>
-    <height>277</height>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="testTabWidget">
       <property name="currentIndex">
        <number>3</number>
       </property>
@@ -63,7 +63,24 @@
      </widget>
     </item>
     <item>
-     <widget class="ResultWidget" name="resultWidget" native="true"/>
+     <widget class="QTabWidget" name="resultTabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="tabBarAutoHide">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="prTab">
+       <attribute name="title">
+        <string>Prozentränge (PR)</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="ResultWidget" name="resultWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -73,7 +90,7 @@
      <x>0</x>
      <y>0</y>
      <width>905</width>
-     <height>17</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

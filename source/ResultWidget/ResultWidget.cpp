@@ -1,6 +1,8 @@
 #include "ResultWidget.h"
 #include "ui_ResultWidget.h"
 
+#include "ResultModel.h"
+
 ResultWidget::ResultWidget(QWidget *parent)
 	: QWidget(parent)
     , ui(new Ui::ResultWidget)
@@ -11,4 +13,9 @@ ResultWidget::ResultWidget(QWidget *parent)
 ResultWidget::~ResultWidget()
 {
 	delete ui;
+}
+		
+void ResultWidget::setModel(ResultModel *model)
+{
+	ui->resultTableView->setModel(model);
 }
