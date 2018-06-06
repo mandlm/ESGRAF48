@@ -41,7 +41,8 @@ void MainWindow::newFile()
 
 void MainWindow::openFile()
 {
-	QString filename = QFileDialog::getOpenFileName(this);
+	QString filename = QFileDialog::getOpenFileName(this, "Open file", 
+			"", "ESGRAF 4-8 (*.esgraf48)");
 	if (filename.isEmpty())
 	{
 		return;
@@ -78,7 +79,8 @@ void MainWindow::saveFile()
 
 void MainWindow::saveFileAs()
 {
-	QString filename = QFileDialog::getSaveFileName(this);
+	QString filename = QFileDialog::getSaveFileName(this, "Save file", "", 
+			"ESGRAF 4-8 (*.esgraf48)");
 	if (filename.isEmpty())
 	{
 		return;
