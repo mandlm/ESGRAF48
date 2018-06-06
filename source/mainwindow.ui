@@ -62,6 +62,9 @@
       </widget>
      </widget>
     </item>
+    <item>
+     <widget class="ResultWidget" name="resultWidget" native="true"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -70,7 +73,7 @@
      <x>0</x>
      <y>0</y>
      <width>905</width>
-     <height>19</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -183,6 +186,12 @@
    <class>PluralWidget</class>
    <extends>QWidget</extends>
    <header>PluralWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ResultWidget</class>
+   <extends>QWidget</extends>
+   <header>ResultWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

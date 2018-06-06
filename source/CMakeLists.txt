@@ -42,6 +42,7 @@ target_link_libraries(${PROJECT_NAME}
 		VerbEnd
 		Plural
 		Genus
+                ResultWidget
 		Qt5::Widgets
 )
 
@@ -51,3 +52,5 @@ add_subdirectory(CheckableTestModel)
 
 add_subdirectory(MetaData)
 add_subdirectory(SubTests)
+
+add_subdirectory(ResultWidget)
