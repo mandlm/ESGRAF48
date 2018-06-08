@@ -98,6 +98,11 @@ bool MetaDataModel::setData(
 			break;
 	}
 
+	if (valueChanged)
+	{
+		emit dataChanged(index, index);
+	}
+
 	return valueChanged;
 }
 

@@ -5,7 +5,8 @@
 ResultModel::ResultModel(QObject *parent)
 	: QAbstractTableModel(parent)
 {
-	m_results = {{ "V2", "SVK", "VE", "Passiv", "Genus", "Akkusativ", "Dativ", "Genitiv", "Plural" }};
+	m_results = { { "V2", "SVK", "VE", "Passiv", "Genus", "Akkusativ", "Dativ",
+		"Genitiv", "Plural" } };
 }
 
 int ResultModel::rowCount(const QModelIndex &parent) const
@@ -22,7 +23,16 @@ QVariant ResultModel::data(const QModelIndex &index, int role) const
 {
 	if (role == Qt::DisplayRole)
 	{
-		return "data";
+		if (index.column() < m_results.size())
+		{
+			size_t points = m_results[index.column()].points();
+			if (points != 0)
+			{
+				return static_cast<uint>(points);
+			}
+		}
+
+		return "-";
 	}
 
 	return {};
@@ -57,5 +67,19 @@ QVariant ResultModel::headerData(
 			}
 		default:
 			return {};
+	}
+}
+
+void ResultModel::setAge(const QDate &age)
+{
+	m_age = age;
+}
+
+void ResultModel::setPluralResult(size_t points)
+{
+	if (m_results[8].points() != points)
+	{
+		m_results[8] = points;
+		emit dataChanged(index(0, 8), index(2, 8));
 	}
 }

@@ -47,4 +47,8 @@ private:
 			model.read(jsonObject.toObject());
 		}
 	}
+
+private slots:
+	void pluralModelChanged();
+	void metaDataChanged();
 };

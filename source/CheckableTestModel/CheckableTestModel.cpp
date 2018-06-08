@@ -78,6 +78,7 @@ bool CheckableTestModel::setData(
 		{
 			auto &item = getItem(index);
 			item.setState(value.toBool());
+			emit dataChanged(index, index);
 			return true;
 		}
 	}
