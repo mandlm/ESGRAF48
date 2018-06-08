@@ -11,7 +11,7 @@ ResultModel::ResultModel(QObject *parent)
 
 int ResultModel::rowCount(const QModelIndex &parent) const
 {
-	return 3;
+	return 5;
 }
 
 int ResultModel::columnCount(const QModelIndex &parent) const
@@ -23,13 +23,19 @@ QVariant ResultModel::data(const QModelIndex &index, int role) const
 {
 	if (role == Qt::DisplayRole)
 	{
-		if (index.column() < m_results.size())
+		switch (index.row())
 		{
-			size_t points = m_results[index.column()].points();
-			if (points != 0)
-			{
-				return static_cast<uint>(points);
-			}
+			case 0:
+				if (index.column() < m_results.size())
+				{
+					size_t points = m_results[index.column()].points();
+					if (points != 0)
+					{
+						return static_cast<uint>(points);
+					}
+				}
+			default:
+				break;
 		}
 
 		return "-";
@@ -57,11 +63,15 @@ QVariant ResultModel::headerData(
 			switch (section)
 			{
 				case 0:
-					return ">= PR 84";
+					return "RP";
 				case 1:
-					return "< PR 84";
+					return ">= PR 84";
 				case 2:
+					return "< PR 84";
+				case 3:
 					return "<= PR 16";
+				case 4:
+					return "T-Wert";
 				default:
 					return {};
 			}
@@ -80,6 +90,6 @@ void ResultModel::setPluralResult(size_t points)
 	if (m_results[8].points() != points)
 	{
 		m_results[8] = points;
-		emit dataChanged(index(0, 8), index(2, 8));
+		emit dataChanged(index(0, 8), index(4, 8));
 	}
 }
