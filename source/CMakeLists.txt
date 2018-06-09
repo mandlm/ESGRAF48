@@ -19,6 +19,7 @@ add_executable(${PROJECT_NAME}
 	LogoTest.cpp
 	DataModel.cpp
 	mainwindow.cpp
+	Age.cpp
 	${LOGO_TEST_UI}
 	${LOGO_TEST_QRC}
 )

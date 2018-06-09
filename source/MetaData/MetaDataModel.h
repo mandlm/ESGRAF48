@@ -33,6 +33,6 @@ public:
 
 	Age getAge() const
 	{
-		return {};
+		return { m_dateOfBirth, m_dateOfTest };
 	}
 };

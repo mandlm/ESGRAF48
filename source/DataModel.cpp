@@ -40,4 +40,5 @@ void DataModel::pluralModelChanged()
 
 void DataModel::metaDataChanged()
 {
+	m_results.setAge(m_metaData.getAge());
 }

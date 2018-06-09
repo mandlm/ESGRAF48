@@ -1,8 +1,8 @@
 #pragma once
 
+#include "../Age.h"
 #include <vector>
 #include <QAbstractTableModel>
-#include <QDate>
 
 class TestResult
 {
@@ -38,7 +38,7 @@ class ResultModel : public QAbstractTableModel
 	Q_OBJECT
 
 private:
-	QDate m_age;
+	Age m_age;
 	std::vector<TestResult> m_results;
 
 public:
@@ -53,6 +53,6 @@ public:
 	QVariant headerData(int section, Qt::Orientation orientation,
 		int role = Qt::DisplayRole) const override;
 
-	void setAge(const QDate &age);
+	void setAge(const Age &age);
 	void setPluralResult(size_t points);
 };
