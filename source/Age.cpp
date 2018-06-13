@@ -37,6 +37,16 @@ Age::Age(const QDate &birth, const QDate &reference)
 	m_months = months;
 }
 	
+bool Age::operator<(const Age &cmp) const
+{
+	if (m_years == cmp.m_years)
+	{
+		return m_months < cmp.m_months;
+	}
+
+	return m_years < cmp.m_years;
+}
+	
 unsigned int Age::years() const
 {
 	return m_years;

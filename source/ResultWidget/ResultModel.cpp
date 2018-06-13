@@ -34,6 +34,55 @@ QVariant ResultModel::data(const QModelIndex &index, int role) const
 						return static_cast<uint>(points);
 					}
 				}
+				break;
+			case 1:
+				switch (index.column())
+				{
+					case 8:
+						{
+							auto pR = getPluralPR();
+							if (pR >= 84)
+							{
+								return pR;
+							}
+						}
+						break;
+					default:
+						break;
+				}
+				break;
+			case 2:
+				switch (index.column())
+				{
+					case 8:
+						{
+							auto pR = getPluralPR();
+							if (pR < 84 && pR > 16)
+							{
+								return pR;
+							}
+						}
+						break;
+					default:
+						break;
+				}
+				break;
+			case 3:
+				switch (index.column())
+				{
+					case 8:
+						{
+							auto pR = getPluralPR();
+							if (pR <= 16)
+							{
+								return pR;
+							}
+						}
+						break;
+					default:
+						break;
+				}
+				break;
 			default:
 				break;
 		}
@@ -84,6 +133,7 @@ void ResultModel::setAge(const Age &age)
 {
 	qDebug() << "Age:" << age.years() << "years" << age.months() << "months";
 	m_age = age;
+	emit dataChanged(index(1, 0), index(4, 8));
 }
 
 void ResultModel::setPluralResult(size_t points)
@@ -93,4 +143,14 @@ void ResultModel::setPluralResult(size_t points)
 		m_results[8] = points;
 		emit dataChanged(index(0, 8), index(4, 8));
 	}
+}
+
+unsigned int ResultModel::getPluralPoints() const
+{
+	return m_results[8].points();
+}
+
+unsigned int ResultModel::getPluralPR() const
+{
+	return PluralPR().lookup(m_age, getPluralPoints());
 }
