@@ -21,71 +21,49 @@ int ResultModel::columnCount(const QModelIndex &parent) const
 
 QVariant ResultModel::data(const QModelIndex &index, int role) const
 {
-	if (role == Qt::DisplayRole)
+	if (role == Qt::DisplayRole && index.column() < m_results.size())
 	{
 		switch (index.row())
 		{
 			case 0:
-				if (index.column() < m_results.size())
+			{
+				auto points = m_results[index.column()].points();
+				if (points != 0)
 				{
-					size_t points = m_results[index.column()].points();
-					if (points != 0)
-					{
-						return static_cast<uint>(points);
-					}
+					return static_cast<uint>(points);
 				}
 				break;
+			}
 			case 1:
-				switch (index.column())
+			{
+				auto pr = m_results[index.column()].pr();
+				if (pr >= 84)
 				{
-					case 8:
-						{
-							auto pR = getPluralPR();
-							if (pR >= 84)
-							{
-								return pR;
-							}
-						}
-						break;
-					default:
-						break;
+					return static_cast<uint>(pr);
 				}
 				break;
+			}
 			case 2:
-				switch (index.column())
+			{
+				auto pr = m_results[index.column()].pr();
+				if (pr < 84 && pr > 16)
 				{
-					case 8:
-						{
-							auto pR = getPluralPR();
-							if (pR < 84 && pR > 16)
-							{
-								return pR;
-							}
-						}
-						break;
-					default:
-						break;
+					return static_cast<uint>(pr);
 				}
 				break;
+			}
 			case 3:
-				switch (index.column())
+			{
+				auto pr = m_results[index.column()].pr();
+				if (pr <= 16)
 				{
-					case 8:
-						{
-							auto pR = getPluralPR();
-							if (pR <= 16)
-							{
-								return pR;
-							}
-						}
-						break;
-					default:
-						break;
+					return static_cast<uint>(pr);
 				}
 				break;
+			}
 			default:
 				break;
-		}
+		};
 
 		return "-";
 	}
@@ -140,17 +118,9 @@ void ResultModel::setPluralResult(size_t points)
 {
 	if (m_results[8].points() != points)
 	{
-		m_results[8] = points;
+		m_results[8].setPoints(points);
+		m_results[8].setPR(PluralPR().lookup(m_age, points));
 		emit dataChanged(index(0, 8), index(4, 8));
 	}
 }
 
-unsigned int ResultModel::getPluralPoints() const
-{
-	return m_results[8].points();
-}
-
-unsigned int ResultModel::getPluralPR() const
-{
-	return PluralPR().lookup(m_age, getPluralPoints());
-}

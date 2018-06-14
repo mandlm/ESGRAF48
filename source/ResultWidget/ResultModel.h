@@ -1,72 +1,35 @@
 #pragma once
 
 #include "../Age.h"
-#include <vector>
+#include "PRMap.h"
 #include <QAbstractTableModel>
 
-class PluralPR
+class PluralPR : public PRMap
 {
-	// clang-format off
-	const std::vector<Age> m_ages = {
-		{ 4, 0 },
-		{ 4, 6 },
-		{ 5, 6 },
-		{ 9, 0 }
-	};
-
-	const std::vector<std::vector<unsigned int>> m_PRs = {
-		{ 0, 0, 0 },
-		{ 0, 1, 0 },
-		{ 0, 1, 0 },
-		{ 1, 1, 0 },
-		{ 7, 2, 1 },
-		{ 10, 4, 1},
-		{ 26, 10, 2 },
-		{ 57, 25, 7 },
-		{ 79, 56, 27 },
-		{ 100, 100, 100 }
-	};
-	// clang-format on
-
 public:
-	unsigned int lookup(const Age &age, const unsigned int &points)
+	PluralPR()
 	{
-		if (points >= m_PRs.size())
-		{
-			return 0;
-		}
+		// clang-format off
+		m_ages = {
+			{ 4, 0 },
+			{ 4, 6 },
+			{ 5, 6 },
+			{ 9, 0 }
+		};
 
-		auto ageIndex = [&]() -> size_t {
-			if (m_ages.empty())
-			{
-				return 0;
-			}
-
-			if (age < m_ages.front())
-			{
-				return 0;
-			}
-
-			if (m_ages.back() < age)
-			{
-				return m_ages.size() - 1;
-			}
-
-			for (size_t index = 1; index < m_ages.size(); ++index)
-			{
-				if (age < m_ages.at(index))
-				{
-					return index - 1;
-				}
-			}
-		}();
-
-		if (ageIndex >= m_PRs.at(points).size())
-		{
-			return 0;
-		}
-
-		return m_PRs.at(points).at(ageIndex);
+		m_PRs = {
+			{ 0, 0, 0 },
+			{ 0, 1, 0 },
+			{ 0, 1, 0 },
+			{ 1, 1, 0 },
+			{ 7, 2, 1 },
+			{ 10, 4, 1},
+			{ 26, 10, 2 },
+			{ 57, 25, 7 },
+			{ 79, 56, 27 },
+			{ 100, 100, 100 }
+		};
+		// clang-format on
 	}
 };
 
@@ -74,18 +37,23 @@ class TestResult
 {
 private:
 	QString m_name;
-	size_t m_points;
+	size_t m_points = 0;
+	size_t m_pr = 0;
 
 public:
 	TestResult(const char *name)
 		: m_name(name)
-		, m_points(0)
 	{
 	}
 
-	void operator=(const size_t &points)
+	void setPoints(const size_t &points)
 	{
 		m_points = points;
+	}
+
+	void setPR(const unsigned int &pr)
+	{
+		m_pr = pr;
 	}
 
 	const QString &name() const
@@ -96,6 +64,11 @@ public:
 	const size_t points() const
 	{
 		return m_points;
+	}
+	
+	const size_t pr() const
+	{
+		return m_pr;
 	}
 };
 
@@ -121,8 +94,4 @@ public:
 
 	void setAge(const Age &age);
 	void setPluralResult(size_t points);
-
-private:
-	unsigned int getPluralPoints() const;
-	unsigned int getPluralPR() const;
 };

@@ -13,6 +13,7 @@ qt5_wrap_ui(GENUS_UI
 add_library(${PROJECT_NAME}
         ResultWidget.cpp
         ResultModel.cpp
+		PRMap.cpp
 	${GENUS_UI}
 )
 
