@@ -1,6 +1,7 @@
 #include "Age.h"
 
 #include <QDebug>
+#include <sstream>
 
 Age::Age(unsigned int years, unsigned int months)
 	: m_years(years)
@@ -55,4 +56,11 @@ unsigned int Age::years() const
 unsigned int Age::months() const
 {
 	return m_months;
+}
+ 
+std::string Age::toString() const
+{
+	std::ostringstream result;
+	result << m_years << ";" << m_months;
+	return result.str();
 }

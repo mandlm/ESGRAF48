@@ -26,6 +26,7 @@ void MetaDataWidget::setModel(MetaDataModel *model)
 	m_widgetMapper->addMapping(ui->dateOfBirthDateEdit, 2);
 	m_widgetMapper->addMapping(ui->dateOfTestDateEdit, 3);
 	m_widgetMapper->addMapping(ui->remarksPlainTextEdit, 4);
+	m_widgetMapper->addMapping(ui->ageLineEdit, 5);
 	m_widgetMapper->toFirst();
 }
 

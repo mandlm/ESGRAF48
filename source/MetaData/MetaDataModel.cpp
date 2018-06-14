@@ -15,14 +15,14 @@ int MetaDataModel::rowCount(const QModelIndex &parent) const
 
 int MetaDataModel::columnCount(const QModelIndex &parent) const
 {
-	return 5;
+	return 6;
 }
 
-QVariant MetaDataModel::data(const QModelIndex &index, int role) const
+QVariant MetaDataModel::data(const QModelIndex &modelIndex, int role) const
 {
 	if (role == Qt::DisplayRole || role == Qt::EditRole)
 	{
-		switch (index.column())
+		switch (modelIndex.column())
 		{
 			case 0:
 				return m_participant;
@@ -34,6 +34,8 @@ QVariant MetaDataModel::data(const QModelIndex &index, int role) const
 				return m_dateOfTest;
 			case 4:
 				return m_remarks;
+			case 5:
+				return QString::fromStdString(getAge().toString());
 			default:
 				return QVariant();
 		}
@@ -42,22 +44,22 @@ QVariant MetaDataModel::data(const QModelIndex &index, int role) const
 	return QVariant();
 }
 
-Qt::ItemFlags MetaDataModel::flags(const QModelIndex &index) const
+Qt::ItemFlags MetaDataModel::flags(const QModelIndex &modelIndex) const
 {
-	return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+	return QAbstractTableModel::flags(modelIndex) | Qt::ItemIsEditable;
 }
 
 bool MetaDataModel::setData(
-	const QModelIndex &index, const QVariant &value, int role)
+	const QModelIndex &modelIndex, const QVariant &value, int role)
 {
 	if (role != Qt::EditRole)
 	{
-		return QAbstractTableModel::setData(index, value, role);
+		return QAbstractTableModel::setData(modelIndex, value, role);
 	}
 
 	bool valueChanged = false;
 
-	switch (index.column())
+	switch (modelIndex.column())
 	{
 		case 0:
 			if (value.toString() != m_participant)
@@ -77,6 +79,7 @@ bool MetaDataModel::setData(
 			if (value.toDate() != m_dateOfBirth)
 			{
 				m_dateOfBirth = value.toDate();
+				emit dataChanged(index(0, 5), index(0, 5));
 				valueChanged = true;
 			}
 			break;
@@ -84,6 +87,7 @@ bool MetaDataModel::setData(
 			if (value.toDate() != m_dateOfTest)
 			{
 				m_dateOfTest = value.toDate();
+				emit dataChanged(index(0, 5), index(0, 5));
 				valueChanged = true;
 			}
 			break;
@@ -100,7 +104,7 @@ bool MetaDataModel::setData(
 
 	if (valueChanged)
 	{
-		emit dataChanged(index, index);
+		emit dataChanged(modelIndex, modelIndex);
 	}
 
 	return valueChanged;

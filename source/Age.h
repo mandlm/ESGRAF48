@@ -17,4 +17,6 @@ public:
 
 	unsigned int years() const;
 	unsigned int months() const;
+
+	std::string toString() const;
 };
