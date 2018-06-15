@@ -65,4 +65,5 @@ public:
 	void setAge(const Age &age);
 	void setPluralResult(unsigned int points);
 	void setGenusResult(unsigned int points);
+	void setVerbEndResult(unsigned int points);
 };

@@ -12,12 +12,12 @@ DataModel::DataModel(QObject *parent)
 {
 	connect(&m_plural, &PluralModel::dataChanged, this,
 		&DataModel::pluralModelChanged);
-
 	connect(&m_metaData, &PluralModel::dataChanged, this,
 		&DataModel::metaDataChanged);
-
 	connect(&m_genus, &GenusModel::dataChanged, this,
 		&DataModel::genusModelChanged);
+	connect(&m_verbEnd, &VerbEndModel::dataChanged, this,
+		&DataModel::verbEndModelChanged);
 }
 
 void DataModel::write(QJsonObject &target) const
@@ -49,4 +49,9 @@ void DataModel::metaDataChanged()
 void DataModel::genusModelChanged()
 {
 	m_results.setGenusResult(m_genus.getPoints());
+}
+
+void DataModel::verbEndModelChanged()
+{
+	m_results.setVerbEndResult(m_verbEnd.getPoints());
 }

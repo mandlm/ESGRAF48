@@ -52,4 +52,5 @@ private slots:
 	void pluralModelChanged();
 	void metaDataChanged();
 	void genusModelChanged();
+	void verbEndModelChanged();
 };

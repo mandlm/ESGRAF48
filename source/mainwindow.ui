@@ -32,7 +32,7 @@
       </widget>
       <widget class="QWidget" name="VerbEndTab">
        <attribute name="title">
-        <string>Subtest 2: Verbenstellungsregel (VE)</string>
+        <string>Subtest 2: Verbendstellungsregel (VE)</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>

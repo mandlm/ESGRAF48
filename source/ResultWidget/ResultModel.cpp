@@ -2,6 +2,7 @@
 
 #include "PluralPR.h"
 #include "GenusPR.h"
+#include "VerbEndPR.h"
 
 #include <QDebug>
 
@@ -134,5 +135,15 @@ void ResultModel::setGenusResult(unsigned int points)
 		m_results[4].setPoints(points);
 		m_results[4].setPR(GenusPR().lookup(m_age, points));
 		emit dataChanged(index(0, 4), index(4, 4));
+	}
+}
+	
+void ResultModel::setVerbEndResult(unsigned int points)
+{
+	if (m_results[2].points() != points)
+	{
+		m_results[2].setPoints(points);
+		m_results[2].setPR(VerbEndPR().lookup(m_age, points));
+		emit dataChanged(index(0, 2), index(4, 2));
 	}
 }
