@@ -178,3 +178,21 @@ const CheckableItem &CheckableTestModel::getItem(const QModelIndex &index) const
 
 	throw std::runtime_error("invalid index");
 }
+
+unsigned int CheckableTestModel::getPoints() const
+{
+	size_t points = 0;
+
+	for (const auto &test : m_tests)
+	{
+		for (const auto &item : test.items())
+		{
+			if (item.isChecked())
+			{
+				points++;
+			}
+		}
+	}
+
+	return points;
+}

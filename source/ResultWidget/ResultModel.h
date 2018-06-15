@@ -1,37 +1,7 @@
 #pragma once
 
 #include "../Age.h"
-#include "PRMap.h"
 #include <QAbstractTableModel>
-
-class PluralPR : public PRMap
-{
-public:
-	PluralPR()
-	{
-		// clang-format off
-		m_ages = {
-			{ 4, 0 },
-			{ 4, 6 },
-			{ 5, 6 },
-			{ 9, 0 }
-		};
-
-		m_PRs = {
-			{ 0, 0, 0 },
-			{ 0, 1, 0 },
-			{ 0, 1, 0 },
-			{ 1, 1, 0 },
-			{ 7, 2, 1 },
-			{ 10, 4, 1},
-			{ 26, 10, 2 },
-			{ 57, 25, 7 },
-			{ 79, 56, 27 },
-			{ 100, 100, 100 }
-		};
-		// clang-format on
-	}
-};
 
 class TestResult
 {
@@ -93,5 +63,6 @@ public:
 		int role = Qt::DisplayRole) const override;
 
 	void setAge(const Age &age);
-	void setPluralResult(size_t points);
+	void setPluralResult(unsigned int points);
+	void setGenusResult(unsigned int points);
 };

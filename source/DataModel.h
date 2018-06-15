@@ -51,4 +51,5 @@ private:
 private slots:
 	void pluralModelChanged();
 	void metaDataChanged();
+	void genusModelChanged();
 };

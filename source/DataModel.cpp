@@ -10,11 +10,14 @@ DataModel::DataModel(QObject *parent)
 	, m_plural(this)
 	, m_results(this)
 {
-	connect(&m_plural, &PluralModel::dataChanged,
-			this, &DataModel::pluralModelChanged);
+	connect(&m_plural, &PluralModel::dataChanged, this,
+		&DataModel::pluralModelChanged);
 
-	connect(&m_metaData, &PluralModel::dataChanged, 
-			this, &DataModel::metaDataChanged);
+	connect(&m_metaData, &PluralModel::dataChanged, this,
+		&DataModel::metaDataChanged);
+
+	connect(&m_genus, &GenusModel::dataChanged, this,
+		&DataModel::genusModelChanged);
 }
 
 void DataModel::write(QJsonObject &target) const
@@ -32,7 +35,7 @@ void DataModel::read(const QJsonObject &source)
 	read(m_genus, source, "Genus");
 	read(m_plural, source, "Plural");
 }
-	
+
 void DataModel::pluralModelChanged()
 {
 	m_results.setPluralResult(m_plural.getPoints());
@@ -41,4 +44,9 @@ void DataModel::pluralModelChanged()
 void DataModel::metaDataChanged()
 {
 	m_results.setAge(m_metaData.getAge());
+}
+
+void DataModel::genusModelChanged()
+{
+	m_results.setGenusResult(m_genus.getPoints());
 }

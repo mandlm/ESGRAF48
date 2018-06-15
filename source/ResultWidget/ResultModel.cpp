@@ -1,5 +1,8 @@
 #include "ResultModel.h"
 
+#include "PluralPR.h"
+#include "GenusPR.h"
+
 #include <QDebug>
 
 ResultModel::ResultModel(QObject *parent)
@@ -114,7 +117,7 @@ void ResultModel::setAge(const Age &age)
 	emit dataChanged(index(1, 0), index(4, 8));
 }
 
-void ResultModel::setPluralResult(size_t points)
+void ResultModel::setPluralResult(unsigned int points)
 {
 	if (m_results[8].points() != points)
 	{
@@ -124,3 +127,12 @@ void ResultModel::setPluralResult(size_t points)
 	}
 }
 
+void ResultModel::setGenusResult(unsigned int points)
+{
+	if (m_results[4].points() != points)
+	{
+		m_results[4].setPoints(points);
+		m_results[4].setPR(GenusPR().lookup(m_age, points));
+		emit dataChanged(index(0, 4), index(4, 4));
+	}
+}

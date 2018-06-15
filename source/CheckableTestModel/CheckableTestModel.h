@@ -28,6 +28,8 @@ public:
 	void write(QJsonObject &json) const;
 	void read(const QJsonObject &json);
 
+	unsigned int getPoints() const;
+
 private:
 	bool isValidIndex(const QModelIndex &index) const;
 

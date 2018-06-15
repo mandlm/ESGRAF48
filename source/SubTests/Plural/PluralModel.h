@@ -8,9 +8,4 @@ class PluralModel : public CheckableTestModel
 
 public:
 	PluralModel(QObject *parent);
-
-	size_t getPoints() const;
-
-signals:
-	void resultChanged(size_t result) const;
 };
