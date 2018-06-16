@@ -113,7 +113,6 @@ QVariant ResultModel::headerData(
 
 void ResultModel::setAge(const Age &age)
 {
-	qDebug() << "Age:" << age.years() << "years" << age.months() << "months";
 	m_age = age;
 	emit dataChanged(index(1, 0), index(4, 8));
 }

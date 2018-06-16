@@ -43,7 +43,8 @@ target_link_libraries(${PROJECT_NAME}
 		VerbEnd
 		Plural
 		Genus
-                ResultWidget
+		AkkusativDativ
+		ResultWidget
 		Qt5::Widgets
 )
 

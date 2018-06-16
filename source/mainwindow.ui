@@ -50,6 +50,16 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="akkusativDativTab">
+       <attribute name="title">
+        <string>Subtest 4: Akkusativ und Dativ</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="AkkusativDativWidget" name="widget" native="true"/>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="PluralTab">
        <attribute name="title">
         <string>Subtest 5: Plural</string>
@@ -122,7 +132,7 @@
   </widget>
   <action name="actionSave_as">
    <property name="icon">
-    <iconset>
+    <iconset resource="mainwindow.qrc">
      <normaloff>:/images/document-save-as.png</normaloff>:/images/document-save-as.png</iconset>
    </property>
    <property name="text">
@@ -137,7 +147,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset>
+    <iconset resource="mainwindow.qrc">
      <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
    </property>
    <property name="text">
@@ -149,7 +159,7 @@
   </action>
   <action name="actionNew">
    <property name="icon">
-    <iconset>
+    <iconset resource="mainwindow.qrc">
      <normaloff>:/images/document-new.png</normaloff>:/images/document-new.png</iconset>
    </property>
    <property name="text">
@@ -169,7 +179,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset>
+    <iconset resource="mainwindow.qrc">
      <normaloff>:/images/document-save-as.png</normaloff>:/images/document-save-as.png</iconset>
    </property>
    <property name="text">
@@ -184,7 +194,7 @@
   <customwidget>
    <class>MetaDataWidget</class>
    <extends>QWidget</extends>
-   <header>MetaData/MetaDataWidget.h</header>
+   <header>MetaDataWidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -209,6 +219,12 @@
    <class>ResultWidget</class>
    <extends>QWidget</extends>
    <header>ResultWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AkkusativDativWidget</class>
+   <extends>QWidget</extends>
+   <header>AkkusativDativWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
