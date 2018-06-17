@@ -3,6 +3,8 @@
 #include "PluralPR.h"
 #include "GenusPR.h"
 #include "VerbEndPR.h"
+#include "AkkusativPR.h"
+#include "DativPR.h"
 
 #include <QDebug>
 
@@ -150,6 +152,7 @@ void ResultModel::setAkkusativResult(unsigned int points)
 	if (m_results[5].points() != points)
 	{
 		m_results[5].setPoints(points);
+		m_results[5].setPR(AkkusativPR().lookup(m_age, points));
 		emit dataChanged(index(0, 5), index(4, 5));
 	}
 }
@@ -159,6 +162,7 @@ void ResultModel::setDativResult(unsigned int points)
 	if (m_results[6].points() != points)
 	{
 		m_results[6].setPoints(points);
+		m_results[6].setPR(DativPR().lookup(m_age, points));
 		emit dataChanged(index(0, 6), index(4, 6));
 	}
 }
