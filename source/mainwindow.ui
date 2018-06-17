@@ -56,7 +56,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <widget class="AkkusativDativWidget" name="widget" native="true"/>
+         <widget class="AkkusativDativWidget" name="akkusativDativWidget" native="true"/>
         </item>
        </layout>
       </widget>

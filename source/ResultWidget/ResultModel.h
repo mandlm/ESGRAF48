@@ -66,4 +66,6 @@ public:
 	void setPluralResult(unsigned int points);
 	void setGenusResult(unsigned int points);
 	void setVerbEndResult(unsigned int points);
+	void setAkkusativResult(unsigned int points);
+	void setDativResult(unsigned int points);
 };

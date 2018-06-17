@@ -35,6 +35,9 @@ void MainWindow::newFile()
 	ui->verbEndWidget->setModel(&m_dataModel->m_verbEnd);
     ui->genusWidget->setModel(&m_dataModel->m_genus);
 	ui->pluralWidget->setModel(&m_dataModel->m_plural);
+	ui->akkusativDativWidget->setAkkusativModel(&m_dataModel->m_akkusativ);
+	ui->akkusativDativWidget->setDativModel(&m_dataModel->m_dativ);
+
 	ui->resultWidget->setModel(&m_dataModel->m_results);
 
     m_filename = "";

@@ -15,7 +15,7 @@ ResultModel::ResultModel(QObject *parent)
 
 int ResultModel::rowCount(const QModelIndex &parent) const
 {
-	return 5;
+	return 4;
 }
 
 int ResultModel::columnCount(const QModelIndex &parent) const
@@ -101,8 +101,6 @@ QVariant ResultModel::headerData(
 					return "< PR 84";
 				case 3:
 					return "<= PR 16";
-				case 4:
-					return "T-Wert";
 				default:
 					return {};
 			}
@@ -136,7 +134,7 @@ void ResultModel::setGenusResult(unsigned int points)
 		emit dataChanged(index(0, 4), index(4, 4));
 	}
 }
-	
+
 void ResultModel::setVerbEndResult(unsigned int points)
 {
 	if (m_results[2].points() != points)
@@ -144,5 +142,23 @@ void ResultModel::setVerbEndResult(unsigned int points)
 		m_results[2].setPoints(points);
 		m_results[2].setPR(VerbEndPR().lookup(m_age, points));
 		emit dataChanged(index(0, 2), index(4, 2));
+	}
+}
+
+void ResultModel::setAkkusativResult(unsigned int points)
+{
+	if (m_results[5].points() != points)
+	{
+		m_results[5].setPoints(points);
+		emit dataChanged(index(0, 5), index(4, 5));
+	}
+}
+
+void ResultModel::setDativResult(unsigned int points)
+{
+	if (m_results[6].points() != points)
+	{
+		m_results[6].setPoints(points);
+		emit dataChanged(index(0, 6), index(4, 6));
 	}
 }

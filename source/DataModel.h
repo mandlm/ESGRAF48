@@ -4,6 +4,8 @@
 #include "GenusModel.h"
 #include "VerbEndModel.h"
 #include "PluralModel.h"
+#include "AkkusativModel.h"
+#include "DativModel.h"
 
 #include "ResultModel.h"
 
@@ -18,6 +20,8 @@ public:
 	VerbEndModel m_verbEnd;
 	GenusModel m_genus;
 	PluralModel m_plural;
+	AkkusativModel m_akkusativ;
+	DativModel m_dativ;
 
 	ResultModel m_results;
 
@@ -53,4 +57,6 @@ private slots:
 	void metaDataChanged();
 	void genusModelChanged();
 	void verbEndModelChanged();
+	void akkusativModelChanged();
+	void dativModelChanged();
 };
