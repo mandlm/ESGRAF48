@@ -44,6 +44,7 @@ target_link_libraries(${PROJECT_NAME}
 		Plural
 		Genus
 		AkkusativDativ
+		V2Svk
 		ResultWidget
 		Qt5::Widgets
 )

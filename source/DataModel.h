@@ -6,6 +6,7 @@
 #include "PluralModel.h"
 #include "AkkusativModel.h"
 #include "DativModel.h"
+#include "V2SvkModel.h"
 
 #include "ResultModel.h"
 
@@ -22,6 +23,7 @@ public:
 	PluralModel m_plural;
 	AkkusativModel m_akkusativ;
 	DativModel m_dativ;
+	V2SvkModel m_v2Svk;
 
 	ResultModel m_results;
 
@@ -59,4 +61,5 @@ private slots:
 	void verbEndModelChanged();
 	void akkusativModelChanged();
 	void dativModelChanged();
+	void v2SvkModelChanged();
 };

@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="testTabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="MetaDataTab">
        <attribute name="title">
@@ -27,6 +27,16 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="MetaDataWidget" name="metaDataWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="v2SvkTab">
+       <attribute name="title">
+        <string>Subtest 1: V2/SVK</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="V2SvkWidget" name="v2SvkWidget" native="true"/>
         </item>
        </layout>
       </widget>
@@ -74,6 +84,24 @@
     </item>
     <item>
      <widget class="QTabWidget" name="resultTabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>220</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>220</height>
+       </size>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -100,7 +128,7 @@
      <x>0</x>
      <y>0</y>
      <width>1125</width>
-     <height>17</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -225,6 +253,12 @@
    <class>AkkusativDativWidget</class>
    <extends>QWidget</extends>
    <header>AkkusativDativWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>V2SvkWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">V2SvkWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

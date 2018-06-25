@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 	connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 	connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
-    connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
-    connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
+	connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
+	connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
 
 	newFile();
 }
@@ -33,20 +33,21 @@ void MainWindow::newFile()
 	m_dataModel = std::make_unique<DataModel>(this);
 	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
 	ui->verbEndWidget->setModel(&m_dataModel->m_verbEnd);
-    ui->genusWidget->setModel(&m_dataModel->m_genus);
+	ui->genusWidget->setModel(&m_dataModel->m_genus);
 	ui->pluralWidget->setModel(&m_dataModel->m_plural);
 	ui->akkusativDativWidget->setAkkusativModel(&m_dataModel->m_akkusativ);
 	ui->akkusativDativWidget->setDativModel(&m_dataModel->m_dativ);
+	ui->v2SvkWidget->setV2SvkModel(&m_dataModel->m_v2Svk);
 
 	ui->resultWidget->setModel(&m_dataModel->m_results);
 
-    m_filename = "";
+	m_filename = "";
 }
 
 void MainWindow::openFile()
 {
-	QString filename = QFileDialog::getOpenFileName(this, "Open file", 
-			"", "ESGRAF 4-8 (*.esgraf48)");
+	QString filename = QFileDialog::getOpenFileName(
+		this, "Open file", "", "ESGRAF 4-8 (*.esgraf48)");
 	if (filename.isEmpty())
 	{
 		return;
@@ -64,46 +65,46 @@ void MainWindow::openFile()
 
 	m_dataModel->read(loadDoc.object());
 
-    m_filename = filename;
+	m_filename = filename;
 
-    ui->metaDataWidget->toFirst();
+	ui->metaDataWidget->toFirst();
 }
 
 void MainWindow::saveFile()
 {
-    if (m_filename.isEmpty())
-    {
-        saveFileAs();
-    }
-    else
-    {
-        saveFile(m_filename);
-    }
+	if (m_filename.isEmpty())
+	{
+		saveFileAs();
+	}
+	else
+	{
+		saveFile(m_filename);
+	}
 }
 
 void MainWindow::saveFileAs()
 {
-	QString filename = QFileDialog::getSaveFileName(this, "Save file", "", 
-			"ESGRAF 4-8 (*.esgraf48)");
+	QString filename = QFileDialog::getSaveFileName(
+		this, "Save file", "", "ESGRAF 4-8 (*.esgraf48)");
 	if (filename.isEmpty())
 	{
 		return;
 	}
 
-    saveFile(filename);
+	saveFile(filename);
 }
 
 void MainWindow::saveFile(const QString &filename)
 {
-    QJsonObject saveData;
-    m_dataModel->write(saveData);
+	QJsonObject saveData;
+	m_dataModel->write(saveData);
 
-    QJsonDocument saveDoc(saveData);
+	QJsonDocument saveDoc(saveData);
 
-    QFile saveFile(filename);
-    saveFile.open(QFile::WriteOnly);
-    saveFile.write(saveDoc.toJson());
-    saveFile.close();
+	QFile saveFile(filename);
+	saveFile.open(QFile::WriteOnly);
+	saveFile.write(saveDoc.toJson());
+	saveFile.close();
 
-    m_filename = filename;
+	m_filename = filename;
 }

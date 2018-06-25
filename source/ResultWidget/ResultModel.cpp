@@ -5,6 +5,8 @@
 #include "VerbEndPR.h"
 #include "AkkusativPR.h"
 #include "DativPR.h"
+#include "V2PR.h"
+#include "SvkPR.h"
 
 #include <QDebug>
 
@@ -164,5 +166,25 @@ void ResultModel::setDativResult(unsigned int points)
 		m_results[6].setPoints(points);
 		m_results[6].setPR(DativPR().lookup(m_age, points));
 		emit dataChanged(index(0, 6), index(4, 6));
+	}
+}
+	
+void ResultModel::setV2Result(unsigned int points)
+{
+	if (m_results[0].points() != points)
+	{
+		m_results[0].setPoints(points);
+		m_results[0].setPR(V2PR().lookup(m_age, points));
+		emit dataChanged(index(0, 0), index(4, 0));
+	}
+}
+
+void ResultModel::setSvkResult(unsigned int points)
+{
+	if (m_results[1].points() != points)
+	{
+		m_results[1].setPoints(points);
+		m_results[1].setPR(SvkPR().lookup(m_age, points));
+		emit dataChanged(index(0, 1), index(4, 1));
 	}
 }

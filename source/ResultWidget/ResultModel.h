@@ -68,4 +68,6 @@ public:
 	void setVerbEndResult(unsigned int points);
 	void setAkkusativResult(unsigned int points);
 	void setDativResult(unsigned int points);
+	void setV2Result(unsigned int points);
+	void setSvkResult(unsigned int points);
 };
