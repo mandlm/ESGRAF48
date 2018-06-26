@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="testTabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="MetaDataTab">
        <attribute name="title">
@@ -70,13 +70,23 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="PluralTab">
+      <widget class="QWidget" name="pluralTab">
        <attribute name="title">
         <string>Subtest 5: Plural</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <widget class="PluralWidget" name="pluralWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="lateSkillsTab">
+       <attribute name="title">
+        <string>Subtest 6: Späte Fähigkeiten (7;0-8;11)</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="LateSkillsWidget" name="lateSkillsWidget" native="true"/>
         </item>
        </layout>
       </widget>
@@ -240,7 +250,13 @@
   <customwidget>
    <class>V2SvkWidget</class>
    <extends>QWidget</extends>
-   <header location="global">V2SvkWidget.h</header>
+   <header>V2SvkWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LateSkillsWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">LateSkillsWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

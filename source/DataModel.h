@@ -7,6 +7,8 @@
 #include "AkkusativModel.h"
 #include "DativModel.h"
 #include "V2SvkModel.h"
+#include "PassivModel.h"
+#include "GenitivModel.h"
 
 #include "ResultModel.h"
 
@@ -24,6 +26,8 @@ public:
 	AkkusativModel m_akkusativ;
 	DativModel m_dativ;
 	V2SvkModel m_v2Svk;
+    PassivModel m_passiv;
+    GenitivModel m_genitiv;
 
 	ResultModel m_results;
 
@@ -62,4 +66,6 @@ private slots:
 	void akkusativModelChanged();
 	void dativModelChanged();
 	void v2SvkModelChanged();
+    void passivModelChanged();
+    void genitivModelChanged();
 };

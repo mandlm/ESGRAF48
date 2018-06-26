@@ -12,6 +12,8 @@ DataModel::DataModel(QObject *parent)
 	, m_akkusativ(this)
 	, m_dativ(this)
 	, m_v2Svk(this)
+    , m_passiv(this)
+    , m_genitiv(this)
 {
 	connect(&m_plural, &PluralModel::dataChanged, this,
 		&DataModel::pluralModelChanged);
@@ -27,6 +29,10 @@ DataModel::DataModel(QObject *parent)
 		&DataModel::dativModelChanged);
 	connect(&m_v2Svk, &V2SvkModel::dataChanged, this,
 		&DataModel::v2SvkModelChanged);
+    connect(&m_passiv, &PassivModel::dataChanged, this,
+        &DataModel::passivModelChanged);
+    connect(&m_genitiv, &GenitivModel::dataChanged, this,
+        &DataModel::genitivModelChanged);
 }
 
 void DataModel::write(QJsonObject &target) const
@@ -38,6 +44,8 @@ void DataModel::write(QJsonObject &target) const
 	write(m_akkusativ, target, "Akkusativ");
 	write(m_dativ, target, "Dativ");
 	write(m_v2Svk, target, "V2Svk");
+    write(m_passiv, target, "Passiv");
+    write(m_genitiv, target, "Genitiv");
 }
 
 void DataModel::read(const QJsonObject &source)
@@ -49,6 +57,8 @@ void DataModel::read(const QJsonObject &source)
 	read(m_akkusativ, source, "Akkusativ");
 	read(m_dativ, source, "Dativ");
 	read(m_v2Svk, source, "V2Svk");
+    read(m_passiv, source, "Passiv");
+    read(m_genitiv, source, "Genitiv");
 }
 
 void DataModel::pluralModelChanged()
@@ -85,4 +95,14 @@ void DataModel::v2SvkModelChanged()
 {
 	m_results.setV2Result(m_v2Svk.getV2Points());
 	m_results.setSvkResult(m_v2Svk.getSvkPoints());
+}
+
+void DataModel::passivModelChanged()
+{
+    m_results.setPassivResult(m_passiv.getPoints());
+}
+
+void DataModel::genitivModelChanged()
+{
+    m_results.setGenitivResult(m_genitiv.getPoints());
 }

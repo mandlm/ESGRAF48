@@ -70,4 +70,6 @@ public:
 	void setDativResult(unsigned int points);
 	void setV2Result(unsigned int points);
 	void setSvkResult(unsigned int points);
+    void setPassivResult(unsigned int points);
+    void setGenitivResult(unsigned int points);
 };

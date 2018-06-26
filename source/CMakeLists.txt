@@ -45,6 +45,7 @@ target_link_libraries(${PROJECT_NAME}
 		Genus
 		AkkusativDativ
 		V2Svk
+                LateSkills
 		ResultWidget
 		Qt5::Widgets
 )

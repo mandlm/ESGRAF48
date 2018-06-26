@@ -38,6 +38,8 @@ void MainWindow::newFile()
 	ui->akkusativDativWidget->setAkkusativModel(&m_dataModel->m_akkusativ);
 	ui->akkusativDativWidget->setDativModel(&m_dataModel->m_dativ);
 	ui->v2SvkWidget->setV2SvkModel(&m_dataModel->m_v2Svk);
+    ui->lateSkillsWidget->setPassivModel(&m_dataModel->m_passiv);
+    ui->lateSkillsWidget->setGenitivModel(&m_dataModel->m_genitiv);
 
 	ui->resultWidget->setModel(&m_dataModel->m_results);
 

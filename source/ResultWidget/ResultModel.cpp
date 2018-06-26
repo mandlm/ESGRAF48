@@ -7,6 +7,8 @@
 #include "DativPR.h"
 #include "V2PR.h"
 #include "SvkPR.h"
+#include "PassivPR.h"
+#include "GenitivPR.h"
 
 #include <QDebug>
 
@@ -187,4 +189,24 @@ void ResultModel::setSvkResult(unsigned int points)
 		m_results[1].setPR(SvkPR().lookup(m_age, points));
 		emit dataChanged(index(0, 1), index(4, 1));
 	}
+}
+
+void ResultModel::setPassivResult(unsigned int points)
+{
+    if (m_results[3].points() != points)
+    {
+        m_results[3].setPoints(points);
+        m_results[3].setPR(PassivPR().lookup(m_age, points));
+        emit dataChanged(index(0, 3), index(4, 3));
+    }
+}
+
+void ResultModel::setGenitivResult(unsigned int points)
+{
+    if (m_results[7].points() != points)
+    {
+        m_results[7].setPoints(points);
+        m_results[7].setPR(GenitivPR().lookup(m_age, points));
+        emit dataChanged(index(0, 7), index(4, 7));
+    }
 }
