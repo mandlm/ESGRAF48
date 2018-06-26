@@ -30,6 +30,8 @@ unsigned int PRMap::lookup(const Age &age, const unsigned int &points)
 				return index - 1;
 			}
 		}
+
+        return 0;
 	}();
 
 	if (ageIndex >= m_PRs.at(points).size())

@@ -10,7 +10,7 @@ CheckableTestModel::CheckableTestModel(QObject *parent)
 
 int CheckableTestModel::rowCount(const QModelIndex &parent) const
 {
-	return m_tests.size();
+    return static_cast<int>(m_tests.size());
 }
 
 int CheckableTestModel::columnCount(const QModelIndex &parent) const
@@ -19,7 +19,7 @@ int CheckableTestModel::columnCount(const QModelIndex &parent) const
 
 	for (const auto &test : m_tests)
 	{
-		columnCount = std::max<int>(columnCount, test.size());
+        columnCount = std::max(columnCount, static_cast<int>(test.size()));
 	}
 
 	return columnCount;
@@ -181,7 +181,7 @@ const CheckableItem &CheckableTestModel::getItem(const QModelIndex &index) const
 
 unsigned int CheckableTestModel::getPoints() const
 {
-	size_t points = 0;
+    unsigned int points = 0;
 
 	for (const auto &test : m_tests)
 	{

@@ -38,7 +38,7 @@ V2SvkModel::V2SvkModel(QObject *parent)
 
 unsigned int V2SvkModel::getV2Points()
 {
-	size_t points = 0;
+    unsigned int points = 0;
 
 	for (auto testIndex : { 0, 1, 3, 5, 7, 8 })
 	{
@@ -58,7 +58,7 @@ unsigned int V2SvkModel::getV2Points()
 
 unsigned int V2SvkModel::getSvkPoints()
 {
-	size_t points = 0;
+    unsigned int points = 0;
 
 	for (auto testIndex : { 2, 4, 6, 9, 10 })
 	{
