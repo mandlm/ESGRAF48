@@ -8,6 +8,7 @@ V2SvkWidget::V2SvkWidget(QWidget *parent)
 	, ui(new Ui::V2SvkWidget)
 {
 	ui->setupUi(this);
+    ui->v2SvkTableView->horizontalHeader()->hide();
 }
 
 V2SvkWidget::~V2SvkWidget()
