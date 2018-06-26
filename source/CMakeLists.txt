@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(LogoTest LANGUAGES CXX)
+project(ESGRAF48 LANGUAGES CXX)
 
 find_package(Qt5Widgets REQUIRED)
 
