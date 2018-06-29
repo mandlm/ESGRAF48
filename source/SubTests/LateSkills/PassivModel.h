@@ -7,5 +7,7 @@ class PassivModel : public CheckableTestModel
 	Q_OBJECT
 
 public:
-        PassivModel(QObject *parent);
+	PassivModel(QObject *parent);
+	bool setData(const QModelIndex &index, const QVariant &value,
+		int role = Qt::EditRole) override;
 };

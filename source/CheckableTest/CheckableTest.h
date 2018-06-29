@@ -20,4 +20,3 @@ public:
 };
 
 using CheckableTests = std::vector<CheckableTest>;
-

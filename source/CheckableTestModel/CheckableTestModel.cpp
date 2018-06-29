@@ -187,10 +187,7 @@ unsigned int CheckableTestModel::getPoints() const
 	{
 		for (const auto &item : test.items())
 		{
-			if (item.isChecked())
-			{
-				points++;
-			}
+			points += item.points();
 		}
 	}
 
