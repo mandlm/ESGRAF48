@@ -17,7 +17,7 @@ DataModel::DataModel(QObject *parent)
 {
 	connect(&m_plural, &PluralModel::dataChanged, this,
 		&DataModel::pluralModelChanged);
-	connect(&m_metaData, &PluralModel::dataChanged, this,
+	connect(&m_metaData, &MetaDataModel::dataChanged, this,
 		&DataModel::metaDataChanged);
 	connect(&m_genus, &GenusModel::dataChanged, this,
 		&DataModel::genusModelChanged);

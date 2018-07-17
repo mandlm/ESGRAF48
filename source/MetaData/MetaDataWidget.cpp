@@ -4,6 +4,7 @@
 #include "MetaDataModel.h"
 
 #include <QDataWidgetMapper>
+#include <QDebug>
 
 MetaDataWidget::MetaDataWidget(QWidget *parent)
 	: QWidget(parent)
@@ -11,6 +12,11 @@ MetaDataWidget::MetaDataWidget(QWidget *parent)
 	, m_widgetMapper(new QDataWidgetMapper(this))
 {
 	ui->setupUi(this);
+
+	connect(ui->dateOfTestDateEdit, &QDateEdit::dateChanged, m_widgetMapper,
+		&QDataWidgetMapper::submit);
+	connect(ui->dateOfBirthDateEdit, &QDateEdit::dateChanged, m_widgetMapper,
+		&QDataWidgetMapper::submit);
 }
 
 MetaDataWidget::~MetaDataWidget()
