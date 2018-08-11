@@ -4,7 +4,7 @@
 
 MetaDataModel::MetaDataModel(QObject *parent) : QAbstractTableModel(parent)
 {
-	m_dateOfBirth.setDate(2010, 01, 01);
+	m_dateOfBirth = QDate::currentDate().addYears(-9);
 	m_dateOfTest = QDate::currentDate();
 }
 
