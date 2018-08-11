@@ -124,6 +124,8 @@ void CheckableTestModel::read(const QJsonObject &json)
 			test.items().read(testData.toArray());
 		}
 	}
+
+	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
 bool CheckableTestModel::isValidIndex(const QModelIndex &index) const
