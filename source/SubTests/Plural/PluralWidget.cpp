@@ -8,8 +8,6 @@ PluralWidget::PluralWidget(QWidget *parent)
 	, ui(new Ui::PluralWidget)
 {
 	ui->setupUi(this);
-
-	ui->pluralTableView->horizontalHeader()->hide();
 }
 
 PluralWidget::~PluralWidget()
