@@ -51,7 +51,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QDateEdit" name="dateOfBirthDateEdit"/>
+         <widget class="QDateEdit" name="dateOfBirthDateEdit">
+          <property name="displayFormat">
+           <string>dd.MM.yyyy</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="dateOfTestLabel">
@@ -63,7 +70,7 @@
         <item>
          <widget class="QDateEdit" name="dateOfTestDateEdit">
           <property name="displayFormat">
-           <string>M/d/yyyy</string>
+           <string>dd.MM.yyyy</string>
           </property>
           <property name="calendarPopup">
            <bool>true</bool>
