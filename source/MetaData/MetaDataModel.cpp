@@ -2,7 +2,8 @@
 
 #include <QDebug>
 
-MetaDataModel::MetaDataModel(QObject *parent) : QAbstractTableModel(parent)
+MetaDataModel::MetaDataModel(QObject *parent)
+	: QAbstractTableModel(parent)
 {
 	m_dateOfBirth = QDate::currentDate().addYears(-9);
 	m_dateOfTest = QDate::currentDate();
@@ -121,33 +122,9 @@ void MetaDataModel::write(QJsonObject &json) const
 
 void MetaDataModel::read(const QJsonObject &json)
 {
-	const auto &participant = json["participant name"];
-	if (participant.isString())
-	{
-		m_participant = participant.toString();
-	}
-
-	const auto &instructor = json["instructor name"];
-	if (instructor.isString())
-	{
-		m_instructor = instructor.toString();
-	}
-
-	const auto &dateOfBirth = json["date of birth"];
-	if (dateOfBirth.isString())
-	{
-		m_dateOfBirth = QDate::fromString(dateOfBirth.toString(), Qt::ISODate);
-	}
-
-	const auto &dateOfTest = json["date of test"];
-	if (dateOfTest.isString())
-	{
-		m_dateOfTest = QDate::fromString(dateOfTest.toString(), Qt::ISODate);
-	}
-
-	const auto &remarks = json["remarks"];
-	if (remarks.isString())
-	{
-		m_remarks = remarks.toString();
-	}
+	setData(index(0, 0), json["participant name"].toVariant(), Qt::EditRole);
+	setData(index(0, 1), json["instructor name"].toVariant(), Qt::EditRole);
+	setData(index(0, 2), json["date of birth"].toVariant(), Qt::EditRole);
+	setData(index(0, 3), json["date of test"].toVariant(), Qt::EditRole);
+	setData(index(0, 4), json["remarks"].toVariant(), Qt::EditRole);
 }
