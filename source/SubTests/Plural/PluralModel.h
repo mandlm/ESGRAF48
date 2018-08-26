@@ -8,4 +8,7 @@ class PluralModel : public CheckableTestModel
 
 public:
 	PluralModel(QObject *parent);
+
+    QVariant data(
+        const QModelIndex &index, int role = Qt::DisplayRole) const override;
 };

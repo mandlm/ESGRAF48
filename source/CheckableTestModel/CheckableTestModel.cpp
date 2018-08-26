@@ -1,6 +1,7 @@
 #include "CheckableTestModel.h"
 
 #include <QJsonArray>
+#include <QSize>
 #include <QDebug>
 
 CheckableTestModel::CheckableTestModel(QObject *parent)
@@ -8,12 +9,12 @@ CheckableTestModel::CheckableTestModel(QObject *parent)
 {
 }
 
-int CheckableTestModel::rowCount(const QModelIndex &parent) const
+int CheckableTestModel::rowCount(const QModelIndex &) const
 {
     return static_cast<int>(m_tests.size());
 }
 
-int CheckableTestModel::columnCount(const QModelIndex &parent) const
+int CheckableTestModel::columnCount(const QModelIndex &) const
 {
 	int columnCount = 0;
 
@@ -36,15 +37,17 @@ QVariant CheckableTestModel::data(const QModelIndex &index, int role) const
 	{
 		auto &item = getItem(index);
 
-		if (role == Qt::DisplayRole)
-		{
-			return item.getText().c_str();
-		}
-
-		if (role == Qt::CheckStateRole)
-		{
-			return item.isChecked() ? Qt::Checked : Qt::Unchecked;
-		}
+        switch (role)
+        {
+            case Qt::DisplayRole:
+            {
+                return item.getText().c_str();
+            }
+            case Qt::CheckStateRole:
+            {
+                return item.isChecked() ? Qt::Checked : Qt::Unchecked;
+            }
+        }
 	}
 	catch (std::runtime_error &e)
 	{
@@ -101,7 +104,7 @@ QVariant CheckableTestModel::headerData(
 		}
 	}
 
-	return {};
+    return QAbstractTableModel::headerData(section, orientation, role);
 }
 
 void CheckableTestModel::write(QJsonObject &json) const

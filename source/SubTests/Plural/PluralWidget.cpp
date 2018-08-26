@@ -18,4 +18,5 @@ PluralWidget::~PluralWidget()
 void PluralWidget::setModel(PluralModel *model)
 {
 	ui->pluralTableView->setModel(model);
+    ui->pluralTableView->resizeColumnsToContents();
 }
