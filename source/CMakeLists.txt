@@ -15,7 +15,7 @@ qt5_add_resources(LOGO_TEST_QRC
 	mainwindow.qrc
 )
 
-add_executable(${PROJECT_NAME}
+add_executable(${PROJECT_NAME} WIN32
 	LogoTest.cpp
 	DataModel.cpp
 	mainwindow.cpp
