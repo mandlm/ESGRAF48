@@ -5,7 +5,7 @@ GenusModel::GenusModel(QObject *parent)
 {
 	m_tests = { { "Tiere", { "Tiger", "Bär", "Katze", "Pferd", "Gans",
 							   "Elefant", "Affe", "Hund" } },
-		{ "Futter", { "Salat", "Fleisch", "Knochen", "Banane", "Apfel", "Möhre",
+		{ "Futter", { "Salat", "Fleisch", "Knochen", "Banane", "Apfel", "Karotte",
 						"Honig", "Zucker" } },
 		{ "Zirkus", { "Kiste", "Holz", "Vorhang", "Baum" } } };
 }

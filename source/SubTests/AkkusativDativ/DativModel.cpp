@@ -10,6 +10,6 @@ DativModel::DativModel(QObject *parent)
 			{ "Vorhang", "Kiste", "Holz", "Kiste", "Baum", "Vorhang", "Holz",
 				"Baum" } },
 		{ "Nominalphrase (Tiere)", { "Salat", "Fleisch", "Knochen", "Banane",
-										"Apfel", "Möhre", "Honig", "Zucker" } }
+										"Apfel", "Karotte", "Honig", "Zucker" } }
 	};
 }

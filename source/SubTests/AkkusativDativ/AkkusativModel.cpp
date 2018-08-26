@@ -10,6 +10,6 @@ AkkusativModel::AkkusativModel(QObject *parent)
 			{ "Vorhang", "Kiste", "Holz", "Kiste", "Baum", "Vorhang", "Holz",
 				"Baum" } },
 		{ "Nominalphrase (Futter)", { "Salat", "Fleisch", "Knochen", "Banane",
-										"Apfel", "Möhre", "Honig", "Zucker" } }
+										"Apfel", "Karotte", "Honig", "Zucker" } }
 	};
 }
