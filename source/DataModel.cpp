@@ -64,45 +64,63 @@ void DataModel::read(const QJsonObject &source)
 void DataModel::pluralModelChanged()
 {
 	m_results.setPluralResult(m_plural.getPoints());
+
+	emit modelChanged();
 }
 
 void DataModel::metaDataChanged()
 {
 	m_results.setAge(m_metaData.getAge());
+
+	emit modelChanged();
 }
 
 void DataModel::genusModelChanged()
 {
 	m_results.setGenusResult(m_genus.getPoints());
+
+	emit modelChanged();
 }
 
 void DataModel::verbEndModelChanged()
 {
 	m_results.setVerbEndResult(m_verbEnd.getPoints());
+
+	emit modelChanged();
 }
 
 void DataModel::akkusativModelChanged()
 {
 	m_results.setAkkusativResult(m_akkusativ.getPoints());
+
+	emit modelChanged();
 }
 
 void DataModel::dativModelChanged()
 {
 	m_results.setDativResult(m_dativ.getPoints());
+
+	emit modelChanged();
 }
 
 void DataModel::v2SvkModelChanged()
 {
 	m_results.setV2Result(m_v2Svk.getV2Points());
 	m_results.setSvkResult(m_v2Svk.getSvkPoints());
+
+	emit modelChanged();
 }
 
 void DataModel::passivModelChanged()
 {
     m_results.setPassivResult(m_passiv.getPoints());
+
+	emit modelChanged();
 }
 
 void DataModel::genitivModelChanged()
 {
     m_results.setGenitivResult(m_genitiv.getPoints());
+
+	emit modelChanged();
 }
