@@ -37,6 +37,9 @@ public:
 	void write(QJsonObject &target) const;
 	void read(const QJsonObject &source);
 
+signals:
+	void modelChanged();
+
 private:
 	template <class ModelType>
 	void write(
