@@ -18,10 +18,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
-	connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
-	connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
-	connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
+	connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newFile);
+	connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::openFile);
+	connect(ui->actionSave, &QAction::triggered, this,
+		qOverload<>(&MainWindow::saveFile));
+	connect(
+		ui->actionSave_as, &QAction::triggered, this, &MainWindow::saveFileAs);
 
 	newFile();
 }
@@ -46,7 +48,8 @@ void MainWindow::newFile()
 
 	ui->resultWidget->setModel(&m_dataModel->m_results);
 
-	connect(&*m_dataModel, &DataModel::modelChanged, this, &MainWindow::dataModelChanged);
+	connect(&*m_dataModel, &DataModel::modelChanged, this,
+		&MainWindow::dataModelChanged);
 
 	setWindowModified(false);
 	setWindowTitle("untitled[*]");
