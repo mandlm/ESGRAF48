@@ -8,6 +8,9 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QDataWidgetMapper>
+#include <QCloseEvent>
+#include <QMessageBox>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -15,10 +18,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
-	connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
-	connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
-	connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
+	connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newFile);
+	connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::openFile);
+	connect(ui->actionSave, &QAction::triggered, this,
+		qOverload<>(&MainWindow::saveFile));
+	connect(
+		ui->actionSave_as, &QAction::triggered, this, &MainWindow::saveFileAs);
 
 	newFile();
 }
@@ -38,12 +43,18 @@ void MainWindow::newFile()
 	ui->akkusativDativWidget->setAkkusativModel(&m_dataModel->m_akkusativ);
 	ui->akkusativDativWidget->setDativModel(&m_dataModel->m_dativ);
 	ui->v2SvkWidget->setV2SvkModel(&m_dataModel->m_v2Svk);
-    ui->lateSkillsWidget->setPassivModel(&m_dataModel->m_passiv);
-    ui->lateSkillsWidget->setGenitivModel(&m_dataModel->m_genitiv);
+	ui->lateSkillsWidget->setPassivModel(&m_dataModel->m_passiv);
+	ui->lateSkillsWidget->setGenitivModel(&m_dataModel->m_genitiv);
 
 	ui->resultWidget->setModel(&m_dataModel->m_results);
 
+	connect(&*m_dataModel, &DataModel::modelChanged, this,
+		&MainWindow::dataModelChanged);
+
+	setWindowModified(false);
+	setWindowTitle("untitled[*]");
 	m_filename = "";
+	m_saveOnClose = false;
 }
 
 void MainWindow::openFile()
@@ -67,6 +78,9 @@ void MainWindow::openFile()
 
 	m_dataModel->read(loadDoc.object());
 
+	setWindowModified(false);
+	setWindowTitle(filename + "[*]");
+	m_saveOnClose = false;
 	m_filename = filename;
 
 	ui->metaDataWidget->toFirst();
@@ -96,6 +110,49 @@ void MainWindow::saveFileAs()
 	saveFile(filename);
 }
 
+void MainWindow::dataModelChanged()
+{
+	qDebug() << "data model changed";
+
+	m_saveOnClose = true;
+	setWindowModified(true);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+	if (m_saveOnClose == false)
+	{
+		event->accept();
+		return;
+	}
+
+	QMessageBox msgBox;
+	msgBox.setText("The document has been modified.");
+	msgBox.setInformativeText("Do you want to save your changes?");
+	msgBox.setStandardButtons(
+		QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+	msgBox.setDefaultButton(QMessageBox::Save);
+	int ret = msgBox.exec();
+
+	switch (ret)
+	{
+		case QMessageBox::Save:
+			saveFile();
+			if (m_saveOnClose == true)
+			{
+				event->ignore();
+				break;
+			}
+		case QMessageBox::Discard:
+			event->accept();
+			break;
+		case QMessageBox::Cancel:
+		default:
+			event->ignore();
+			break;
+	}
+}
+
 void MainWindow::saveFile(const QString &filename)
 {
 	QJsonObject saveData;
@@ -108,5 +165,8 @@ void MainWindow::saveFile(const QString &filename)
 	saveFile.write(saveDoc.toJson());
 	saveFile.close();
 
+	setWindowTitle(filename + "[*]");
+	setWindowModified(false);
 	m_filename = filename;
+	m_saveOnClose = false;
 }
