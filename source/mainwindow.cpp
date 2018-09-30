@@ -35,6 +35,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::newFile()
 {
+	closeFile();
+
 	m_dataModel = std::make_unique<DataModel>(this);
 	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
 	ui->verbEndWidget->setModel(&m_dataModel->m_verbEnd);
@@ -65,6 +67,8 @@ void MainWindow::openFile()
 	{
 		return;
 	}
+
+	closeFile();
 
 	QFile loadFile(filename);
 	if (!loadFile.open(QFile::ReadOnly))
@@ -110,47 +114,32 @@ void MainWindow::saveFileAs()
 	saveFile(filename);
 }
 
+void MainWindow::closeFile()
+{
+	if (m_saveOnClose == true)
+	{
+		QMessageBox msgBox;
+		msgBox.setText("The document has been modified.");
+		msgBox.setInformativeText("Do you want to save your changes?");
+		msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard);
+		msgBox.setDefaultButton(QMessageBox::Save);
+
+		if (msgBox.exec() == QMessageBox::Save)
+		{
+			saveFile();
+		}
+	}
+}
+
 void MainWindow::dataModelChanged()
 {
-	qDebug() << "data model changed";
-
 	m_saveOnClose = true;
 	setWindowModified(true);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-	if (m_saveOnClose == false)
-	{
-		event->accept();
-		return;
-	}
-
-	QMessageBox msgBox;
-	msgBox.setText("The document has been modified.");
-	msgBox.setInformativeText("Do you want to save your changes?");
-	msgBox.setStandardButtons(
-		QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-	msgBox.setDefaultButton(QMessageBox::Save);
-	int ret = msgBox.exec();
-
-	switch (ret)
-	{
-		case QMessageBox::Save:
-			saveFile();
-			if (m_saveOnClose == true)
-			{
-				event->ignore();
-				break;
-			}
-		case QMessageBox::Discard:
-			event->accept();
-			break;
-		case QMessageBox::Cancel:
-		default:
-			event->ignore();
-			break;
-	}
+	closeFile();
 }
 
 void MainWindow::saveFile(const QString &filename)
@@ -164,6 +153,8 @@ void MainWindow::saveFile(const QString &filename)
 	saveFile.open(QFile::WriteOnly);
 	saveFile.write(saveDoc.toJson());
 	saveFile.close();
+
+	qDebug() << "Wrote" << filename;
 
 	setWindowTitle(filename + "[*]");
 	setWindowModified(false);
