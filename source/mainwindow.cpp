@@ -12,6 +12,8 @@
 #include <QMessageBox>
 #include <QtPrintSupport/QPrinter>
 #include <QtPrintSupport/QPrintDialog>
+#include <QTextDocument>
+
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -136,7 +138,20 @@ void MainWindow::print() const
 	QPrinter printer;
 
 	QPrintDialog dialog(&printer);
-	dialog.exec();
+	if (dialog.exec() != QDialog::Accepted)
+	{
+		return;
+	}
+
+	QTextDocument printDoc;
+	printDoc.setHtml(
+	    "<html>"
+	    "<body>"
+	    "<h2>Hello World</h2>"
+	    "</body>"
+	    "</hthml>");
+
+	printDoc.print(&printer);
 }
 
 void MainWindow::dataModelChanged()
