@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/document-print.png</file>
     <file>images/document-new.png</file>
     <file>images/document-open.png</file>
     <file>images/document-save-as.png</file>

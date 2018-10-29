@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
 private:
 	Ui::MainWindow *ui;
 	std::unique_ptr<DataModel> m_dataModel;
-    QString m_filename;
+	QString m_filename;
 	bool m_saveOnClose = false;
 
 public:
@@ -28,14 +28,15 @@ public:
 public slots:
 	void newFile();
 	void openFile();
-    void saveFile();
+	void saveFile();
 	void saveFileAs();
 	void closeFile();
+	void print() const;
 	void dataModelChanged();
 
 protected:
 	void closeEvent(QCloseEvent *event) override;
 
 private:
-    void saveFile(const QString &filename);
+	void saveFile(const QString &filename);
 };

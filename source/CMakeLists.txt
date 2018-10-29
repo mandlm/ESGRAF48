@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.6)
 project(ESGRAF48 LANGUAGES CXX)
 
 find_package(Qt5Widgets REQUIRED)
+find_package(Qt5PrintSupport REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -45,9 +46,10 @@ target_link_libraries(${PROJECT_NAME}
 		Genus
 		AkkusativDativ
 		V2Svk
-                LateSkills
+		LateSkills
 		ResultWidget
 		Qt5::Widgets
+		Qt5::PrintSupport
 )
 
 add_subdirectory(CheckableItem)
