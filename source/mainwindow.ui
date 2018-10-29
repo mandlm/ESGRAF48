@@ -132,6 +132,8 @@
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
     <addaction name="separator"/>
+    <addaction name="actionPrint"/>
+    <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -149,6 +151,8 @@
    <addaction name="actionNew"/>
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="actionPrint"/>
   </widget>
   <action name="actionSave_as">
    <property name="icon">
@@ -207,6 +211,21 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/images/document-print.png</normaloff>:/images/document-print.png</iconset>
+   </property>
+   <property name="text">
+    <string>Print</string>
+   </property>
+   <property name="toolTip">
+    <string>Print</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>

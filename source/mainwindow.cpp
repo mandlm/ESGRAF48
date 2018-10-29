@@ -10,20 +10,21 @@
 #include <QDataWidgetMapper>
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
-	: QMainWindow(parent)
-	, ui(new Ui::MainWindow)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
 
 	connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newFile);
 	connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::openFile);
-	connect(ui->actionSave, &QAction::triggered, this,
-		qOverload<>(&MainWindow::saveFile));
-	connect(
-		ui->actionSave_as, &QAction::triggered, this, &MainWindow::saveFileAs);
+	connect(ui->actionSave, &QAction::triggered, this, qOverload<>(&MainWindow::saveFile));
+	connect(ui->actionSave_as, &QAction::triggered, this, &MainWindow::saveFileAs);
+	connect(ui->actionPrint, &QAction::triggered, this, &MainWindow::print);
 
 	newFile();
 }
@@ -50,8 +51,7 @@ void MainWindow::newFile()
 
 	ui->resultWidget->setModel(&m_dataModel->m_results);
 
-	connect(&*m_dataModel, &DataModel::modelChanged, this,
-		&MainWindow::dataModelChanged);
+	connect(&*m_dataModel, &DataModel::modelChanged, this, &MainWindow::dataModelChanged);
 
 	setWindowModified(false);
 	setWindowTitle("untitled[*]");
@@ -61,8 +61,8 @@ void MainWindow::newFile()
 
 void MainWindow::openFile()
 {
-	QString filename = QFileDialog::getOpenFileName(
-		this, "Open file", "", "ESGRAF 4-8 (*.esgraf48)");
+	QString filename =
+	    QFileDialog::getOpenFileName(this, "Open file", "", "ESGRAF 4-8 (*.esgraf48)");
 	if (filename.isEmpty())
 	{
 		return;
@@ -104,8 +104,8 @@ void MainWindow::saveFile()
 
 void MainWindow::saveFileAs()
 {
-	QString filename = QFileDialog::getSaveFileName(
-		this, "Save file", "", "ESGRAF 4-8 (*.esgraf48)");
+	QString filename =
+	    QFileDialog::getSaveFileName(this, "Save file", "", "ESGRAF 4-8 (*.esgraf48)");
 	if (filename.isEmpty())
 	{
 		return;
@@ -129,6 +129,14 @@ void MainWindow::closeFile()
 			saveFile();
 		}
 	}
+}
+
+void MainWindow::print() const
+{
+	QPrinter printer;
+
+	QPrintDialog dialog(&printer);
+	dialog.exec();
 }
 
 void MainWindow::dataModelChanged()
