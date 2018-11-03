@@ -2,37 +2,30 @@
 
 #include <QDebug>
 
+#include <sstream>
+
 DataModel::DataModel(QObject *parent)
-	: QObject(parent)
-	, m_metaData(this)
-	, m_verbEnd(this)
-	, m_genus(this)
-	, m_plural(this)
-	, m_results(this)
-	, m_akkusativ(this)
-	, m_dativ(this)
-	, m_v2Svk(this)
+    : QObject(parent)
+    , m_metaData(this)
+    , m_verbEnd(this)
+    , m_genus(this)
+    , m_plural(this)
+    , m_results(this)
+    , m_akkusativ(this)
+    , m_dativ(this)
+    , m_v2Svk(this)
     , m_passiv(this)
     , m_genitiv(this)
 {
-	connect(&m_plural, &PluralModel::dataChanged, this,
-		&DataModel::pluralModelChanged);
-	connect(&m_metaData, &MetaDataModel::dataChanged, this,
-		&DataModel::metaDataChanged);
-	connect(&m_genus, &GenusModel::dataChanged, this,
-		&DataModel::genusModelChanged);
-	connect(&m_verbEnd, &VerbEndModel::dataChanged, this,
-		&DataModel::verbEndModelChanged);
-	connect(&m_akkusativ, &AkkusativModel::dataChanged, this,
-		&DataModel::akkusativModelChanged);
-	connect(&m_dativ, &DativModel::dataChanged, this,
-		&DataModel::dativModelChanged);
-	connect(&m_v2Svk, &V2SvkModel::dataChanged, this,
-		&DataModel::v2SvkModelChanged);
-    connect(&m_passiv, &PassivModel::dataChanged, this,
-        &DataModel::passivModelChanged);
-    connect(&m_genitiv, &GenitivModel::dataChanged, this,
-        &DataModel::genitivModelChanged);
+	connect(&m_plural, &PluralModel::dataChanged, this, &DataModel::pluralModelChanged);
+	connect(&m_metaData, &MetaDataModel::dataChanged, this, &DataModel::metaDataChanged);
+	connect(&m_genus, &GenusModel::dataChanged, this, &DataModel::genusModelChanged);
+	connect(&m_verbEnd, &VerbEndModel::dataChanged, this, &DataModel::verbEndModelChanged);
+	connect(&m_akkusativ, &AkkusativModel::dataChanged, this, &DataModel::akkusativModelChanged);
+	connect(&m_dativ, &DativModel::dataChanged, this, &DataModel::dativModelChanged);
+	connect(&m_v2Svk, &V2SvkModel::dataChanged, this, &DataModel::v2SvkModelChanged);
+	connect(&m_passiv, &PassivModel::dataChanged, this, &DataModel::passivModelChanged);
+	connect(&m_genitiv, &GenitivModel::dataChanged, this, &DataModel::genitivModelChanged);
 }
 
 void DataModel::write(QJsonObject &target) const
@@ -44,8 +37,8 @@ void DataModel::write(QJsonObject &target) const
 	write(m_akkusativ, target, "Akkusativ");
 	write(m_dativ, target, "Dativ");
 	write(m_v2Svk, target, "V2Svk");
-    write(m_passiv, target, "Passiv");
-    write(m_genitiv, target, "Genitiv");
+	write(m_passiv, target, "Passiv");
+	write(m_genitiv, target, "Genitiv");
 }
 
 void DataModel::read(const QJsonObject &source)
@@ -57,8 +50,36 @@ void DataModel::read(const QJsonObject &source)
 	read(m_akkusativ, source, "Akkusativ");
 	read(m_dativ, source, "Dativ");
 	read(m_v2Svk, source, "V2Svk");
-    read(m_passiv, source, "Passiv");
-    read(m_genitiv, source, "Genitiv");
+	read(m_passiv, source, "Passiv");
+	read(m_genitiv, source, "Genitiv");
+}
+
+std::string DataModel::toHtml() const
+{
+	std::stringstream out;
+
+	out << "<html>" << std::endl;
+	out << "<head>" << std::endl;
+	out << "<style>" << std::endl;
+	out << "body {" << std::endl;
+	out << "font-family:sans-serif;" << std::endl;
+	out << "}" << std::endl;
+	out << "table, th, td {" << std::endl;
+	out << "border: 1px solid black;" << std::endl;
+	out << "border-collapse: collapse;" << std::endl;
+	out << "padding: 5px;" << std::endl;
+	out << "}" << std::endl;
+	out << "</style>" << std::endl;
+	out << "</head>" << std::endl;
+	out << "<body>" << std::endl;
+	out << "<h2>ESGRAF 4-8 Auswertungsbogen</h2>" << std::endl;
+	out << "<p>" << std::endl;
+	out << m_metaData.toHtml();
+	out << "</p>" << std::endl;
+	out << "</body>" << std::endl;
+	out << "</html>" << std::endl;
+
+	return out.str();
 }
 
 void DataModel::pluralModelChanged()
@@ -113,14 +134,14 @@ void DataModel::v2SvkModelChanged()
 
 void DataModel::passivModelChanged()
 {
-    m_results.setPassivResult(m_passiv.getPoints());
+	m_results.setPassivResult(m_passiv.getPoints());
 
 	emit modelChanged();
 }
 
 void DataModel::genitivModelChanged()
 {
-    m_results.setGenitivResult(m_genitiv.getPoints());
+	m_results.setGenitivResult(m_genitiv.getPoints());
 
 	emit modelChanged();
 }

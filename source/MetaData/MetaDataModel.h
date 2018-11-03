@@ -31,6 +31,8 @@ public:
 	void write(QJsonObject &json) const;
 	void read(const QJsonObject &json);
 
+	std::string toHtml() const;
+
 	Age getAge() const
 	{
 		return { m_dateOfBirth, m_dateOfTest };
