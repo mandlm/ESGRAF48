@@ -137,8 +137,8 @@ void MainWindow::closeFile()
 
 void MainWindow::print() const
 {
-	std::ofstream htmlfile("print.html");
-	htmlfile << m_dataModel->toHtml();
+	//std::ofstream htmlfile("print.html");
+	//htmlfile << m_dataModel->toHtml();
 
 	QPrinter printer;
 

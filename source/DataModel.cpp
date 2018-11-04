@@ -64,11 +64,6 @@ std::string DataModel::toHtml() const
 	out << "body {" << std::endl;
 	out << "font-family:sans-serif;" << std::endl;
 	out << "}" << std::endl;
-	out << "table, th, td {" << std::endl;
-	out << "border: 1px solid black;" << std::endl;
-	out << "border-collapse: collapse;" << std::endl;
-	out << "padding: 5px;" << std::endl;
-	out << "}" << std::endl;
 	out << "</style>" << std::endl;
 	out << "</head>" << std::endl;
 	out << "<body>" << std::endl;

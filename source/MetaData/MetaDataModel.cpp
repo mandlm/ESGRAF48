@@ -134,26 +134,33 @@ std::string MetaDataModel::toHtml() const
 {
 	std::ostringstream out;
 
-	out << "<table>" << std::endl;
+	out << "<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" frame=\"box\" rules=\"all\">"
+	    << std::endl;
 	out << "<tr>" << std::endl;
-	out << "<td>Name, Vorname</td>" << std::endl;
-	out << "<td>" << m_participant.toStdString() << "</td>" << std::endl;
-	out << "<td>Untersucher(in)</td>" << std::endl;
-	out << "<td>" << m_instructor.toStdString() << "</td>" << std::endl;
+	out << "<td width=\"25%\">Name, Vorname</td>" << std::endl;
+	out << "<td width=\"25%\">" << m_participant.toHtmlEscaped().toStdString() << "</td>"
+	    << std::endl;
+	out << "<td width=\"25%\">Untersucher(in)</td>" << std::endl;
+	out << "<td width=\"25%\">" << m_instructor.toHtmlEscaped().toStdString() << "</td>"
+	    << std::endl;
 	out << "</tr>" << std::endl;
 	out << "<tr>" << std::endl;
 	out << "<td>Geburtsdatum</td>" << std::endl;
-	out << "<td></td>" << std::endl;
+	out << "<td>" << m_dateOfBirth.toString("dd.MM.yyyy").toHtmlEscaped().toStdString() << "</td>"
+	    << std::endl;
 	out << "<td colspan=\"2\">Bemerkungen</td>" << std::endl;
 	out << "</tr>" << std::endl;
 	out << "<tr>" << std::endl;
 	out << "<td>Untersuchungsdatum</td>" << std::endl;
-	out << "<td></td>" << std::endl;
-	out << "<td colspan=\"2\" rowspan=\"2\"></td>" << std::endl;
+	out << "<td>" << m_dateOfTest.toString("dd.MM.yyyy").toHtmlEscaped().toStdString() << "</td>"
+	    << std::endl;
+	out << "<td colspan=\"2\" rowspan=\"2\">"
+	    << m_remarks.trimmed().toHtmlEscaped().replace("\n", "<br>").toStdString() << "</td>"
+	    << std::endl;
 	out << "</tr>" << std::endl;
 	out << "<tr>" << std::endl;
 	out << "<td>Alter am Testtag</td>" << std::endl;
-	out << "<td></td>" << std::endl;
+	out << "<td>" << getAge().toString() << "</td>" << std::endl;
 	out << "</tr>" << std::endl;
 	out << "</table>" << std::endl;
 
