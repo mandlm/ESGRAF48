@@ -16,6 +16,8 @@
 
 #include <QDebug>
 
+#include <fstream>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -135,6 +137,9 @@ void MainWindow::closeFile()
 
 void MainWindow::print() const
 {
+	//std::ofstream htmlfile("print.html");
+	//htmlfile << m_dataModel->toHtml();
+
 	QPrinter printer;
 
 	QPrintDialog dialog(&printer);
@@ -144,12 +149,7 @@ void MainWindow::print() const
 	}
 
 	QTextDocument printDoc;
-	printDoc.setHtml(
-	    "<html>"
-	    "<body>"
-	    "<h2>Hello World</h2>"
-	    "</body>"
-	    "</hthml>");
+	printDoc.setHtml(QString::fromStdString(m_dataModel->toHtml()));
 
 	printDoc.print(&printer);
 }

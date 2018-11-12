@@ -37,6 +37,8 @@ public:
 	void write(QJsonObject &target) const;
 	void read(const QJsonObject &source);
 
+	std::string toHtml() const;
+
 signals:
 	void modelChanged();
 
