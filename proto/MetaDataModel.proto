@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+message MetaDataModel
+{
+	string dummy = 1;
+}
