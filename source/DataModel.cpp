@@ -1,6 +1,9 @@
 #include "DataModel.h"
 
+#include "DataModel.pb.h"
 #include <QDebug>
+
+#include <google/protobuf/text_format.h>
 
 #include <sstream>
 
@@ -52,6 +55,26 @@ void DataModel::read(const QJsonObject &source)
 	read(m_v2Svk, source, "V2Svk");
 	read(m_passiv, source, "Passiv");
 	read(m_genitiv, source, "Genitiv");
+}
+
+void DataModel::writeProtoBuf(std::ostream &outStream) const
+{
+	ESGRAF48::DataModel dataModel;
+	//m_metaData.writeProtoBuf(dataModel.mutable_metadata);
+	m_v2Svk.writeProtoBuf(*dataModel.mutable_v2svk());
+	dataModel.SerializeToOstream(&outStream);
+
+	std::string saveData;
+	google::protobuf::TextFormat::PrintToString(dataModel, &saveData);
+	qDebug() << "Wrote:" << QString::fromStdString(saveData);
+}
+
+void DataModel::readProtoBuf(std::istream &inStream)
+{
+	ESGRAF48::DataModel dataModel;
+	dataModel.ParseFromIstream(&inStream);
+
+	m_v2Svk.readProtoBuf(dataModel.v2svk());
 }
 
 std::string DataModel::toHtml() const

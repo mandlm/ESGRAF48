@@ -23,7 +23,7 @@ set(DataModel_PROTO_FILES
 	../proto/V2SvkModel.proto
 )
 
-protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS
+protobuf_generate_cpp(DataModel_PROTO_SRCS DataModel_PROTO_HDRS
 	${DataModel_PROTO_FILES})
 
 add_executable(${PROJECT_NAME} WIN32
@@ -33,8 +33,8 @@ add_executable(${PROJECT_NAME} WIN32
 	Age.cpp
 	${LOGO_TEST_UI}
 	${LOGO_TEST_QRC}
-	${PROTO_SRCS}
-	${PROTO_HDRS}
+	${DataModel_PROTO_SRCS}
+	${DataModel_PROTO_HDRS}
 )
 
 set_target_properties(${PROJECT_NAME}

@@ -15,14 +15,14 @@ set(V2Svk_PROTO_FILES
 	../../../proto/V2SvkModel.proto
 )
 
-protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${V2Svk_PROTO_FILES})
+protobuf_generate_cpp(V2Svk_PROTO_SRCS V2Svk_PROTO_HDRS ${V2Svk_PROTO_FILES})
 
 add_library(${PROJECT_NAME}
 	V2SvkWidget.cpp
 	V2SvkModel.cpp
 	${UI_HEADERS}
-	${PROTO_SRCS}
-	${PROTO_HDRS}
+	${V2Svk_PROTO_SRCS}
+	${V2Svk_PROTO_HDRS}
 )
 
 set_target_properties(${PROJECT_NAME}

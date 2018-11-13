@@ -130,6 +130,10 @@ void MetaDataModel::read(const QJsonObject &json)
 	setData(index(0, 4), json["remarks"].toVariant(), Qt::EditRole);
 }
 
+//void MetaDataModel::writeProtoBuf(ESGRAF48::MetaDataModel &model) const
+//{
+//}
+
 std::string MetaDataModel::toHtml() const
 {
 	std::ostringstream out;
