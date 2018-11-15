@@ -63,10 +63,6 @@ void DataModel::writeProtoBuf(std::ostream &outStream) const
 	//m_metaData.writeProtoBuf(dataModel.mutable_metadata);
 	m_v2Svk.writeProtoBuf(*dataModel.mutable_v2svk());
 	dataModel.SerializeToOstream(&outStream);
-
-	std::string saveData;
-	google::protobuf::TextFormat::PrintToString(dataModel, &saveData);
-	qDebug() << "Wrote:" << QString::fromStdString(saveData);
 }
 
 void DataModel::readProtoBuf(std::istream &inStream)
