@@ -19,7 +19,6 @@ qt5_add_resources(LOGO_TEST_QRC
 
 set(DataModel_PROTO_FILES
 	../proto/DataModel.proto
-	../proto/MetaDataModel.proto
 	../proto/V2SvkModel.proto
 )
 

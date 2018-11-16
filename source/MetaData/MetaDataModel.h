@@ -2,8 +2,6 @@
 
 #include "../Age.h"
 
-//#include "MetaDataModel.pb.h"
-
 #include <QAbstractTableModel>
 #include <QString>
 #include <QDate>
@@ -32,8 +30,6 @@ public:
 
 	void write(QJsonObject &json) const;
 	void read(const QJsonObject &json);
-
-	//void writeProtoBuf(ESGRAF48::MetaDataModel &model) const;
 
 	std::string toHtml() const;
 

@@ -2,11 +2,9 @@ syntax = "proto3";
 
 package ESGRAF48;
 
-import "MetaDataModel.proto";
 import "V2SvkModel.proto";
 
 message DataModel
 {
-	MetaDataModel MetaData = 1;
 	V2SvkModel V2Svk = 2;
 }
