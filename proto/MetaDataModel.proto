@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+message MetaDataModel
+{
+	string ParticipantName = 1;
+	string InstructorName = 2;
+	string DateOfBirth = 3;
+	string DateOfTest = 4;
+	string Remarks = 5;
+}

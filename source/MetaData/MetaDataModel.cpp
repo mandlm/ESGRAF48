@@ -130,9 +130,23 @@ void MetaDataModel::read(const QJsonObject &json)
 	setData(index(0, 4), json["remarks"].toVariant(), Qt::EditRole);
 }
 
-//void MetaDataModel::writeProtoBuf(ESGRAF48::MetaDataModel &model) const
-//{
-//}
+void MetaDataModel::readProtoBuf(const ESGRAF48::MetaDataModel &model)
+{
+	setData(index(0, 0), QString::fromStdString(model.participantname()));
+	setData(index(0, 1), QString::fromStdString(model.instructorname()));
+	setData(index(0, 2), QString::fromStdString(model.dateofbirth()));
+	setData(index(0, 3), QString::fromStdString(model.dateoftest()));
+	setData(index(0, 4), QString::fromStdString(model.remarks()));
+}
+
+void MetaDataModel::writeProtoBuf(ESGRAF48::MetaDataModel &model) const
+{
+	model.set_participantname(m_participant.toStdString());
+	model.set_instructorname(m_instructor.toStdString());
+	model.set_dateofbirth(m_dateOfBirth.toString(Qt::ISODate).toStdString());
+	model.set_dateoftest(m_dateOfTest.toString(Qt::ISODate).toStdString());
+	model.set_remarks(m_remarks.toStdString());
+}
 
 std::string MetaDataModel::toHtml() const
 {

@@ -3,8 +3,6 @@
 #include "DataModel.pb.h"
 #include <QDebug>
 
-#include <google/protobuf/text_format.h>
-
 #include <sstream>
 
 DataModel::DataModel(QObject *parent)
@@ -60,8 +58,10 @@ void DataModel::read(const QJsonObject &source)
 void DataModel::writeProtoBuf(std::ostream &outStream) const
 {
 	ESGRAF48::DataModel dataModel;
-	//m_metaData.writeProtoBuf(dataModel.mutable_metadata);
+
+	m_metaData.writeProtoBuf(*dataModel.mutable_metadata());
 	m_v2Svk.writeProtoBuf(*dataModel.mutable_v2svk());
+
 	dataModel.SerializeToOstream(&outStream);
 }
 
@@ -70,6 +70,7 @@ void DataModel::readProtoBuf(std::istream &inStream)
 	ESGRAF48::DataModel dataModel;
 	dataModel.ParseFromIstream(&inStream);
 
+	m_metaData.readProtoBuf(dataModel.metadata());
 	m_v2Svk.readProtoBuf(dataModel.v2svk());
 }
 
