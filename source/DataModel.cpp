@@ -35,6 +35,7 @@ void DataModel::writeProtoBuf(std::ostream &outStream) const
 
 	m_metaData.writeProtoBuf(*dataModel.mutable_metadata());
 	m_v2Svk.writeProtoBuf(*dataModel.mutable_v2svk());
+	m_verbEnd.writeProtoBuf(*dataModel.mutable_verbend());
 
 	dataModel.SerializeToOstream(&outStream);
 }
@@ -46,6 +47,7 @@ void DataModel::readProtoBuf(std::istream &inStream)
 
 	m_metaData.readProtoBuf(dataModel.metadata());
 	m_v2Svk.readProtoBuf(dataModel.v2svk());
+	m_verbEnd.readProtoBuf(dataModel.verbend());
 }
 
 std::string DataModel::toHtml() const

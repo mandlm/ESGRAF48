@@ -21,6 +21,7 @@ set(DataModel_PROTO_FILES
 	../proto/DataModel.proto
 	../proto/MetaDataModel.proto
 	../proto/V2SvkModel.proto
+	../proto/VerbEndModel.proto
 )
 
 protobuf_generate_cpp(DataModel_PROTO_SRCS DataModel_PROTO_HDRS
