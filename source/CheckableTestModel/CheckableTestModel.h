@@ -30,9 +30,10 @@ public:
 
 	unsigned int getPoints() const;
 
-private:
-	bool isValidIndex(const QModelIndex &index) const;
+protected:
+	virtual bool isValidIndex(const QModelIndex &index) const;
 
+private:
 	CheckableItems &getItems(const QModelIndex &index);
 	const CheckableItems &getItems(const QModelIndex &index) const;
 

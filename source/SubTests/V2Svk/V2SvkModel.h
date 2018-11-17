@@ -15,4 +15,7 @@ public:
 
 	void writeProtoBuf(ESGRAF48::V2SvkModel &model) const;
 	void readProtoBuf(const ESGRAF48::V2SvkModel &model);
+
+protected:
+	bool isValidIndex(const QModelIndex &index) const override;
 };

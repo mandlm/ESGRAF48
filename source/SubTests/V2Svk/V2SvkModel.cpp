@@ -69,6 +69,24 @@ unsigned int V2SvkModel::getSvkPoints()
 	return points;
 }
 
+bool V2SvkModel::isValidIndex(const QModelIndex &index) const
+{
+	switch (index.row())
+	{
+		case 1:
+			return index.column() == 1 || index.column() == 7 || index.column() == 10;
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 10:
+			return index.column() < 6;
+		default:
+			return CheckableTestModel::isValidIndex(index);
+	}
+}
+
 void V2SvkModel::writeProtoBuf(ESGRAF48::V2SvkModel &model) const
 {
 	auto writeOneVal = [&](ESGRAF48::V2SvkModel::OneEach *modelData, int testIndex) {
