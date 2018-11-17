@@ -74,25 +74,8 @@ void MainWindow::openFile()
 
 	closeFile();
 
-	if (true)
-	{
-		std::fstream protoInFile(filename.toStdString(), std::ios::in | std::ios::binary);
-		m_dataModel->readProtoBuf(protoInFile);
-	}
-	else
-	{
-		QFile loadFile(filename);
-		if (!loadFile.open(QFile::ReadOnly))
-		{
-			qWarning("Could not open file");
-			return;
-		}
-
-		QByteArray byteData = loadFile.readAll();
-		QJsonDocument loadDoc = QJsonDocument::fromJson(byteData);
-
-		m_dataModel->read(loadDoc.object());
-	}
+	std::fstream protoInFile(filename.toStdString(), std::ios::in | std::ios::binary);
+	m_dataModel->readProtoBuf(protoInFile);
 
 	setWindowModified(false);
 	setWindowTitle(filename + "[*]");
@@ -175,24 +158,10 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::saveFile(const QString &filename)
 {
-	if (true)
-	{
-		std::fstream protoOutFile(filename.toStdString(),
-		                          std::ios::out | std::ios::trunc | std::ios::binary);
-		m_dataModel->writeProtoBuf(protoOutFile);
-	}
-	else
-	{
-		QJsonObject saveData;
-		m_dataModel->write(saveData);
+	std::fstream protoOutFile(filename.toStdString(),
+	                          std::ios::out | std::ios::trunc | std::ios::binary);
+	m_dataModel->writeProtoBuf(protoOutFile);
 
-		QJsonDocument saveDoc(saveData);
-
-		QFile saveFile(filename);
-		saveFile.open(QFile::WriteOnly);
-		saveFile.write(saveDoc.toJson());
-		saveFile.close();
-	}
 	qDebug() << "Wrote" << filename;
 
 	setWindowTitle(filename + "[*]");

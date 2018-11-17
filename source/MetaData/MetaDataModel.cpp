@@ -112,24 +112,6 @@ bool MetaDataModel::setData(const QModelIndex &modelIndex, const QVariant &value
 	return valueChanged;
 }
 
-void MetaDataModel::write(QJsonObject &json) const
-{
-	json["participant name"] = m_participant;
-	json["instructor name"] = m_instructor;
-	json["date of birth"] = m_dateOfBirth.toString(Qt::ISODate);
-	json["date of test"] = m_dateOfTest.toString(Qt::ISODate);
-	json["remarks"] = m_remarks;
-}
-
-void MetaDataModel::read(const QJsonObject &json)
-{
-	setData(index(0, 0), json["participant name"].toVariant(), Qt::EditRole);
-	setData(index(0, 1), json["instructor name"].toVariant(), Qt::EditRole);
-	setData(index(0, 2), json["date of birth"].toVariant(), Qt::EditRole);
-	setData(index(0, 3), json["date of test"].toVariant(), Qt::EditRole);
-	setData(index(0, 4), json["remarks"].toVariant(), Qt::EditRole);
-}
-
 void MetaDataModel::readProtoBuf(const ESGRAF48::MetaDataModel &model)
 {
 	setData(index(0, 0), QString::fromStdString(model.participantname()));

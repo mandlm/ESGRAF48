@@ -29,32 +29,6 @@ DataModel::DataModel(QObject *parent)
 	connect(&m_genitiv, &GenitivModel::dataChanged, this, &DataModel::genitivModelChanged);
 }
 
-void DataModel::write(QJsonObject &target) const
-{
-	write(m_metaData, target, "MetaData");
-	write(m_verbEnd, target, "VerbEnd");
-	write(m_genus, target, "Genus");
-	write(m_plural, target, "Plural");
-	write(m_akkusativ, target, "Akkusativ");
-	write(m_dativ, target, "Dativ");
-	write(m_v2Svk, target, "V2Svk");
-	write(m_passiv, target, "Passiv");
-	write(m_genitiv, target, "Genitiv");
-}
-
-void DataModel::read(const QJsonObject &source)
-{
-	read(m_metaData, source, "MetaData");
-	read(m_verbEnd, source, "VerbEnd");
-	read(m_genus, source, "Genus");
-	read(m_plural, source, "Plural");
-	read(m_akkusativ, source, "Akkusativ");
-	read(m_dativ, source, "Dativ");
-	read(m_v2Svk, source, "V2Svk");
-	read(m_passiv, source, "Passiv");
-	read(m_genitiv, source, "Genitiv");
-}
-
 void DataModel::writeProtoBuf(std::ostream &outStream) const
 {
 	ESGRAF48::DataModel dataModel;

@@ -30,9 +30,6 @@ public:
 	bool setData(const QModelIndex &index, const QVariant &value,
 		int role = Qt::EditRole) override;
 
-	void write(QJsonObject &json) const;
-	void read(const QJsonObject &json);
-
 	void readProtoBuf(const ESGRAF48::MetaDataModel &model);
 	void writeProtoBuf(ESGRAF48::MetaDataModel &model) const;
 
