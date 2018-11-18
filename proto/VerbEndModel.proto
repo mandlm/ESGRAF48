@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+message VerbEndModel
+{
+	message TelefonatModel
+	{
+		bool Kausal1 = 1;
+		bool Kausal2 = 2;
+		bool Relativ = 3;
+		bool Kausal3 = 4;
+		bool Final = 5;
+		bool Temporal1 = 6;
+		bool Temporal2 = 7;
+	}
+
+	message ZaubertrickModel
+	{
+		bool Relativ = 1;
+		bool Final1 = 2;
+		bool Kausal1 = 3;
+		bool Final2 = 4;
+		bool Temporal1 = 5;
+		bool Kausal2 = 6;
+		bool Temporal2 = 7;
+	}
+
+	message ZauberregelModel
+	{
+		bool Temporal1 = 1;
+		bool Kausal = 2;
+		bool Final = 3;
+		bool Relativ1 = 4;
+		bool Temporal2 = 5;
+		bool Relativ2 = 6;
+	}
+
+	TelefonatModel Telefonat = 1;
+	ZaubertrickModel Zaubertrick = 2;
+	ZauberregelModel Zauberregel = 3;
+}

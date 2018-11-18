@@ -1,64 +1,86 @@
 #include "DataModel.h"
+#include "DataModel.pb.h"
 
-#include <QDebug>
+#include <sstream>
 
 DataModel::DataModel(QObject *parent)
-	: QObject(parent)
-	, m_metaData(this)
-	, m_verbEnd(this)
-	, m_genus(this)
-	, m_plural(this)
-	, m_results(this)
-	, m_akkusativ(this)
-	, m_dativ(this)
-	, m_v2Svk(this)
+    : QObject(parent)
+    , m_metaData(this)
+    , m_verbEnd(this)
+    , m_genus(this)
+    , m_plural(this)
+    , m_results(this)
+    , m_akkusativ(this)
+    , m_dativ(this)
+    , m_v2Svk(this)
     , m_passiv(this)
     , m_genitiv(this)
 {
-	connect(&m_plural, &PluralModel::dataChanged, this,
-		&DataModel::pluralModelChanged);
-	connect(&m_metaData, &MetaDataModel::dataChanged, this,
-		&DataModel::metaDataChanged);
-	connect(&m_genus, &GenusModel::dataChanged, this,
-		&DataModel::genusModelChanged);
-	connect(&m_verbEnd, &VerbEndModel::dataChanged, this,
-		&DataModel::verbEndModelChanged);
-	connect(&m_akkusativ, &AkkusativModel::dataChanged, this,
-		&DataModel::akkusativModelChanged);
-	connect(&m_dativ, &DativModel::dataChanged, this,
-		&DataModel::dativModelChanged);
-	connect(&m_v2Svk, &V2SvkModel::dataChanged, this,
-		&DataModel::v2SvkModelChanged);
-    connect(&m_passiv, &PassivModel::dataChanged, this,
-        &DataModel::passivModelChanged);
-    connect(&m_genitiv, &GenitivModel::dataChanged, this,
-        &DataModel::genitivModelChanged);
+	connect(&m_plural, &PluralModel::dataChanged, this, &DataModel::pluralModelChanged);
+	connect(&m_metaData, &MetaDataModel::dataChanged, this, &DataModel::metaDataChanged);
+	connect(&m_genus, &GenusModel::dataChanged, this, &DataModel::genusModelChanged);
+	connect(&m_verbEnd, &VerbEndModel::dataChanged, this, &DataModel::verbEndModelChanged);
+	connect(&m_akkusativ, &AkkusativModel::dataChanged, this, &DataModel::akkusativModelChanged);
+	connect(&m_dativ, &DativModel::dataChanged, this, &DataModel::dativModelChanged);
+	connect(&m_v2Svk, &V2SvkModel::dataChanged, this, &DataModel::v2SvkModelChanged);
+	connect(&m_passiv, &PassivModel::dataChanged, this, &DataModel::passivModelChanged);
+	connect(&m_genitiv, &GenitivModel::dataChanged, this, &DataModel::genitivModelChanged);
 }
 
-void DataModel::write(QJsonObject &target) const
+void DataModel::writeProtoBuf(std::ostream &outStream) const
 {
-	write(m_metaData, target, "MetaData");
-	write(m_verbEnd, target, "VerbEnd");
-	write(m_genus, target, "Genus");
-	write(m_plural, target, "Plural");
-	write(m_akkusativ, target, "Akkusativ");
-	write(m_dativ, target, "Dativ");
-	write(m_v2Svk, target, "V2Svk");
-    write(m_passiv, target, "Passiv");
-    write(m_genitiv, target, "Genitiv");
+	ESGRAF48::DataModel dataModel;
+
+	m_metaData.writeProtoBuf(*dataModel.mutable_metadata());
+	m_v2Svk.writeProtoBuf(*dataModel.mutable_v2svk());
+	m_verbEnd.writeProtoBuf(*dataModel.mutable_verbend());
+	m_genus.writeProtoBuf(*dataModel.mutable_genus());
+	m_akkusativ.write(*dataModel.mutable_akkusativ());
+	m_dativ.write(*dataModel.mutable_dativ());
+	m_plural.write(*dataModel.mutable_plural());
+	m_genitiv.write(*dataModel.mutable_lateskillsgenitiv());
+	m_passiv.write(*dataModel.mutable_lateskillspassiv());
+
+	dataModel.SerializeToOstream(&outStream);
 }
 
-void DataModel::read(const QJsonObject &source)
+void DataModel::readProtoBuf(std::istream &inStream)
 {
-	read(m_metaData, source, "MetaData");
-	read(m_verbEnd, source, "VerbEnd");
-	read(m_genus, source, "Genus");
-	read(m_plural, source, "Plural");
-	read(m_akkusativ, source, "Akkusativ");
-	read(m_dativ, source, "Dativ");
-	read(m_v2Svk, source, "V2Svk");
-    read(m_passiv, source, "Passiv");
-    read(m_genitiv, source, "Genitiv");
+	ESGRAF48::DataModel dataModel;
+	dataModel.ParseFromIstream(&inStream);
+
+	m_metaData.readProtoBuf(dataModel.metadata());
+	m_v2Svk.readProtoBuf(dataModel.v2svk());
+	m_verbEnd.readProtoBuf(dataModel.verbend());
+	m_genus.readProtoBuf(dataModel.genus());
+	m_akkusativ.read(dataModel.akkusativ());
+	m_dativ.read(dataModel.dativ());
+	m_plural.read(dataModel.plural());
+	m_genitiv.read(dataModel.lateskillsgenitiv());
+	m_passiv.read(dataModel.lateskillspassiv());
+}
+
+std::string DataModel::toHtml() const
+{
+	std::stringstream out;
+
+	out << "<html>" << std::endl;
+	out << "<head>" << std::endl;
+	out << "<style>" << std::endl;
+	out << "body {" << std::endl;
+	out << "font-family:sans-serif;" << std::endl;
+	out << "}" << std::endl;
+	out << "</style>" << std::endl;
+	out << "</head>" << std::endl;
+	out << "<body>" << std::endl;
+	out << "<h2>ESGRAF 4-8 Auswertungsbogen</h2>" << std::endl;
+	out << "<p>" << std::endl;
+	out << m_metaData.toHtml();
+	out << "</p>" << std::endl;
+	out << "</body>" << std::endl;
+	out << "</html>" << std::endl;
+
+	return out.str();
 }
 
 void DataModel::pluralModelChanged()
@@ -113,14 +135,14 @@ void DataModel::v2SvkModelChanged()
 
 void DataModel::passivModelChanged()
 {
-    m_results.setPassivResult(m_passiv.getPoints());
+	m_results.setPassivResult(m_passiv.getPoints());
 
 	emit modelChanged();
 }
 
 void DataModel::genitivModelChanged()
 {
-    m_results.setGenitivResult(m_genitiv.getPoints());
+	m_results.setGenitivResult(m_genitiv.getPoints());
 
 	emit modelChanged();
 }

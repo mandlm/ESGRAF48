@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+message PluralModel
+{
+	bool Fisch = 1;
+	bool Banane = 2;
+	bool Bonbon = 3;
+	bool Ei = 4;
+	bool Eimer = 5;
+	bool Korn = 6;
+	bool Nuss = 7;
+	bool Baer = 8;
+	bool Apfel = 9;
+}

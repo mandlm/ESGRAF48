@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+message GenusModel
+{
+	message TiereModel
+	{
+		bool Tiger = 1;
+		bool Baer = 2;
+		bool Katze = 3;
+		bool Pferd = 4;
+		bool Gans = 5;
+		bool Elefant = 6;
+		bool Affe = 7;
+		bool Hund = 8;
+	}
+
+	message FutterModel
+	{
+		bool Salat = 1;
+		bool Fleisch = 2;
+		bool Knochen = 3;
+		bool Banane = 4;
+		bool Apfel = 5;
+		bool Karotte = 6;
+		bool Honig = 7;
+		bool Zucker = 8;
+	}
+
+	message ZirkusModel
+	{ 
+		bool Kiste = 1;
+		bool Holz = 2;
+		bool Vorhang = 3;
+		bool Baum = 4;
+	}
+
+	TiereModel Tiere = 1;
+	FutterModel Futter = 2;
+	ZirkusModel Zirkus = 3;
+}

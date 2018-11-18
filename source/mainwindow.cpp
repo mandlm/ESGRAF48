@@ -16,6 +16,8 @@
 
 #include <QDebug>
 
+#include <fstream>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -72,17 +74,8 @@ void MainWindow::openFile()
 
 	closeFile();
 
-	QFile loadFile(filename);
-	if (!loadFile.open(QFile::ReadOnly))
-	{
-		qWarning("Could not open file");
-		return;
-	}
-
-	QByteArray byteData = loadFile.readAll();
-	QJsonDocument loadDoc = QJsonDocument::fromJson(byteData);
-
-	m_dataModel->read(loadDoc.object());
+	std::fstream protoInFile(filename.toStdString(), std::ios::in | std::ios::binary);
+	m_dataModel->readProtoBuf(protoInFile);
 
 	setWindowModified(false);
 	setWindowTitle(filename + "[*]");
@@ -135,6 +128,9 @@ void MainWindow::closeFile()
 
 void MainWindow::print() const
 {
+	//std::ofstream htmlfile("print.html");
+	//htmlfile << m_dataModel->toHtml();
+
 	QPrinter printer;
 
 	QPrintDialog dialog(&printer);
@@ -144,12 +140,7 @@ void MainWindow::print() const
 	}
 
 	QTextDocument printDoc;
-	printDoc.setHtml(
-	    "<html>"
-	    "<body>"
-	    "<h2>Hello World</h2>"
-	    "</body>"
-	    "</hthml>");
+	printDoc.setHtml(QString::fromStdString(m_dataModel->toHtml()));
 
 	printDoc.print(&printer);
 }
@@ -167,15 +158,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::saveFile(const QString &filename)
 {
-	QJsonObject saveData;
-	m_dataModel->write(saveData);
-
-	QJsonDocument saveDoc(saveData);
-
-	QFile saveFile(filename);
-	saveFile.open(QFile::WriteOnly);
-	saveFile.write(saveDoc.toJson());
-	saveFile.close();
+	std::fstream protoOutFile(filename.toStdString(),
+	                          std::ios::out | std::ios::trunc | std::ios::binary);
+	m_dataModel->writeProtoBuf(protoOutFile);
 
 	qDebug() << "Wrote" << filename;
 

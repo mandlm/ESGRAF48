@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+import "MetaDataModel.proto";
+import "V2SvkModel.proto";
+import "VerbEndModel.proto";
+import "GenusModel.proto";
+import "AkkusativModel.proto";
+import "DativModel.proto";
+import "PluralModel.proto";
+import "LateSkillsGenitivModel.proto";
+import "LateSkillsPassivModel.proto";
+
+message DataModel
+{
+	MetaDataModel MetaData = 1;
+	V2SvkModel V2Svk = 2;
+	VerbEndModel VerbEnd = 3;
+	GenusModel Genus = 4;
+	AkkusativModel Akkusativ = 5;
+	DativModel Dativ = 6;
+	PluralModel Plural = 7;
+	LateSkillsGenitivModel LateSkillsGenitiv = 8;
+	LateSkillsPassivModel LateSkillsPassiv = 9;
+}

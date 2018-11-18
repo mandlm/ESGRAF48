@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+message V2SvkModel
+{
+	message OneEach
+	{
+		bool Affe = 1;
+		bool Schwein = 2;
+		bool Gans = 3;
+	}
+
+	message TwoEach
+	{
+		bool Affe1 = 1;
+		bool Affe2 = 2;
+		bool Schwein1 = 3;
+		bool Schwein2 = 4;
+		bool Gans1 = 5;
+		bool Gans2 = 6;
+	}
+
+	message FourEach
+	{
+		bool Affe1 = 1;
+		bool Affe2 = 2;
+		bool Affe3 = 3;
+		bool Affe4 = 4;
+		bool Schwein1 = 5;
+		bool Schwein2 = 6;
+		bool Schwein3 = 7;
+		bool Schwein4 = 8;
+		bool Gans1 = 9;
+		bool Gans2 = 10;
+		bool Gans3 = 11;
+		bool Gans4 = 12;
+	}
+
+	FourEach WFrage = 1;
+	OneEach Verbtrennung1 = 2;
+	FourEach SvkSt = 3;
+	FourEach ObjTop = 4;
+	FourEach SvkStamm = 5;
+	TwoEach TempPraes = 6;
+	TwoEach SvkE1 = 7;
+	TwoEach TempPerf = 8;
+	TwoEach Verbtrennung2 = 9;
+	TwoEach SvkE2 = 10;
+	TwoEach Partizip = 11;
+}

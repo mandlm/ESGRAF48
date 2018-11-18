@@ -34,8 +34,10 @@ public:
 public:
 	DataModel(QObject *parent);
 
-	void write(QJsonObject &target) const;
-	void read(const QJsonObject &source);
+	std::string toHtml() const;
+
+	void writeProtoBuf(std::ostream &outStream) const;
+	void readProtoBuf(std::istream &inStream);
 
 signals:
 	void modelChanged();
