@@ -8,6 +8,7 @@ import "VerbEndModel.proto";
 import "GenusModel.proto";
 import "AkkusativModel.proto";
 import "DativModel.proto";
+import "PluralModel.proto";
 
 message DataModel
 {
@@ -17,4 +18,5 @@ message DataModel
 	GenusModel Genus = 4;
 	AkkusativModel Akkusativ = 5;
 	DativModel Dativ = 6;
+	PluralModel Plural = 7;
 }

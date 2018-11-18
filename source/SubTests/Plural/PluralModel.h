@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CheckableTestModel.h"
+#include "PluralModel.pb.h"
 
 class PluralModel : public CheckableTestModel
 {
@@ -11,4 +12,7 @@ public:
 
     QVariant data(
         const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
+	void read(const ESGRAF48::PluralModel &model);
+	void write(ESGRAF48::PluralModel &model) const;
 };
