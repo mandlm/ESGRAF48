@@ -4,6 +4,7 @@ project(ESGRAF48 LANGUAGES CXX)
 
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5PrintSupport REQUIRED)
+find_package(Protobuf REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -16,6 +17,22 @@ qt5_add_resources(LOGO_TEST_QRC
 	mainwindow.qrc
 )
 
+set(DataModel_PROTO_FILES
+	../proto/DataModel.proto
+	../proto/MetaDataModel.proto
+	../proto/V2SvkModel.proto
+	../proto/VerbEndModel.proto
+	../proto/GenusModel.proto
+	../proto/AkkusativModel.proto
+	../proto/DativModel.proto
+	../proto/PluralModel.proto
+	../proto/LateSkillsPassivModel.proto
+	../proto/LateSkillsGenitivModel.proto
+)
+
+protobuf_generate_cpp(DataModel_PROTO_SRCS DataModel_PROTO_HDRS
+	${DataModel_PROTO_FILES})
+
 add_executable(${PROJECT_NAME} WIN32
 	LogoTest.cpp
 	DataModel.cpp
@@ -23,6 +40,8 @@ add_executable(${PROJECT_NAME} WIN32
 	Age.cpp
 	${LOGO_TEST_UI}
 	${LOGO_TEST_QRC}
+	${DataModel_PROTO_SRCS}
+	${DataModel_PROTO_HDRS}
 )
 
 set_target_properties(${PROJECT_NAME}
@@ -33,6 +52,7 @@ target_include_directories(${PROJECT_NAME}
 	PRIVATE
 		${CMAKE_CURRENT_LIST_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}
+		${Protobuf_INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -50,6 +70,7 @@ target_link_libraries(${PROJECT_NAME}
 		ResultWidget
 		Qt5::Widgets
 		Qt5::PrintSupport
+		${Protobuf_LIBRARIES}
 )
 
 add_subdirectory(CheckableItem)
