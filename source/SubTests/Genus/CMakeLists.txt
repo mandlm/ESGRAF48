@@ -11,7 +11,6 @@ qt5_wrap_ui(GENUS_UI
 	GenusWidget.ui
 )
 
-
 set(Genus_PROTO_FILES
 	../../../proto/GenusModel.proto
 )

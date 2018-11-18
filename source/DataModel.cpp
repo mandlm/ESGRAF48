@@ -35,6 +35,8 @@ void DataModel::writeProtoBuf(std::ostream &outStream) const
 	m_v2Svk.writeProtoBuf(*dataModel.mutable_v2svk());
 	m_verbEnd.writeProtoBuf(*dataModel.mutable_verbend());
 	m_genus.writeProtoBuf(*dataModel.mutable_genus());
+	m_akkusativ.write(*dataModel.mutable_akkusativ());
+	m_dativ.write(*dataModel.mutable_dativ());
 
 	dataModel.SerializeToOstream(&outStream);
 }
@@ -48,6 +50,8 @@ void DataModel::readProtoBuf(std::istream &inStream)
 	m_v2Svk.readProtoBuf(dataModel.v2svk());
 	m_verbEnd.readProtoBuf(dataModel.verbend());
 	m_genus.readProtoBuf(dataModel.genus());
+	m_akkusativ.read(dataModel.akkusativ());
+	m_dativ.read(dataModel.dativ());
 }
 
 std::string DataModel::toHtml() const

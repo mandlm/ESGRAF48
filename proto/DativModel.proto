@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+message DativModel
+{
+	message TiereModel
+	{
+		bool Tiger = 1;
+		bool Katze = 2;
+		bool Affe = 3;
+		bool Gans = 4;
+		bool Baer = 5;
+		bool Pferd = 6;
+		bool Hund = 7;
+		bool Elefant = 8;
+	}
+
+	message VersteckeModel
+	{
+		bool Vorhang1 = 1;
+		bool Kiste1 = 2;
+		bool Holz1 = 3;
+		bool Kiste2 = 4;
+		bool Baum1 = 5;
+		bool Vorhang2 = 6;
+		bool Holz2 = 7;
+		bool Baum2 = 8;
+	}
+
+	message FutterModel
+	{
+		bool Salat = 1;
+		bool Fleisch = 2;
+		bool Knochen = 3;
+		bool Banane = 4;
+		bool Apfel = 5;
+		bool Karotte = 6;
+		bool Honig = 7;
+		bool Zucker = 8;
+	}
+
+	TiereModel Tiere = 1;
+	VersteckeModel Verstecke = 2;
+	FutterModel Futter = 3;
+}

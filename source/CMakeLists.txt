@@ -23,6 +23,8 @@ set(DataModel_PROTO_FILES
 	../proto/V2SvkModel.proto
 	../proto/VerbEndModel.proto
 	../proto/GenusModel.proto
+	../proto/AkkusativModel.proto
+	../proto/DativModel.proto
 )
 
 protobuf_generate_cpp(DataModel_PROTO_SRCS DataModel_PROTO_HDRS
