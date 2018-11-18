@@ -48,6 +48,8 @@ void GenusModel::readProtoBuf(const ESGRAF48::GenusModel &model)
 		testItems[2].setState(zirkusModel.vorhang());
 		testItems[3].setState(zirkusModel.baum());
 	}
+
+	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
 void GenusModel::writeProtoBuf(ESGRAF48::GenusModel &model) const

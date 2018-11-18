@@ -54,6 +54,8 @@ void AkkusativModel::read(const ESGRAF48::AkkusativModel &model)
 		testItems[6].setState(futterModel.honig());
 		testItems[7].setState(futterModel.zucker());
 	}
+
+	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
 void AkkusativModel::write(ESGRAF48::AkkusativModel &model) const

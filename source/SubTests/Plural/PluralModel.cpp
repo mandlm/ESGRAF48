@@ -33,6 +33,8 @@ void PluralModel::read(const ESGRAF48::PluralModel &model)
 	testItems[6].setState(model.nuss());
 	testItems[7].setState(model.baer());
 	testItems[8].setState(model.apfel());
+
+	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
 void PluralModel::write(ESGRAF48::PluralModel &model) const

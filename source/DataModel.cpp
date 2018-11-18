@@ -38,6 +38,8 @@ void DataModel::writeProtoBuf(std::ostream &outStream) const
 	m_akkusativ.write(*dataModel.mutable_akkusativ());
 	m_dativ.write(*dataModel.mutable_dativ());
 	m_plural.write(*dataModel.mutable_plural());
+	m_genitiv.write(*dataModel.mutable_lateskillsgenitiv());
+	m_passiv.write(*dataModel.mutable_lateskillspassiv());
 
 	dataModel.SerializeToOstream(&outStream);
 }
@@ -54,6 +56,8 @@ void DataModel::readProtoBuf(std::istream &inStream)
 	m_akkusativ.read(dataModel.akkusativ());
 	m_dativ.read(dataModel.dativ());
 	m_plural.read(dataModel.plural());
+	m_genitiv.read(dataModel.lateskillsgenitiv());
+	m_passiv.read(dataModel.lateskillspassiv());
 }
 
 std::string DataModel::toHtml() const

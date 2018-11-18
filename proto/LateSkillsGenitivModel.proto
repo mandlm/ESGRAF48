@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+message LateSkillsGenitivModel
+{
+	message PraepositionenModel
+	{ 
+		bool anstelle1 = 1;
+		bool anstelle2 = 2;
+		bool ausserhalb1 = 3;
+		bool ausserhalb2 = 4;
+		bool mithilfe1 = 5;
+		bool mithilfe2 = 6; 
+	}
+
+	message AttributierungModel
+	{
+		bool Schuhe1 = 1;
+		bool Schuhe2 = 2;
+		bool Zauberstab1 = 3;
+		bool Zauberstab2 = 4;
+		bool Hut1 = 5;
+		bool Hut2 = 6;
+		bool Brille1 = 7;
+		bool Brille2 = 8;
+		bool Guertel1 = 9;
+		bool Guertel2 = 10; 
+	}
+
+	PraepositionenModel Praepositionen = 1;
+	AttributierungModel Attributierung = 2;
+}

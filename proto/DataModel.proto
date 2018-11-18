@@ -9,6 +9,8 @@ import "GenusModel.proto";
 import "AkkusativModel.proto";
 import "DativModel.proto";
 import "PluralModel.proto";
+import "LateSkillsGenitivModel.proto";
+import "LateSkillsPassivModel.proto";
 
 message DataModel
 {
@@ -19,4 +21,6 @@ message DataModel
 	AkkusativModel Akkusativ = 5;
 	DativModel Dativ = 6;
 	PluralModel Plural = 7;
+	LateSkillsGenitivModel LateSkillsGenitiv = 8;
+	LateSkillsPassivModel LateSkillsPassiv = 9;
 }

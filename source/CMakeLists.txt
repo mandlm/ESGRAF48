@@ -26,6 +26,8 @@ set(DataModel_PROTO_FILES
 	../proto/AkkusativModel.proto
 	../proto/DativModel.proto
 	../proto/PluralModel.proto
+	../proto/LateSkillsPassivModel.proto
+	../proto/LateSkillsGenitivModel.proto
 )
 
 protobuf_generate_cpp(DataModel_PROTO_SRCS DataModel_PROTO_HDRS

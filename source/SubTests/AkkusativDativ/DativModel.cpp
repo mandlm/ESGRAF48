@@ -54,6 +54,8 @@ void DativModel::read(const ESGRAF48::DativModel &model)
 		testItems[6].setState(futterModel.honig());
 		testItems[7].setState(futterModel.zucker());
 	}
+
+	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
 void DativModel::write(ESGRAF48::DativModel &model) const

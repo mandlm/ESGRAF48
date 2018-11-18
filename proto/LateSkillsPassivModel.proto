@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package ESGRAF48;
+
+message LateSkillsPassivModel
+{
+	bool Elefant1 = 1;
+	bool Elefant2 = 2;
+	bool Pferde1 = 3;
+	bool Pferde2 = 4;
+	bool Baelle1 = 5;
+	bool Baelle2 = 6;
+	bool Ball1 = 7;
+	bool Ball2 = 8;
+	bool Fleisch1 = 9;
+	bool Fleisch2 = 10;
+}
