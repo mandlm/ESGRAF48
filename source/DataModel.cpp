@@ -33,7 +33,7 @@ void DataModel::write(std::ostream &outStream) const
 
 	m_metaData.write(*dataModel.mutable_metadata());
 	m_v2Svk.write(*dataModel.mutable_v2svk());
-	u_verbEnd.write(*dataModel.mutable_verbend());
+	m_verbEnd.write(*dataModel.mutable_verbend());
 	m_genus.write(*dataModel.mutable_genus());
 	m_akkusativ.write(*dataModel.mutable_akkusativ());
 	m_dativ.write(*dataModel.mutable_dativ());
