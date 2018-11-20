@@ -30,8 +30,8 @@ public:
 	bool setData(const QModelIndex &index, const QVariant &value,
 		int role = Qt::EditRole) override;
 
-	void readProtoBuf(const ESGRAF48::MetaDataModel &model);
-	void writeProtoBuf(ESGRAF48::MetaDataModel &model) const;
+	void read(const ESGRAF48::MetaDataModel &model);
+	void write(ESGRAF48::MetaDataModel &model) const;
 
 	std::string toHtml() const;
 

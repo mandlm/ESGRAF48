@@ -10,6 +10,6 @@ class GenusModel : public CheckableTestModel
 public:
 	GenusModel(QObject *parent);
 
-	void readProtoBuf(const ESGRAF48::GenusModel &model);
-	void writeProtoBuf(ESGRAF48::GenusModel &model) const;
+	void read(const ESGRAF48::GenusModel &model);
+	void write(ESGRAF48::GenusModel &model) const;
 };

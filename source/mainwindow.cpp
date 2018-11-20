@@ -75,7 +75,7 @@ void MainWindow::openFile()
 	closeFile();
 
 	std::fstream protoInFile(filename.toStdString(), std::ios::in | std::ios::binary);
-	m_dataModel->readProtoBuf(protoInFile);
+	m_dataModel->read(protoInFile);
 
 	setWindowModified(false);
 	setWindowTitle(filename + "[*]");
@@ -160,7 +160,7 @@ void MainWindow::saveFile(const QString &filename)
 {
 	std::fstream protoOutFile(filename.toStdString(),
 	                          std::ios::out | std::ios::trunc | std::ios::binary);
-	m_dataModel->writeProtoBuf(protoOutFile);
+	m_dataModel->write(protoOutFile);
 
 	qDebug() << "Wrote" << filename;
 

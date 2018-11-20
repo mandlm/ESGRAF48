@@ -36,8 +36,8 @@ public:
 
 	std::string toHtml() const;
 
-	void writeProtoBuf(std::ostream &outStream) const;
-	void readProtoBuf(std::istream &inStream);
+	void write(std::ostream &outStream) const;
+	void read(std::istream &inStream);
 
 signals:
 	void modelChanged();

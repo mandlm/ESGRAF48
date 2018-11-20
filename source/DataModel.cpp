@@ -27,14 +27,14 @@ DataModel::DataModel(QObject *parent)
 	connect(&m_genitiv, &GenitivModel::dataChanged, this, &DataModel::genitivModelChanged);
 }
 
-void DataModel::writeProtoBuf(std::ostream &outStream) const
+void DataModel::write(std::ostream &outStream) const
 {
 	ESGRAF48::DataModel dataModel;
 
-	m_metaData.writeProtoBuf(*dataModel.mutable_metadata());
-	m_v2Svk.writeProtoBuf(*dataModel.mutable_v2svk());
-	m_verbEnd.writeProtoBuf(*dataModel.mutable_verbend());
-	m_genus.writeProtoBuf(*dataModel.mutable_genus());
+	m_metaData.write(*dataModel.mutable_metadata());
+	m_v2Svk.write(*dataModel.mutable_v2svk());
+	u_verbEnd.write(*dataModel.mutable_verbend());
+	m_genus.write(*dataModel.mutable_genus());
 	m_akkusativ.write(*dataModel.mutable_akkusativ());
 	m_dativ.write(*dataModel.mutable_dativ());
 	m_plural.write(*dataModel.mutable_plural());
@@ -44,15 +44,15 @@ void DataModel::writeProtoBuf(std::ostream &outStream) const
 	dataModel.SerializeToOstream(&outStream);
 }
 
-void DataModel::readProtoBuf(std::istream &inStream)
+void DataModel::read(std::istream &inStream)
 {
 	ESGRAF48::DataModel dataModel;
 	dataModel.ParseFromIstream(&inStream);
 
-	m_metaData.readProtoBuf(dataModel.metadata());
-	m_v2Svk.readProtoBuf(dataModel.v2svk());
-	m_verbEnd.readProtoBuf(dataModel.verbend());
-	m_genus.readProtoBuf(dataModel.genus());
+	m_metaData.read(dataModel.metadata());
+	m_v2Svk.read(dataModel.v2svk());
+	m_verbEnd.read(dataModel.verbend());
+	m_genus.read(dataModel.genus());
 	m_akkusativ.read(dataModel.akkusativ());
 	m_dativ.read(dataModel.dativ());
 	m_plural.read(dataModel.plural());

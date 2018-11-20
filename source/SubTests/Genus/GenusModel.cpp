@@ -9,7 +9,7 @@ GenusModel::GenusModel(QObject *parent)
 	           {"Zirkus", {"Kiste", "Holz", "Vorhang", "Baum"}}};
 }
 
-void GenusModel::readProtoBuf(const ESGRAF48::GenusModel &model)
+void GenusModel::read(const ESGRAF48::GenusModel &model)
 {
 	const auto &tiereModel = model.tiere();
 	{
@@ -52,7 +52,7 @@ void GenusModel::readProtoBuf(const ESGRAF48::GenusModel &model)
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
-void GenusModel::writeProtoBuf(ESGRAF48::GenusModel &model) const
+void GenusModel::write(ESGRAF48::GenusModel &model) const
 {
 	auto *tiereModel = model.mutable_tiere();
 	if (tiereModel != nullptr)

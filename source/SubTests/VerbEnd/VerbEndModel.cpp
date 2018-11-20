@@ -12,7 +12,7 @@ VerbEndModel::VerbEndModel(QObject *parent)
 							 "Temporal", "Relativ" } } };
 }
 
-void VerbEndModel::writeProtoBuf(ESGRAF48::VerbEndModel &model) const
+void VerbEndModel::write(ESGRAF48::VerbEndModel &model) const
 {
 	auto *telefonatModel = model.mutable_telefonat();
 	if (telefonatModel != nullptr)
@@ -56,7 +56,7 @@ void VerbEndModel::writeProtoBuf(ESGRAF48::VerbEndModel &model) const
 	}
 }
 
-void VerbEndModel::readProtoBuf(const ESGRAF48::VerbEndModel &model)
+void VerbEndModel::read(const ESGRAF48::VerbEndModel &model)
 {
 	const auto &telefonatModel = model.telefonat();
 	{
