@@ -5,4 +5,4 @@ protobuf/3.6.1@bincrafters/stable
 cmake
 
 [options]
-protobuf:shared=True
+protobuf:shared=False
