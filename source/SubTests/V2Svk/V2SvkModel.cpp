@@ -87,7 +87,7 @@ bool V2SvkModel::isValidIndex(const QModelIndex &index) const
 	}
 }
 
-void V2SvkModel::writeProtoBuf(ESGRAF48::V2SvkModel &model) const
+void V2SvkModel::write(ESGRAF48::V2SvkModel &model) const
 {
 	auto writeOneVal = [&](ESGRAF48::V2SvkModel::OneEach *modelData, int testIndex) {
 		if (modelData != nullptr)
@@ -147,7 +147,7 @@ void V2SvkModel::writeProtoBuf(ESGRAF48::V2SvkModel &model) const
 	writeTwoVals(model.mutable_partizip(), 10);
 }
 
-void V2SvkModel::readProtoBuf(const ESGRAF48::V2SvkModel &model)
+void V2SvkModel::read(const ESGRAF48::V2SvkModel &model)
 {
 	auto readOneVal = [&](const ESGRAF48::V2SvkModel::OneEach &modelData, int testIndex) {
 		auto &testItems = m_tests.at(testIndex).items();

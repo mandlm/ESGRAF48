@@ -112,7 +112,7 @@ bool MetaDataModel::setData(const QModelIndex &modelIndex, const QVariant &value
 	return valueChanged;
 }
 
-void MetaDataModel::readProtoBuf(const ESGRAF48::MetaDataModel &model)
+void MetaDataModel::read(const ESGRAF48::MetaDataModel &model)
 {
 	setData(index(0, 0), QString::fromStdString(model.participantname()));
 	setData(index(0, 1), QString::fromStdString(model.instructorname()));
@@ -121,7 +121,7 @@ void MetaDataModel::readProtoBuf(const ESGRAF48::MetaDataModel &model)
 	setData(index(0, 4), QString::fromStdString(model.remarks()));
 }
 
-void MetaDataModel::writeProtoBuf(ESGRAF48::MetaDataModel &model) const
+void MetaDataModel::write(ESGRAF48::MetaDataModel &model) const
 {
 	model.set_participantname(m_participant.toStdString());
 	model.set_instructorname(m_instructor.toStdString());
