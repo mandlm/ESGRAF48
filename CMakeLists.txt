@@ -5,4 +5,5 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+add_subdirectory(inja)
 add_subdirectory(source)
