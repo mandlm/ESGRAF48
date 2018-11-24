@@ -14,4 +14,16 @@ TEST_CASE("default initialization")
 	REQUIRE(!(age < age2));
 }
 
+TEST_CASE("year/month initialization")
+{
+	for (unsigned int year = 0; year <= 100; ++year)
+	{
+		for (unsigned int month = 1; month <= 12; ++month)
+		{
+			Age age(year, month);
 
+			REQUIRE(age.years() == year);
+			REQUIRE(age.months() == month);
+		}
+	}
+}
