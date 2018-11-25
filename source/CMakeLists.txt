@@ -37,7 +37,6 @@ add_executable(${PROJECT_NAME} WIN32
 	LogoTest.cpp
 	DataModel.cpp
 	mainwindow.cpp
-	Age.cpp
 	${LOGO_TEST_UI}
 	${LOGO_TEST_QRC}
 	${DataModel_PROTO_SRCS}
@@ -57,6 +56,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
+		Age
 		CheckableItem
 		CheckableTest
 		CheckableTestModel
@@ -73,6 +73,7 @@ target_link_libraries(${PROJECT_NAME}
 		${Protobuf_LIBRARIES}
 )
 
+add_subdirectory(Age)
 add_subdirectory(CheckableItem)
 add_subdirectory(CheckableTest)
 add_subdirectory(CheckableTestModel)
