@@ -4,8 +4,8 @@
 #include <sstream>
 
 Age::Age(unsigned int years, unsigned int months)
-	: m_years(years)
-	, m_months(months)
+    : m_years(years)
+    , m_months(months)
 {
 }
 
@@ -37,7 +37,7 @@ Age::Age(const QDate &birth, const QDate &reference)
 	m_years = years;
 	m_months = months;
 }
-	
+
 bool Age::operator<(const Age &cmp) const
 {
 	if (m_years == cmp.m_years)
@@ -47,7 +47,7 @@ bool Age::operator<(const Age &cmp) const
 
 	return m_years < cmp.m_years;
 }
-	
+
 unsigned int Age::years() const
 {
 	return m_years;
@@ -57,7 +57,7 @@ unsigned int Age::months() const
 {
 	return m_months;
 }
- 
+
 std::string Age::toString() const
 {
 	std::ostringstream result;

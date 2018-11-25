@@ -18,7 +18,7 @@ TEST_CASE("year/month initialization")
 {
 	for (unsigned int year = 0; year <= 100; ++year)
 	{
-		for (unsigned int month = 1; month <= 12; ++month)
+		for (unsigned int month = 0; month < 12; ++month)
 		{
 			Age age(year, month);
 
@@ -26,4 +26,15 @@ TEST_CASE("year/month initialization")
 			REQUIRE(age.months() == month);
 		}
 	}
+}
+
+TEST_CASE("age by reference")
+{
+	QDate birth(1970, 1, 1);
+	QDate reference(1980, 1, 1);
+
+	Age age(birth, reference);
+
+	REQUIRE(age.years() == 10);
+	REQUIRE(age.months() == 0);
 }
