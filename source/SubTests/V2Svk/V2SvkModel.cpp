@@ -199,3 +199,15 @@ void V2SvkModel::read(const ESGRAF48::V2SvkModel &model)
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
+
+void V2SvkModel::printTo(QTextCursor &cursor) const
+{
+	cursor.insertBlock();
+
+	QTextCharFormat headerFormat;
+	headerFormat.setFontPointSize(12);
+	cursor.insertText("Subtest 1: Verbzweitstellungsregel (V2) und Subjekt-Verb-Kontrollregel (SVK)", headerFormat);
+
+	cursor.movePosition(QTextCursor::NextBlock);
+}
+

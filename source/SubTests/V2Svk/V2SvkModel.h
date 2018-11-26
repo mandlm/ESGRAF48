@@ -3,6 +3,8 @@
 #include "CheckableTestModel.h"
 #include "V2SvkModel.pb.h"
 
+#include <QTextCursor>
+
 class V2SvkModel : public CheckableTestModel
 {
 	Q_OBJECT
@@ -15,6 +17,8 @@ public:
 
 	void write(ESGRAF48::V2SvkModel &model) const;
 	void read(const ESGRAF48::V2SvkModel &model);
+
+	void printTo(QTextCursor &cursor) const;
 
 protected:
 	bool isValidIndex(const QModelIndex &index) const override;

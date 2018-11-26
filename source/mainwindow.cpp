@@ -144,7 +144,8 @@ void MainWindow::print() const
 	}
 
 	QTextDocument printDoc;
-	printDoc.setHtml(QString::fromStdString(m_dataModel->toHtml()));
+	QTextCursor printCursor(&printDoc);
+	m_dataModel->printTo(printCursor);
 
 	printDoc.print(&printer);
 }

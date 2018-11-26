@@ -60,6 +60,16 @@ void DataModel::read(std::istream &inStream)
 	m_passiv.read(dataModel.lateskillspassiv());
 }
 
+void DataModel::printTo(QTextCursor &cursor) const
+{
+	QTextCharFormat titleFormat;
+	titleFormat.setFontPointSize(18);
+	cursor.insertText("ESGRAF 4-8 Auswertungsbogen", titleFormat);
+
+	m_metaData.printTo(cursor);
+	m_v2Svk.printTo(cursor);
+}
+
 std::string DataModel::toHtml() const
 {
 	std::stringstream out;

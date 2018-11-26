@@ -8,6 +8,7 @@
 #include <QString>
 #include <QDate>
 #include <QJsonObject>
+#include <QTextCursor>
 
 class MetaDataModel : public QAbstractTableModel
 {
@@ -33,6 +34,7 @@ public:
 	void read(const ESGRAF48::MetaDataModel &model);
 	void write(ESGRAF48::MetaDataModel &model) const;
 
+	void printTo(QTextCursor &cursor) const;
 	std::string toHtml() const;
 
 	Age getAge() const

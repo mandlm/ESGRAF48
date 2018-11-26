@@ -1,5 +1,6 @@
 #include "MetaDataModel.h"
 
+#include <QTextTable>
 #include <QDebug>
 
 #include <sstream>
@@ -130,33 +131,68 @@ void MetaDataModel::write(ESGRAF48::MetaDataModel &model) const
 	model.set_remarks(m_remarks.toStdString());
 }
 
+void MetaDataModel::printTo(QTextCursor &cursor) const
+{
+	cursor.insertBlock();
+
+	QTextTableFormat tableFormat;
+	tableFormat.setCellPadding(2);
+	tableFormat.setCellSpacing(0);
+
+	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 25),
+	                                       QTextLength(QTextLength::PercentageLength, 25),
+	                                       QTextLength(QTextLength::PercentageLength, 25),
+	                                       QTextLength(QTextLength::PercentageLength, 25)});
+
+	QTextTable *table = cursor.insertTable(4, 4, tableFormat);
+	table->mergeCells(1, 2, 1, 2);
+	table->mergeCells(2, 2, 2, 2);
+
+	cursor.insertText("Name, Vorname");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(m_participant);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Untersucher(in)");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(m_instructor);
+	cursor.movePosition(QTextCursor::NextRow);
+
+	cursor.insertText("Geburtsdatum");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(m_dateOfBirth.toString("dd.MM.yyyy"));
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Bemerkungen:");
+	cursor.movePosition(QTextCursor::NextRow);
+	
+	cursor.insertText("Untersuchungsdatum");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(m_dateOfTest.toString("dd.MM.yyyy"));
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(m_remarks.trimmed());
+	cursor.movePosition(QTextCursor::NextRow);
+
+	cursor.insertText("Alter am Testtag");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(getAge().toString().c_str());
+
+	cursor.movePosition(QTextCursor::NextBlock);
+}
+
 std::string MetaDataModel::toHtml() const
 {
 	std::ostringstream out;
 
-	out << "<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" frame=\"box\" rules=\"all\">"
-	    << std::endl;
+	out << "<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" frame=\"box\" rules=\"all\">" << std::endl;
 	out << "<tr>" << std::endl;
-	out << "<td width=\"25%\">Name, Vorname</td>" << std::endl;
-	out << "<td width=\"25%\">" << m_participant.toHtmlEscaped().toStdString() << "</td>"
-	    << std::endl;
-	out << "<td width=\"25%\">Untersucher(in)</td>" << std::endl;
-	out << "<td width=\"25%\">" << m_instructor.toHtmlEscaped().toStdString() << "</td>"
-	    << std::endl;
+		out << "<td colspan=\"2\">Bemerkungen</td>" << std::endl;
 	out << "</tr>" << std::endl;
 	out << "<tr>" << std::endl;
-	out << "<td>Geburtsdatum</td>" << std::endl;
-	out << "<td>" << m_dateOfBirth.toString("dd.MM.yyyy").toHtmlEscaped().toStdString() << "</td>"
-	    << std::endl;
-	out << "<td colspan=\"2\">Bemerkungen</td>" << std::endl;
-	out << "</tr>" << std::endl;
-	out << "<tr>" << std::endl;
-	out << "<td>Untersuchungsdatum</td>" << std::endl;
-	out << "<td>" << m_dateOfTest.toString("dd.MM.yyyy").toHtmlEscaped().toStdString() << "</td>"
-	    << std::endl;
-	out << "<td colspan=\"2\" rowspan=\"2\">"
-	    << m_remarks.trimmed().toHtmlEscaped().replace("\n", "<br>").toStdString() << "</td>"
-	    << std::endl;
+		out << "<td>Untersuchungsdatum</td>" << std::endl;
+		out << "<td>" << m_dateOfTest.toString("dd.MM.yyyy").toHtmlEscaped().toStdString() << "</td>"
+			<< std::endl;
+		out << "<td colspan=\"2\" rowspan=\"2\">"
+			<< m_remarks.trimmed().toHtmlEscaped().replace("\n", "<br>").toStdString() << "</td>"
+			<< std::endl;
 	out << "</tr>" << std::endl;
 	out << "<tr>" << std::endl;
 	out << "<td>Alter am Testtag</td>" << std::endl;

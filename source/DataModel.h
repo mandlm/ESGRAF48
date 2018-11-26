@@ -13,6 +13,7 @@
 #include "ResultModel.h"
 
 #include <QJsonObject>
+#include <QTextCursor>
 
 class DataModel : public QObject
 {
@@ -34,6 +35,7 @@ public:
 public:
 	DataModel(QObject *parent);
 
+	void printTo(QTextCursor &cursor) const;
 	std::string toHtml() const;
 
 	void write(std::ostream &outStream) const;
