@@ -72,29 +72,6 @@ void DataModel::printTo(QTextCursor &cursor) const
 	m_v2Svk.printTo(cursor);
 }
 
-std::string DataModel::toHtml() const
-{
-	std::stringstream out;
-
-	out << "<html>" << std::endl;
-	out << "<head>" << std::endl;
-	out << "<style>" << std::endl;
-	out << "body {" << std::endl;
-	out << "font-family:sans-serif;" << std::endl;
-	out << "}" << std::endl;
-	out << "</style>" << std::endl;
-	out << "</head>" << std::endl;
-	out << "<body>" << std::endl;
-	out << "<h2>ESGRAF 4-8 Auswertungsbogen</h2>" << std::endl;
-	out << "<p>" << std::endl;
-	out << m_metaData.toHtml();
-	out << "</p>" << std::endl;
-	out << "</body>" << std::endl;
-	out << "</html>" << std::endl;
-
-	return out.str();
-}
-
 void DataModel::pluralModelChanged()
 {
 	m_results.setPluralResult(m_plural.getPoints());

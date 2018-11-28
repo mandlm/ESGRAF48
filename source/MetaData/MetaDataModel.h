@@ -35,7 +35,6 @@ public:
 	void write(ESGRAF48::MetaDataModel &model) const;
 
 	void printTo(QTextCursor &cursor) const;
-	std::string toHtml() const;
 
 	Age getAge() const
 	{

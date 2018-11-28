@@ -178,27 +178,3 @@ void MetaDataModel::printTo(QTextCursor &cursor) const
 	cursor.movePosition(QTextCursor::NextBlock);
 }
 
-std::string MetaDataModel::toHtml() const
-{
-	std::ostringstream out;
-
-	out << "<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" frame=\"box\" rules=\"all\">" << std::endl;
-	out << "<tr>" << std::endl;
-		out << "<td colspan=\"2\">Bemerkungen</td>" << std::endl;
-	out << "</tr>" << std::endl;
-	out << "<tr>" << std::endl;
-		out << "<td>Untersuchungsdatum</td>" << std::endl;
-		out << "<td>" << m_dateOfTest.toString("dd.MM.yyyy").toHtmlEscaped().toStdString() << "</td>"
-			<< std::endl;
-		out << "<td colspan=\"2\" rowspan=\"2\">"
-			<< m_remarks.trimmed().toHtmlEscaped().replace("\n", "<br>").toStdString() << "</td>"
-			<< std::endl;
-	out << "</tr>" << std::endl;
-	out << "<tr>" << std::endl;
-	out << "<td>Alter am Testtag</td>" << std::endl;
-	out << "<td>" << getAge().toString() << "</td>" << std::endl;
-	out << "</tr>" << std::endl;
-	out << "</table>" << std::endl;
-
-	return out.str();
-}

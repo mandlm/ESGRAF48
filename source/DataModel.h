@@ -36,7 +36,6 @@ public:
 	DataModel(QObject *parent);
 
 	void printTo(QTextCursor &cursor) const;
-	std::string toHtml() const;
 
 	void write(std::ostream &outStream) const;
 	void read(std::istream &inStream);
