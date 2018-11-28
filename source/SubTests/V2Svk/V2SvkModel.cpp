@@ -206,7 +206,15 @@ void V2SvkModel::printTo(QTextCursor &cursor) const
 
 	QTextCharFormat headerFormat;
 	headerFormat.setFontPointSize(12);
-	cursor.insertText("Subtest 1: Verbzweitstellungsregel (V2) und Subjekt-Verb-Kontrollregel (SVK)", headerFormat);
+	cursor.insertText(
+	    "Subtest 1: Verbzweitstellungsregel (V2) und Subjekt-Verb-Kontrollregel (SVK)",
+	    headerFormat);
+
+	QTextTableFormat tableFormat;
+	tableFormat.setCellPadding(2);
+	tableFormat.setCellSpacing(0);
+
+	QTextTable *table = cursor.insertTable(1, 1, tableFormat);
 
 	cursor.movePosition(QTextCursor::NextBlock);
 }
