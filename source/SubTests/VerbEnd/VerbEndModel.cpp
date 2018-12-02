@@ -1,15 +1,14 @@
 #include "VerbEndModel.h"
 
+#include <QTextTable>
+
 VerbEndModel::VerbEndModel(QObject *parent)
-	: CheckableTestModel(parent)
+    : CheckableTestModel(parent)
 {
-	m_tests = { { "Telefonat",
-					{ "Kausal", "Kausal", "Relativ", "Kausal",
-						"Final", "Temporal", "Temporal" } },
-		{ "Zaubertrick", { "Relativ", "Final", "Kausal", "Final",
-							 "Temporal", "Kausal", "Temporal" } },
-		{ "Zauberregel", { "Temporal", "Kausal", "Final", "Relativ",
-							 "Temporal", "Relativ" } } };
+	m_tests = {
+	    {"Telefonat", {"Kausal", "Kausal", "Relativ", "Kausal", "Final", "Temporal", "Temporal"}},
+	    {"Zaubertrick", {"Relativ", "Final", "Kausal", "Final", "Temporal", "Kausal", "Temporal"}},
+	    {"Zauberregel", {"Temporal", "Kausal", "Final", "Relativ", "Temporal", "Relativ"}}};
 }
 
 void VerbEndModel::write(ESGRAF48::VerbEndModel &model) const
@@ -98,3 +97,155 @@ void VerbEndModel::read(const ESGRAF48::VerbEndModel &model)
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
+
+void VerbEndModel::printTo(QTextCursor &cursor) const
+{
+	cursor.insertBlock();
+
+	QTextCharFormat headerFormat;
+	headerFormat.setFontPointSize(12);
+	cursor.insertText("Subtest 2: Verbendstellungsregel (VE)", headerFormat);
+
+	QTextTableFormat tableFormat;
+	tableFormat.setCellPadding(2);
+	tableFormat.setCellSpacing(0);
+
+	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 15),
+	                                       QTextLength(QTextLength::PercentageLength, 9),
+	                                       QTextLength(QTextLength::PercentageLength, 9),
+	                                       QTextLength(QTextLength::PercentageLength, 9),
+	                                       QTextLength(QTextLength::PercentageLength, 9),
+	                                       QTextLength(QTextLength::PercentageLength, 9),
+	                                       QTextLength(QTextLength::PercentageLength, 9),
+	                                       QTextLength(QTextLength::PercentageLength, 9),
+	                                       QTextLength(QTextLength::PercentageLength, 9),
+	                                       QTextLength(QTextLength::PercentageLength, 2),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 1),
+	                                       QTextLength(QTextLength::PercentageLength, 5)});
+
+	QTextTable *table = cursor.insertTable(6, 13, tableFormat);
+	table->mergeCells(0, 0, 2, 1);
+	table->mergeCells(2, 0, 2, 1);
+	table->mergeCells(4, 0, 2, 1);
+
+	const char *emptyBox = "\u2610";
+	//const char *checkBox = "\u2611";
+	const char *checkBox = "x";
+
+	cursor.insertText("Telefonat");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Kausal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Kausal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Relativ");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Kausal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Final");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Temporal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Temporal");
+	cursor.movePosition(QTextCursor::NextRow);
+
+	const auto &telTestItems = m_tests.at(0).items();
+	cursor.insertText(telTestItems[0].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(telTestItems[1].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(telTestItems[2].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(telTestItems[3].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(telTestItems[4].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(telTestItems[5].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(telTestItems[6].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(QString::number(m_tests.at(0).getPoints()));
+	cursor.movePosition(QTextCursor::NextRow);
+
+	cursor.insertText("Zaubertrick");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Relativ");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Final");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Kausal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Final");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Temporal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Kausal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Temporal");
+	cursor.movePosition(QTextCursor::NextRow);
+
+	const auto &trickTestItems = m_tests.at(1).items();
+	cursor.insertText(trickTestItems[0].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(trickTestItems[1].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(trickTestItems[2].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(trickTestItems[3].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(trickTestItems[4].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(trickTestItems[5].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(trickTestItems[6].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(QString::number(m_tests.at(1).getPoints()));
+	cursor.movePosition(QTextCursor::NextRow);
+
+	cursor.insertText("Zauberregel");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Temporal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Kausal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Final");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Relativ");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Temporal");
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText("Relativ");
+	cursor.movePosition(QTextCursor::NextRow);
+
+	const auto &regelTestItems = m_tests.at(2).items();
+	cursor.insertText(regelTestItems[0].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(regelTestItems[1].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(regelTestItems[2].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(regelTestItems[3].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(regelTestItems[4].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(regelTestItems[5].isChecked() ? checkBox : emptyBox);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.movePosition(QTextCursor::NextCell);
+	cursor.insertText(QString::number(m_tests.at(2).getPoints()));
+
+	cursor.movePosition(QTextCursor::NextBlock);
+}
+

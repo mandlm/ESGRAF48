@@ -210,3 +210,23 @@ void ResultModel::setGenitivResult(unsigned int points)
         emit dataChanged(index(0, 7), index(4, 7));
     }
 }
+
+void ResultModel::printTo(QTextCursor &cursor) const
+{
+	cursor.insertBlock();
+
+	QTextCharFormat headerFormat;
+	headerFormat.setFontPointSize(12);
+	cursor.insertText(
+	    "Prozentränge (PR)",
+	    headerFormat);
+
+	QTextTableFormat tableFormat;
+	tableFormat.setCellPadding(2);
+	tableFormat.setCellSpacing(0);
+
+	QTextTable *table = cursor.insertTable(1, 1, tableFormat);
+
+	cursor.movePosition(QTextCursor::NextBlock);
+}
+

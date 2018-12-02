@@ -3,6 +3,8 @@
 #include "CheckableTestModel.h"
 #include "VerbEndModel.pb.h"
 
+#include <QTextCursor>
+
 class VerbEndModel : public CheckableTestModel
 {
 	Q_OBJECT
@@ -12,4 +14,6 @@ public:
 
 	void write(ESGRAF48::VerbEndModel &model) const;
 	void read(const ESGRAF48::VerbEndModel &model);
+
+	void printTo(QTextCursor &cursor) const;
 };

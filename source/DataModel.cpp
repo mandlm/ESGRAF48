@@ -64,12 +64,21 @@ void DataModel::printTo(QTextCursor &cursor) const
 {
 	QTextCharFormat titleFormat;
 	titleFormat.setFontPointSize(18);
+
 	cursor.insertText("ESGRAF 4-8 Auswertungsbogen", titleFormat);
 	cursor.insertText("\n", titleFormat);
 
 	m_metaData.printTo(cursor);
 	cursor.insertText("\n", titleFormat);
+
 	m_v2Svk.printTo(cursor);
+	cursor.insertText("\n", titleFormat);
+
+	m_verbEnd.printTo(cursor);
+	cursor.insertText("\n", titleFormat);
+
+	//m_results.printTo(cursor);
+	//cursor.insertText("\n", titleFormat);
 }
 
 void DataModel::pluralModelChanged()

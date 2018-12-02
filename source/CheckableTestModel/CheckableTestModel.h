@@ -25,9 +25,6 @@ public:
 	QVariant headerData(int section, Qt::Orientation orientation,
 		int role = Qt::DisplayRole) const override;
 
-	void write(QJsonObject &json) const;
-	void read(const QJsonObject &json);
-
 	unsigned int getPoints() const;
 
 protected:

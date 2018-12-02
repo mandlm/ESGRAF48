@@ -17,6 +17,8 @@ public:
 	const QString &name() const;
 	const CheckableItems &items() const;
 	CheckableItems &items();
+
+	unsigned int getPoints() const;
 };
 
 using CheckableTests = std::vector<CheckableTest>;
