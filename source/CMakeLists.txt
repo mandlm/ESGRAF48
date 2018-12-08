@@ -34,7 +34,7 @@ protobuf_generate_cpp(DataModel_PROTO_SRCS DataModel_PROTO_HDRS
 	${DataModel_PROTO_FILES})
 
 add_executable(${PROJECT_NAME} WIN32
-	LogoTest.cpp
+	ESGRAF48.cpp
 	DataModel.cpp
 	mainwindow.cpp
 	${LOGO_TEST_UI}

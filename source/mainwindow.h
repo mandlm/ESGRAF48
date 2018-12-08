@@ -1,8 +1,10 @@
 #pragma once
 
-#include <QMainWindow>
+#include "DataModel.h"
 
-#include <memory>
+#include <QMainWindow>
+#include <QString>
+
 
 class DataModel;
 class QDataWidgetMapper;
@@ -17,17 +19,19 @@ class MainWindow : public QMainWindow
 
 private:
 	Ui::MainWindow *ui;
-	std::unique_ptr<DataModel> m_dataModel;
+	DataModel m_dataModel;
 	QString m_filename;
 	bool m_saveOnClose = false;
 
 public:
-	MainWindow(QWidget *parent = nullptr);
+	MainWindow(QWidget *parent);
+	MainWindow(QWidget *parent, const QString &filename);
 	~MainWindow();
 
 public slots:
 	void newFile();
 	void openFile();
+	void openFile(const QString &filename);
 	void saveFile();
 	void saveFileAs();
 	void closeFile();
@@ -38,5 +42,6 @@ protected:
 	void closeEvent(QCloseEvent *event) override;
 
 private:
+	void setupUi();
 	void saveFile(const QString &filename);
 };
