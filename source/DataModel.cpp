@@ -63,22 +63,23 @@ void DataModel::read(std::istream &inStream)
 void DataModel::printTo(QTextCursor &cursor) const
 {
 	QTextCharFormat titleFormat;
-	titleFormat.setFontPointSize(18);
+	titleFormat.setFontPointSize(14);
 
 	cursor.insertText("ESGRAF 4-8 Auswertungsbogen", titleFormat);
 	cursor.insertText("\n", titleFormat);
 
 	m_metaData.printTo(cursor);
-	cursor.insertText("\n", titleFormat);
 
-	m_v2Svk.printTo(cursor);
-	cursor.insertText("\n", titleFormat);
-
+	//m_v2Svk.printTo(cursor);
 	m_verbEnd.printTo(cursor);
-	cursor.insertText("\n", titleFormat);
+	m_genus.printTo(cursor);
+	m_akkusativ.printTo(cursor);
+	m_dativ.printTo(cursor);
+	//m_plural.printTo(cursor);
+	//m_genitiv.printTo(cursor);
+	//m_passiv.printTo(cursor);
 
 	//m_results.printTo(cursor);
-	//cursor.insertText("\n", titleFormat);
 }
 
 void DataModel::pluralModelChanged()

@@ -95,3 +95,8 @@ void GenusModel::write(ESGRAF48::GenusModel &model) const
 		zirkusModel->set_baum(testItems[3].isChecked());
 	}
 }
+
+std::string GenusModel::getName() const
+{
+	return "Subtest 3: Genus";
+}

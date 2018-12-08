@@ -14,4 +14,7 @@ public:
 
 	void read(const ESGRAF48::LateSkillsGenitivModel &model);
 	void write(ESGRAF48::LateSkillsGenitivModel &model) const;
+
+protected:
+	std::string getName() const override;
 };

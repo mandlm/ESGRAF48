@@ -14,4 +14,7 @@ public:
 
 	void read(const ESGRAF48::LateSkillsPassivModel &model);
 	void write(ESGRAF48::LateSkillsPassivModel &model) const;
+
+protected:
+	std::string getName() const override;
 };

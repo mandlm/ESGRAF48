@@ -15,4 +15,7 @@ public:
 
 	void read(const ESGRAF48::PluralModel &model);
 	void write(ESGRAF48::PluralModel &model) const;
+
+protected:
+	std::string getName() const override;
 };

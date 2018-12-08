@@ -51,3 +51,8 @@ void PluralModel::write(ESGRAF48::PluralModel &model) const
 	model.set_baer(testItems[7].isChecked());
 	model.set_apfel(testItems[8].isChecked());
 }
+
+std::string PluralModel::getName() const
+{
+	return "Subtest 5: Plural";
+}

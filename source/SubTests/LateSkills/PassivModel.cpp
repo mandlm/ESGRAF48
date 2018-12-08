@@ -65,3 +65,8 @@ void PassivModel::write(ESGRAF48::LateSkillsPassivModel &model) const
 	model.set_fleisch1(testItems[8].isChecked());
 	model.set_fleisch2(testItems[9].isChecked());
 }
+
+std::string PassivModel::getName() const
+{
+	return "Subtest 6: Späte Fähigkeiten (7;0 - 8;11)";
+}

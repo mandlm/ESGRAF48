@@ -2,6 +2,7 @@
 
 #include "CheckableTest.h"
 #include <QAbstractTableModel>
+#include <QTextCursor>
 
 class CheckableTestModel : public QAbstractTableModel
 {
@@ -27,8 +28,14 @@ public:
 
 	unsigned int getPoints() const;
 
+	virtual void printTo(QTextCursor &cursor) const;
+
 protected:
 	virtual bool isValidIndex(const QModelIndex &index) const;
+
+	virtual std::string getName() const = 0;
+	void printTableTo(QTextCursor &cursor) const;
+	void printSummaryTo(QTextCursor &cursor) const;
 
 private:
 	CheckableItems &getItems(const QModelIndex &index);

@@ -18,8 +18,8 @@ public:
 	void write(ESGRAF48::V2SvkModel &model) const;
 	void read(const ESGRAF48::V2SvkModel &model);
 
-	void printTo(QTextCursor &cursor) const;
-
 protected:
 	bool isValidIndex(const QModelIndex &index) const override;
+
+	std::string getName() const override;
 };

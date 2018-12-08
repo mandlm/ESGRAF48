@@ -105,3 +105,8 @@ void AkkusativModel::write(ESGRAF48::AkkusativModel &model) const
 		futterModel->set_zucker(testItems[7].isChecked());
 	}
 }
+	
+std::string AkkusativModel::getName() const
+{
+	return "Subtest 4: Akkusativ und Dativ";
+}

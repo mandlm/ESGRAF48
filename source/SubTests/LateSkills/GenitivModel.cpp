@@ -107,3 +107,8 @@ void GenitivModel::write(ESGRAF48::LateSkillsGenitivModel &model) const
 		attributierungModel->set_guertel2(testItems[9].isChecked());
 	}
 }
+	
+std::string GenitivModel::getName() const
+{
+	return "";
+}

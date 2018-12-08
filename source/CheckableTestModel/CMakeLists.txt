@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.6)
 project(CheckableTestModel LANGUAGES CXX)
 
 find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui REQUIRED)
 
 add_library(${PROJECT_NAME}
         CheckableTestModel.cpp
@@ -22,4 +23,5 @@ target_link_libraries(${PROJECT_NAME}
 		CheckableItem
 		CheckableTest
 		Qt5::Core
+		Qt5::Gui
 )

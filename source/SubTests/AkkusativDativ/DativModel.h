@@ -12,4 +12,7 @@ public:
 
 	void read(const ESGRAF48::DativModel &model);
 	void write(ESGRAF48::DativModel &model) const;
+
+protected:
+	std::string getName() const override;
 };

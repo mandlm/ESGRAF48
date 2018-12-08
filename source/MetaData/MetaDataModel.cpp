@@ -136,6 +136,7 @@ void MetaDataModel::printTo(QTextCursor &cursor) const
 	cursor.insertBlock();
 
 	QTextTableFormat tableFormat;
+	tableFormat.setBorderStyle(QTextTableFormat::BorderStyle_None);
 	tableFormat.setCellPadding(2);
 	tableFormat.setCellSpacing(0);
 
@@ -161,7 +162,10 @@ void MetaDataModel::printTo(QTextCursor &cursor) const
 	cursor.movePosition(QTextCursor::NextCell);
 	cursor.insertText(m_dateOfBirth.toString("dd.MM.yyyy"));
 	cursor.movePosition(QTextCursor::NextCell);
-	cursor.insertText("Bemerkungen:");
+	if (!m_remarks.trimmed().isEmpty())
+	{
+		cursor.insertText("Bemerkungen:");
+	}
 	cursor.movePosition(QTextCursor::NextRow);
 	
 	cursor.insertText("Untersuchungsdatum");
@@ -175,6 +179,6 @@ void MetaDataModel::printTo(QTextCursor &cursor) const
 	cursor.movePosition(QTextCursor::NextCell);
 	cursor.insertText(getAge().toString().c_str());
 
-	cursor.movePosition(QTextCursor::NextBlock);
+	cursor.movePosition(QTextCursor::End);
 }
 

@@ -12,4 +12,7 @@ public:
 
 	void read(const ESGRAF48::AkkusativModel &model);
 	void write(ESGRAF48::AkkusativModel &model) const;
+
+protected:
+	std::string getName() const override;
 };

@@ -105,3 +105,8 @@ void DativModel::write(ESGRAF48::DativModel &model) const
 		futterModel->set_zucker(testItems[7].isChecked());
 	}
 }
+	
+std::string DativModel::getName() const
+{
+	return "";
+}

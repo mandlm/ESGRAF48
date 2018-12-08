@@ -12,4 +12,7 @@ public:
 
 	void read(const ESGRAF48::GenusModel &model);
 	void write(ESGRAF48::GenusModel &model) const;
+
+protected:
+	std::string getName() const override;
 };

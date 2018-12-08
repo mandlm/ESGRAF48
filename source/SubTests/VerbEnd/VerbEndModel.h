@@ -15,5 +15,6 @@ public:
 	void write(ESGRAF48::VerbEndModel &model) const;
 	void read(const ESGRAF48::VerbEndModel &model);
 
-	void printTo(QTextCursor &cursor) const;
+protected:
+	std::string getName() const override;
 };
