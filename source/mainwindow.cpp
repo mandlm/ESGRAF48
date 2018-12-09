@@ -56,6 +56,7 @@ void MainWindow::setupUi()
 	connect(ui->actionSave, &QAction::triggered, this, qOverload<>(&MainWindow::saveFile));
 	connect(ui->actionSave_as, &QAction::triggered, this, &MainWindow::saveFileAs);
 	connect(ui->actionPrint, &QAction::triggered, this, &MainWindow::print);
+	connect(ui->actionExport_PDF, &QAction::triggered, this, qOverload<>(&MainWindow::savePdf));
 
 	connect(&m_dataModel, &DataModel::modelChanged, this, &MainWindow::dataModelChanged);
 }
@@ -172,6 +173,22 @@ void MainWindow::dataModelChanged()
 	setWindowModified(true);
 }
 
+void MainWindow::savePdf()
+{
+	QFileDialog saveFilenameDialog(this);
+	saveFilenameDialog.setDefaultSuffix("pdf");
+	saveFilenameDialog.setFileMode(QFileDialog::AnyFile);
+	saveFilenameDialog.setNameFilter("PDF File (*.pdf)");
+	saveFilenameDialog.setWindowTitle("Save file");
+
+	if (!saveFilenameDialog.exec())
+	{
+		return;
+	}
+
+	savePdf(saveFilenameDialog.selectedFiles().first());
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 	closeFile();
@@ -189,4 +206,17 @@ void MainWindow::saveFile(const QString &filename)
 	setWindowModified(false);
 	m_filename = filename;
 	m_saveOnClose = false;
+}
+
+void MainWindow::savePdf(const QString &filename)
+{
+	QPrinter printer;
+	printer.setOutputFormat(QPrinter::PdfFormat);
+	printer.setPaperSize(QPrinter::A4);
+	printer.setOutputFileName(filename);
+
+	QTextDocument printDoc;
+	printDoc.setHtml(QString::fromStdString(m_dataModel.toHtml()));
+
+	printDoc.print(&printer);
 }

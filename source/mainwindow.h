@@ -37,6 +37,7 @@ public slots:
 	void closeFile();
 	void print() const;
 	void dataModelChanged();
+	void savePdf();
 
 protected:
 	void closeEvent(QCloseEvent *event) override;
@@ -44,4 +45,5 @@ protected:
 private:
 	void setupUi();
 	void saveFile(const QString &filename);
+	void savePdf(const QString &filename);
 };
