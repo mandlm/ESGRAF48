@@ -79,7 +79,7 @@ void DataModel::printTo(QTextCursor &cursor) const
 	//m_genitiv.printTo(cursor);
 	//m_passiv.printTo(cursor);
 
-	//m_results.printTo(cursor);
+	m_results.printTo(cursor);
 }
 
 void DataModel::pluralModelChanged()

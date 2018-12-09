@@ -10,13 +10,13 @@
 #include "PassivPR.h"
 #include "GenitivPR.h"
 
+#include <QTextTable>
 #include <QDebug>
 
 ResultModel::ResultModel(QObject *parent)
-	: QAbstractTableModel(parent)
+    : QAbstractTableModel(parent)
 {
-	m_results = { { "V2", "SVK", "VE", "Passiv", "Genus", "Akkusativ", "Dativ",
-		"Genitiv", "Plural" } };
+	m_results = {"V2", "SVK", "VE", "Passiv", "Genus", "Akkusativ", "Dativ", "Genitiv", "Plural"};
 }
 
 int ResultModel::rowCount(const QModelIndex &parent) const
@@ -81,8 +81,7 @@ QVariant ResultModel::data(const QModelIndex &index, int role) const
 	return {};
 }
 
-QVariant ResultModel::headerData(
-	int section, Qt::Orientation orientation, int role) const
+QVariant ResultModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	if (role != Qt::DisplayRole)
 	{
@@ -102,11 +101,11 @@ QVariant ResultModel::headerData(
 				case 0:
 					return "RP";
 				case 1:
-					return ">= PR 84";
+					return "\u2265 PR 84";
 				case 2:
 					return "< PR 84";
 				case 3:
-					return "<= PR 16";
+					return "\u2264 PR 16";
 				default:
 					return {};
 			}
@@ -170,7 +169,7 @@ void ResultModel::setDativResult(unsigned int points)
 		emit dataChanged(index(0, 6), index(4, 6));
 	}
 }
-	
+
 void ResultModel::setV2Result(unsigned int points)
 {
 	if (m_results[0].points() != points)
@@ -193,40 +192,94 @@ void ResultModel::setSvkResult(unsigned int points)
 
 void ResultModel::setPassivResult(unsigned int points)
 {
-    if (m_results[3].points() != points)
-    {
-        m_results[3].setPoints(points);
-        m_results[3].setPR(PassivPR().lookup(m_age, points));
-        emit dataChanged(index(0, 3), index(4, 3));
-    }
+	if (m_results[3].points() != points)
+	{
+		m_results[3].setPoints(points);
+		m_results[3].setPR(PassivPR().lookup(m_age, points));
+		emit dataChanged(index(0, 3), index(4, 3));
+	}
 }
 
 void ResultModel::setGenitivResult(unsigned int points)
 {
-    if (m_results[7].points() != points)
-    {
-        m_results[7].setPoints(points);
-        m_results[7].setPR(GenitivPR().lookup(m_age, points));
-        emit dataChanged(index(0, 7), index(4, 7));
-    }
+	if (m_results[7].points() != points)
+	{
+		m_results[7].setPoints(points);
+		m_results[7].setPR(GenitivPR().lookup(m_age, points));
+		emit dataChanged(index(0, 7), index(4, 7));
+	}
 }
 
 void ResultModel::printTo(QTextCursor &cursor) const
 {
-	cursor.insertBlock();
-
 	QTextCharFormat headerFormat;
-	headerFormat.setFontPointSize(12);
-	cursor.insertText(
-	    "Prozentränge (PR)",
-	    headerFormat);
+	headerFormat.setFontPointSize(10);
+	cursor.insertBlock();
+	cursor.insertText("\nProzentränge (PR)");
 
 	QTextTableFormat tableFormat;
 	tableFormat.setCellPadding(2);
 	tableFormat.setCellSpacing(0);
 
-	QTextTable *table = cursor.insertTable(1, 1, tableFormat);
+	const unsigned int columnCount = 10;
 
-	cursor.movePosition(QTextCursor::NextBlock);
+	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10)});
+
+	QTextTable *table = cursor.insertTable(4, columnCount, tableFormat);
+
+	auto insertText = [&table](int row, int column, const QString &text) {
+		auto cell = table->cellAt(row, column);
+		auto textCursor = cell.firstCursorPosition();
+
+		auto blockFormat = textCursor.blockFormat();
+		blockFormat.setAlignment(Qt::AlignCenter);
+		textCursor.setBlockFormat(blockFormat);
+
+		auto cellFormat = cell.format();
+		cellFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+
+		if (row == 3)
+		{
+			QBrush backgroundBrush(QColor(192, 192, 192));
+			cellFormat.setBackground(backgroundBrush);
+		}
+
+		cell.setFormat(cellFormat);
+
+		auto charFormat = textCursor.charFormat();
+		charFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+		charFormat.setFontPointSize(8);
+
+		if (row == 0 || column == 0)
+		{
+			charFormat.setFontWeight(QFont::Bold);
+		}
+
+		textCursor.setCharFormat(charFormat);
+
+		textCursor.insertText(text);
+	};
+
+	insertText(1, 0, "\u2265 PR 84");
+	insertText(2, 0, "< PR 84");
+	insertText(3, 0, "\u2264 PR 16");
+
+	for (size_t index = 0; index < m_results.size(); ++index)
+	{
+		insertText(0, index + 1, m_results[index].name());
+		int pr = m_results[index].pr();
+		insertText(1, index + 1, pr >= 84 ? QString::number(pr) : "-");
+		insertText(2, index + 1, pr < 84 && pr > 16 ? QString::number(pr) : "-");
+		insertText(3, index + 1, pr <= 16 ? QString::number(pr) : "-");
+	}
 }
 

@@ -6,7 +6,6 @@
 #include <QAbstractTableModel>
 #include <QTextCursor>
 
-
 class ResultModel : public QAbstractTableModel
 {
 	Q_OBJECT
