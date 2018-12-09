@@ -174,7 +174,7 @@ void CheckableTestModel::printTableTo(QTextCursor &cursor) const
 		charFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
 		charFormat.setFontPointSize(8);
 		textCursor.setCharFormat(charFormat);
-		
+
 		textCursor.insertText(text);
 	};
 
@@ -201,7 +201,7 @@ void CheckableTestModel::printTableTo(QTextCursor &cursor) const
 		currentRow += 2;
 	}
 }
-	
+
 void CheckableTestModel::printSummaryTo(QTextCursor &cursor) const
 {
 	QTextTableFormat tableFormat;
@@ -231,7 +231,7 @@ void CheckableTestModel::printSummaryTo(QTextCursor &cursor) const
 		charFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
 		charFormat.setFontPointSize(8);
 		textCursor.setCharFormat(charFormat);
-		
+
 		textCursor.insertText(text);
 	};
 
@@ -283,12 +283,6 @@ const CheckableItem &CheckableTestModel::getItem(const QModelIndex &index) const
 
 unsigned int CheckableTestModel::getPoints() const
 {
-	unsigned int points = 0;
-
-	for (const auto &test : m_tests)
-	{
-		points += test.getPoints();
-	}
-
-	return points;
+	return std::accumulate(std::begin(m_tests), std::end(m_tests), 0,
+	                [](int base, const CheckableTest &test) { return base + test.getPoints(); });
 }
