@@ -60,7 +60,7 @@ std::string PluralModel::getName() const
 {
 	return "Subtest 5: Plural";
 }
-
+	
 void PluralModel::printTableTo(QTextCursor &cursor) const
 {
 	QTextTableFormat tableFormat;

@@ -41,6 +41,12 @@ protected:
 	static void setCellText(QTextTable &table, int row, int column, const QString &text);
 	static void setCellChecked(QTextTable &table, int row, int column, bool check);
 
+	template <typename NumberType>
+	static void setCellNumber(QTextTable &table, int row, int column, const NumberType &number)
+	{
+		setCellText(table, row, column, QString::number(number));
+	}
+
 private:
 	CheckableItems &getItems(const QModelIndex &index);
 	const CheckableItems &getItems(const QModelIndex &index) const;

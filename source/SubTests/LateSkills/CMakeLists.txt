@@ -22,6 +22,7 @@ protobuf_generate_cpp(LateSkills_PROTO_SRCS LateSkills_PROTO_HDRS
 
 add_library(${PROJECT_NAME}
 	LateSkillsWidget.cpp
+	LateSkillsModel.cpp
 	PassivModel.cpp
 	GenitivModel.cpp
 	${UI_HEADERS}

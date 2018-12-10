@@ -1,9 +1,9 @@
 #pragma once
 
-#include "CheckableTestModel.h"
+#include "LateSkillsModel.h"
 #include "LateSkillsGenitivModel.pb.h"
 
-class GenitivModel : public CheckableTestModel
+class GenitivModel : public LateSkillsModel
 {
 	Q_OBJECT
 

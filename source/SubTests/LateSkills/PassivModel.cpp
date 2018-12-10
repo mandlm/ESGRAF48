@@ -1,7 +1,7 @@
 #include "PassivModel.h"
 
 PassivModel::PassivModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : LateSkillsModel(parent)
 {
 	m_tests = {{"Passiv",
 	            {"Elefant (1)", "Elefant (2)", "Pferde (1)", "Pferde (2)", "Bälle (1)", "Bälle (2)",

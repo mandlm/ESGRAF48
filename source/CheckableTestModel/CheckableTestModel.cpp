@@ -172,7 +172,7 @@ void CheckableTestModel::printTableTo(QTextCursor &cursor) const
 			currentColumn++;
 		}
 
-		setCellText(*table, currentRow + 1, 12, QString::number(test.getPoints()));
+		setCellNumber(*table, currentRow + 1, 12, test.getPoints());
 
 		currentRow += 2;
 	}
@@ -192,7 +192,7 @@ void CheckableTestModel::printSummaryTo(QTextCursor &cursor) const
 	QTextTable *table = cursor.insertTable(1, 4, tableFormat);
 
 	setCellText(*table, 0, 1, "Rohwertpunkte Total:");
-	setCellText(*table, 0, 3, QString::number(getPoints()));
+	setCellNumber(*table, 0, 3, getPoints());
 }
 
 void CheckableTestModel::setCellText(QTextTable &table, int row, int column, const QString &text)

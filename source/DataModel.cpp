@@ -75,9 +75,10 @@ void DataModel::printTo(QTextCursor &cursor) const
 	m_genus.printTo(cursor);
 	m_akkusativ.printTo(cursor);
 	m_dativ.printTo(cursor);
+
 	m_plural.printTo(cursor);
-	//m_genitiv.printTo(cursor);
-	//m_passiv.printTo(cursor);
+	m_passiv.printTo(cursor);
+	m_genitiv.printTo(cursor);
 
 	m_results.printTo(cursor);
 }

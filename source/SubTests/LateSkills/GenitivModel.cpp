@@ -1,7 +1,7 @@
 #include "GenitivModel.h"
 
 GenitivModel::GenitivModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : LateSkillsModel(parent)
 {
 	m_tests = {
 	    {"Genitiv Präpositionen",
