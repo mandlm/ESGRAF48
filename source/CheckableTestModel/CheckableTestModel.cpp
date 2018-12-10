@@ -154,30 +154,6 @@ void CheckableTestModel::printTableTo(QTextCursor &cursor) const
 
 	QTextTable *table = cursor.insertTable(m_tests.size() * 2, 13, tableFormat);
 
-	const char *emptyBox = "\u2610";
-	//const char *checkBox = "\u2611";
-	const char *checkBox = "x";
-
-	auto insertText = [&table](int row, int column, const QString &text) {
-		auto cell = table->cellAt(row, column);
-		auto textCursor = cell.firstCursorPosition();
-
-		auto blockFormat = textCursor.blockFormat();
-		blockFormat.setAlignment(Qt::AlignCenter);
-		textCursor.setBlockFormat(blockFormat);
-
-		auto cellFormat = cell.format();
-		cellFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
-		cell.setFormat(cellFormat);
-
-		auto charFormat = textCursor.charFormat();
-		charFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
-		charFormat.setFontPointSize(8);
-		textCursor.setCharFormat(charFormat);
-
-		textCursor.insertText(text);
-	};
-
 	int currentRow = 0;
 	for (const auto &test : m_tests)
 	{
@@ -185,18 +161,18 @@ void CheckableTestModel::printTableTo(QTextCursor &cursor) const
 
 		int currentColumn = 0;
 
-		insertText(currentRow, currentColumn, test.name());
+		setCellText(*table, currentRow, currentColumn, test.name());
 		currentColumn++;
 
 		for (const auto &item : test.items())
 		{
-			insertText(currentRow, currentColumn, item.getText().c_str());
-			insertText(currentRow + 1, currentColumn, item.isChecked() ? checkBox : emptyBox);
+			setCellText(*table, currentRow, currentColumn, item.getText().c_str());
+			setCellChecked(*table, currentRow + 1, currentColumn, item.isChecked());
 
 			currentColumn++;
 		}
 
-		insertText(currentRow + 1, 12, QString::number(test.getPoints()));
+		setCellText(*table, currentRow + 1, 12, QString::number(test.getPoints()));
 
 		currentRow += 2;
 	}
@@ -215,28 +191,34 @@ void CheckableTestModel::printSummaryTo(QTextCursor &cursor) const
 
 	QTextTable *table = cursor.insertTable(1, 4, tableFormat);
 
-	auto insertText = [&table](int row, int column, const QString &text) {
-		auto cell = table->cellAt(row, column);
-		auto textCursor = cell.firstCursorPosition();
+	setCellText(*table, 0, 1, "Rohwertpunkte Total:");
+	setCellText(*table, 0, 3, QString::number(getPoints()));
+}
 
-		auto blockFormat = textCursor.blockFormat();
-		blockFormat.setAlignment(Qt::AlignCenter);
-		textCursor.setBlockFormat(blockFormat);
+void CheckableTestModel::setCellText(QTextTable &table, int row, int column, const QString &text)
+{
+	auto cell = table.cellAt(row, column);
+	auto textCursor = cell.firstCursorPosition();
 
-		auto cellFormat = cell.format();
-		cellFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
-		cell.setFormat(cellFormat);
+	auto blockFormat = textCursor.blockFormat();
+	blockFormat.setAlignment(Qt::AlignCenter);
+	textCursor.setBlockFormat(blockFormat);
 
-		auto charFormat = textCursor.charFormat();
-		charFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
-		charFormat.setFontPointSize(8);
-		textCursor.setCharFormat(charFormat);
+	auto cellFormat = cell.format();
+	cellFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+	cell.setFormat(cellFormat);
 
-		textCursor.insertText(text);
-	};
+	auto charFormat = textCursor.charFormat();
+	charFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+	charFormat.setFontPointSize(8);
+	textCursor.setCharFormat(charFormat);
 
-	insertText(0, 1, "Rohwertpunkte Total:");
-	insertText(0, 3, QString::number(getPoints()));
+	textCursor.insertText(text);
+}
+
+void CheckableTestModel::setCellChecked(QTextTable &table, int row, int column, bool check)
+{
+	setCellText(table, row, column, check ? "x" : "\u2610");
 }
 
 CheckableItems &CheckableTestModel::getItems(const QModelIndex &index)
@@ -283,6 +265,7 @@ const CheckableItem &CheckableTestModel::getItem(const QModelIndex &index) const
 
 unsigned int CheckableTestModel::getPoints() const
 {
-	return std::accumulate(std::begin(m_tests), std::end(m_tests), 0,
-	                [](int base, const CheckableTest &test) { return base + test.getPoints(); });
+	return std::accumulate(
+	    std::begin(m_tests), std::end(m_tests), 0,
+	    [](int base, const CheckableTest &test) { return base + test.getPoints(); });
 }

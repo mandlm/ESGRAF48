@@ -18,4 +18,6 @@ public:
 
 protected:
 	std::string getName() const override;
+
+	void printTableTo(QTextCursor &cursor) const override;
 };

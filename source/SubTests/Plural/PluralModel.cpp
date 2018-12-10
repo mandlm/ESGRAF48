@@ -1,6 +1,10 @@
 #include "PluralModel.h"
 
 #include <QSize>
+#include <QTextTable>
+#include <QDebug>
+
+#include <regex>
 
 PluralModel::PluralModel(QObject *parent)
     : CheckableTestModel(parent)
@@ -56,3 +60,38 @@ std::string PluralModel::getName() const
 {
 	return "Subtest 5: Plural";
 }
+
+void PluralModel::printTableTo(QTextCursor &cursor) const
+{
+	QTextTableFormat tableFormat;
+	tableFormat.setCellPadding(2);
+	tableFormat.setCellSpacing(0);
+
+	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10),
+	                                       QTextLength(QTextLength::PercentageLength, 10)});
+
+	QTextTable *table = cursor.insertTable(2, 10, tableFormat);
+
+	const auto &test = m_tests.front();
+	
+	int currentColumn = 0;
+	for (const auto &item : test.items())
+	{
+		std::string itemName = std::regex_replace(item.getText(), std::regex("\\s"), "\n",
+		                                          std::regex_constants::format_first_only);
+
+		setCellText(*table, 0, currentColumn, itemName.c_str());
+		setCellChecked(*table, 1, currentColumn, item.isChecked());
+
+		currentColumn++;
+	}
+}
+

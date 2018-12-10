@@ -34,8 +34,12 @@ protected:
 	virtual bool isValidIndex(const QModelIndex &index) const;
 
 	virtual std::string getName() const = 0;
-	void printTableTo(QTextCursor &cursor) const;
-	void printSummaryTo(QTextCursor &cursor) const;
+
+	virtual void printTableTo(QTextCursor &cursor) const;
+	virtual void printSummaryTo(QTextCursor &cursor) const;
+
+	static void setCellText(QTextTable &table, int row, int column, const QString &text);
+	static void setCellChecked(QTextTable &table, int row, int column, bool check);
 
 private:
 	CheckableItems &getItems(const QModelIndex &index);
