@@ -129,3 +129,25 @@ std::string VerbEndModel::getName() const
 	return "Subtest 2: Verbendstellungsregel (VE)";
 };
 
+void VerbEndModel::printSummaryTo(QTextCursor &cursor) const
+{
+	QTextTableFormat tableFormat;
+	tableFormat.setCellPadding(2);
+	tableFormat.setCellSpacing(0);
+
+	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 46),
+	                                       QTextLength(QTextLength::PercentageLength, 25),
+	                                       QTextLength(QTextLength::PercentageLength, 1),
+	                                       QTextLength(QTextLength::PercentageLength, 3),
+	                                       QTextLength(QTextLength::PercentageLength, 1),
+	                                       QTextLength(QTextLength::PercentageLength, 20),
+	                                       QTextLength(QTextLength::PercentageLength, 1),
+	                                       QTextLength(QTextLength::PercentageLength, 3)});
+
+	QTextTable *table = cursor.insertTable(1, 8, tableFormat);
+
+	setCellText(*table, 0, 1, "Rohwertpunkte Kausalsätze:");
+	setCellNumber(*table, 0, 3, getCausalPoints());
+	setCellText(*table, 0, 5, "Rohwertpunkte Total:");
+	setCellNumber(*table, 0, 7, getPoints());
+}

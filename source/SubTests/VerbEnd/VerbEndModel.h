@@ -19,6 +19,7 @@ public:
 
 protected:
 	std::string getName() const override;
+	void printSummaryTo(QTextCursor &cursor) const override;
 
 private slots:
 	void modelChanged();
