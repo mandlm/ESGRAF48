@@ -22,4 +22,5 @@ protected:
 	bool isValidIndex(const QModelIndex &index) const override;
 
 	std::string getName() const override;
+	void printTableTo(QTextCursor &cursor) const override;
 };

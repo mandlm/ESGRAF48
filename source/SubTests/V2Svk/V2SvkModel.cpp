@@ -1,5 +1,7 @@
 #include "V2SvkModel.h"
 
+#include <QTextTable>
+
 V2SvkModel::V2SvkModel(QObject *parent)
     : CheckableTestModel(parent)
 {
@@ -203,4 +205,62 @@ void V2SvkModel::read(const ESGRAF48::V2SvkModel &model)
 std::string V2SvkModel::getName() const
 {
 	return "Subtest 1: Verbzweitstellungsregel (V2) und Subjekt-Verb-Kontrollregel (SVK)";
+}
+
+void V2SvkModel::printTableTo(QTextCursor &cursor) const
+{
+	QTextTableFormat tableFormat;
+	tableFormat.setCellPadding(2);
+	tableFormat.setCellSpacing(0);
+
+	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 20),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 5),
+	                                       QTextLength(QTextLength::PercentageLength, 13),
+	                                       QTextLength(QTextLength::PercentageLength, 3),
+	                                       QTextLength(QTextLength::PercentageLength, 1),
+	                                       QTextLength(QTextLength::PercentageLength, 3)});
+
+	QTextTable *table = cursor.insertTable(2, 17, tableFormat);
+
+	int currentRow = 0;
+	int currentTest = 0;
+	//for (const auto &test : m_tests)
+	{
+		table->mergeCells(currentRow, 0, 2, 1);
+
+		int currentColumn = 0;
+
+		setCellText(*table, currentRow, currentColumn, m_tests[0].name());
+		currentColumn++;
+
+		for (auto it = std::begin(m_tests[0].items()); it != std::end(m_tests[0].items()); std::advance(it, 4))
+		{
+			table->mergeCells(currentRow, currentColumn, 1, 4);
+
+			auto itemName = it->getText();
+
+			setCellText(*table, currentRow, currentColumn, itemName.c_str());
+			setCellChecked(*table, currentRow + 1, currentColumn, it->isChecked());
+			setCellChecked(*table, currentRow + 1, currentColumn + 1, (it + 1)->isChecked());
+			setCellChecked(*table, currentRow + 1, currentColumn + 2, (it + 2)->isChecked());
+			setCellChecked(*table, currentRow + 1, currentColumn + 3, (it + 3)->isChecked());
+
+			currentColumn += 4;
+		}
+
+		setCellNumber(*table, currentRow + 1, 14, m_tests[0].getPoints());
+
+		currentRow += 2;
+	}
 }

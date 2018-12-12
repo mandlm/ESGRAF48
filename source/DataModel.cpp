@@ -70,7 +70,7 @@ void DataModel::printTo(QTextCursor &cursor) const
 
 	m_metaData.printTo(cursor);
 
-	//m_v2Svk.printTo(cursor);
+	m_v2Svk.printTo(cursor);
 	m_verbEnd.printTo(cursor);
 	m_genus.printTo(cursor);
 	m_akkusativ.printTo(cursor);
