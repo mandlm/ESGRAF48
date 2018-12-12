@@ -15,6 +15,14 @@ public:
 	void write(ESGRAF48::VerbEndModel &model) const;
 	void read(const ESGRAF48::VerbEndModel &model);
 
+	unsigned int getCausalPoints() const;
+
 protected:
 	std::string getName() const override;
+
+private slots:
+	void modelChanged();
+
+signals:
+	void causalPointsChanged(unsigned int points);
 };

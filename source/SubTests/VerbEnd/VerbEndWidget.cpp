@@ -20,4 +20,11 @@ VerbEndWidget::~VerbEndWidget()
 void VerbEndWidget::setModel(VerbEndModel *model)
 {
 	ui->verbEndTableView->setModel(model);
+
+	connect(model, &VerbEndModel::causalPointsChanged, this, &VerbEndWidget::causalPointsChanged);
+}
+
+void VerbEndWidget::causalPointsChanged(unsigned int points)
+{
+	ui->causalPointsLabel->setText(QString::number(points));
 }

@@ -1,6 +1,7 @@
 #include "VerbEndModel.h"
 
 #include <QTextTable>
+#include <QDebug>
 
 VerbEndModel::VerbEndModel(QObject *parent)
     : CheckableTestModel(parent)
@@ -9,6 +10,8 @@ VerbEndModel::VerbEndModel(QObject *parent)
 	    {"Telefonat", {"Kausal", "Kausal", "Relativ", "Kausal", "Final", "Temporal", "Temporal"}},
 	    {"Zaubertrick", {"Relativ", "Final", "Kausal", "Final", "Temporal", "Kausal", "Temporal"}},
 	    {"Zauberregel", {"Temporal", "Kausal", "Final", "Relativ", "Temporal", "Relativ"}}};
+
+	connect(this, &VerbEndModel::dataChanged, this, &VerbEndModel::modelChanged);
 }
 
 void VerbEndModel::write(ESGRAF48::VerbEndModel &model) const
@@ -98,7 +101,31 @@ void VerbEndModel::read(const ESGRAF48::VerbEndModel &model)
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
+unsigned int VerbEndModel::getCausalPoints() const
+{
+	unsigned int points = 0;
+
+	for (const auto &test : m_tests)
+	{
+		for (const auto &item : test.items())
+		{
+			if (item.getText() == "Kausal")
+			{
+				points += item.points();
+			}
+		}
+	}
+
+	return points;
+}
+
+void VerbEndModel::modelChanged()
+{
+	emit causalPointsChanged(getCausalPoints());
+}
+
 std::string VerbEndModel::getName() const
 {
 	return "Subtest 2: Verbendstellungsregel (VE)";
 };
+

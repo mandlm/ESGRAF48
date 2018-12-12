@@ -20,4 +20,7 @@ public:
 	~VerbEndWidget();
 
 	void setModel(VerbEndModel *model);
+
+public slots:
+	void causalPointsChanged(unsigned int points);
 };
