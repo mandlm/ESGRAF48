@@ -5,7 +5,6 @@
 #include <QMainWindow>
 #include <QString>
 
-
 class DataModel;
 class QDataWidgetMapper;
 

@@ -12,8 +12,8 @@ class V2SvkModel : public CheckableTestModel
 public:
 	V2SvkModel(QObject *parent);
 
-	unsigned int getV2Points();
-	unsigned int getSvkPoints();
+	unsigned int getV2Points() const;
+	unsigned int getSvkPoints() const;
 
 	void write(ESGRAF48::V2SvkModel &model) const;
 	void read(const ESGRAF48::V2SvkModel &model);
@@ -23,4 +23,5 @@ protected:
 
 	std::string getName() const override;
 	void printTableTo(QTextCursor &cursor) const override;
+	void printSummaryTo(QTextCursor &cursor) const override;
 };
