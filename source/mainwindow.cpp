@@ -161,6 +161,8 @@ void MainWindow::print() const
 	QTextDocument printDoc;
 	QTextCursor printCursor(&printDoc);
 	m_dataModel.printTo(printCursor);
+
+	printDoc.print(&printer);
 }
 
 void MainWindow::dataModelChanged()

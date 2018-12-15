@@ -266,7 +266,11 @@ void V2SvkModel::printTableTo(QTextCursor &cursor) const
 		{
 			column++;
 
-			if (!item.getText().empty())
+			if (item.getText().empty())
+			{
+				setCellBackground(*table, row, column, QColor(92, 92, 92));
+			}
+			else
 			{
 				setCellChecked(*table, row, column, item.isChecked());
 			}

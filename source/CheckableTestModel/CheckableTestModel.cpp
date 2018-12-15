@@ -191,32 +191,6 @@ void CheckableTestModel::printSummaryTo(QTextCursor &cursor) const
 	setCellNumber(*table, 0, 3, getPoints());
 }
 
-void CheckableTestModel::setCellText(QTextTable &table, int row, int column, const QString &text)
-{
-	auto cell = table.cellAt(row, column);
-	auto textCursor = cell.firstCursorPosition();
-
-	auto blockFormat = textCursor.blockFormat();
-	blockFormat.setAlignment(Qt::AlignCenter);
-	textCursor.setBlockFormat(blockFormat);
-
-	auto cellFormat = cell.format();
-	cellFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
-	cell.setFormat(cellFormat);
-
-	auto charFormat = textCursor.charFormat();
-	charFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
-	charFormat.setFontPointSize(8);
-	textCursor.setCharFormat(charFormat);
-
-	textCursor.insertText(text);
-}
-
-void CheckableTestModel::setCellChecked(QTextTable &table, int row, int column, bool check)
-{
-	setCellText(table, row, column, check ? "x" : "\u2610");
-}
-
 CheckableItems &CheckableTestModel::getItems(const QModelIndex &index)
 {
 	if (index.row() < m_tests.size())
