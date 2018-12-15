@@ -151,6 +151,7 @@ void MainWindow::closeFile()
 void MainWindow::print() const
 {
 	QPrinter printer;
+	printer.setResolution(1200);
 
 	QPrintDialog dialog(&printer);
 	if (dialog.exec() != QDialog::Accepted)
@@ -209,6 +210,7 @@ void MainWindow::saveFile(const QString &filename)
 void MainWindow::savePdf(const QString &filename)
 {
 	QPrinter printer;
+	printer.setResolution(1200);
 	printer.setOutputFormat(QPrinter::PdfFormat);
 	printer.setPaperSize(QPrinter::A4);
 	printer.setOutputFileName(filename);
