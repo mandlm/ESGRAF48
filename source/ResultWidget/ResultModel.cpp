@@ -217,9 +217,7 @@ void ResultModel::printTo(QTextCursor &cursor) const
 	cursor.insertBlock();
 	cursor.insertText("\nProzentränge (PR)");
 
-	QTextTableFormat tableFormat;
-	tableFormat.setCellPadding(2);
-	tableFormat.setCellSpacing(0);
+	QTextTableFormat tableFormat = defaultTableFormat();
 
 	const unsigned int columnCount = 10;
 

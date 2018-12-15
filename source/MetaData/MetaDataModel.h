@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../PrintableModel.h"
 #include "Age.h"
 
 #include "MetaDataModel.pb.h"
@@ -10,7 +11,7 @@
 #include <QJsonObject>
 #include <QTextCursor>
 
-class MetaDataModel : public QAbstractTableModel
+class MetaDataModel : public QAbstractTableModel, protected PrintableModel
 {
 	Q_OBJECT
 
@@ -25,19 +26,17 @@ public:
 	MetaDataModel(QObject *parent);
 	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-	QVariant data(
-		const QModelIndex &index, int role = Qt::DisplayRole) const override;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 	Qt::ItemFlags flags(const QModelIndex &index) const override;
-	bool setData(const QModelIndex &index, const QVariant &value,
-		int role = Qt::EditRole) override;
+	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
 	void read(const ESGRAF48::MetaDataModel &model);
 	void write(ESGRAF48::MetaDataModel &model) const;
 
-	void printTo(QTextCursor &cursor) const;
+	void printTo(QTextCursor &cursor) const override;
 
 	Age getAge() const
 	{
-		return { m_dateOfBirth, m_dateOfTest };
+		return {m_dateOfBirth, m_dateOfTest};
 	}
 };

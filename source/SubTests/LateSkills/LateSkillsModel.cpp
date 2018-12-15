@@ -11,9 +11,7 @@ LateSkillsModel::LateSkillsModel(QObject *parent)
 
 void LateSkillsModel::printTableTo(QTextCursor &cursor) const
 {
-	QTextTableFormat tableFormat;
-	tableFormat.setCellPadding(2);
-	tableFormat.setCellSpacing(0);
+	QTextTableFormat tableFormat = defaultTableFormat();
 
 	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 20),
 	                                       QTextLength(QTextLength::PercentageLength, 5),

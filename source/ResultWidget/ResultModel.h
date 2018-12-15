@@ -1,12 +1,13 @@
 #pragma once
 
+#include "../PrintableModel.h"
 #include "Age.h"
 #include "TestResult.h"
 
 #include <QAbstractTableModel>
 #include <QTextCursor>
 
-class ResultModel : public QAbstractTableModel
+class ResultModel : public QAbstractTableModel, protected PrintableModel
 {
 	Q_OBJECT
 
@@ -36,5 +37,5 @@ public:
 	void setPassivResult(unsigned int points);
 	void setGenitivResult(unsigned int points);
 
-	void printTo(QTextCursor &cursor) const;
+	void printTo(QTextCursor &cursor) const override;
 };

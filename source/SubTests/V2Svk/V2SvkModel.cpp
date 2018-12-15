@@ -209,9 +209,7 @@ std::string V2SvkModel::getName() const
 
 void V2SvkModel::printTableTo(QTextCursor &cursor) const
 {
-	QTextTableFormat tableFormat12;
-	tableFormat12.setCellPadding(2);
-	tableFormat12.setCellSpacing(0);
+	QTextTableFormat tableFormat12 = defaultTableFormat();
 
 	tableFormat12.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 20),
 	                                         QTextLength(QTextLength::PercentageLength, 5),
@@ -231,9 +229,7 @@ void V2SvkModel::printTableTo(QTextCursor &cursor) const
 	                                         QTextLength(QTextLength::PercentageLength, 1),
 	                                         QTextLength(QTextLength::PercentageLength, 3)});
 
-	QTextTableFormat tableFormat6;
-	tableFormat6.setCellPadding(2);
-	tableFormat6.setCellSpacing(0);
+	QTextTableFormat tableFormat6 = defaultTableFormat();
 
 	tableFormat6.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 20),
 	                                        QTextLength(QTextLength::PercentageLength, 10),
@@ -329,9 +325,7 @@ void V2SvkModel::printTableTo(QTextCursor &cursor) const
 
 void V2SvkModel::printSummaryTo(QTextCursor &cursor) const
 {
-	QTextTableFormat tableFormat;
-	tableFormat.setCellPadding(2);
-	tableFormat.setCellSpacing(0);
+	QTextTableFormat tableFormat = defaultTableFormat();
 
 	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 72),
 	                                       QTextLength(QTextLength::PercentageLength, 20),

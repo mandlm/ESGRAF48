@@ -135,10 +135,8 @@ void MetaDataModel::printTo(QTextCursor &cursor) const
 {
 	cursor.insertBlock();
 
-	QTextTableFormat tableFormat;
+	QTextTableFormat tableFormat = defaultTableFormat();
 	tableFormat.setBorderStyle(QTextTableFormat::BorderStyle_None);
-	tableFormat.setCellPadding(2);
-	tableFormat.setCellSpacing(0);
 
 	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 25),
 	                                       QTextLength(QTextLength::PercentageLength, 25),

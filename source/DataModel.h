@@ -36,33 +36,11 @@ public:
 	DataModel(QObject *parent);
 
 	void printTo(QTextCursor &cursor) const;
-
-	void write(std::ostream &outStream) const;
+void write(std::ostream &outStream) const;
 	void read(std::istream &inStream);
 
 signals:
 	void modelChanged();
-
-private:
-	template <class ModelType>
-	void write(
-		const ModelType &model, QJsonObject &target, const char *name) const
-	{
-		QJsonObject jsonObject;
-		model.write(jsonObject);
-		target[name] = jsonObject;
-	}
-
-	template <class ModelType>
-	void read(
-		ModelType &model, const QJsonObject &source, const char *name) const
-	{
-		const auto &jsonObject = source[name];
-		if (jsonObject.isObject())
-		{
-			model.read(jsonObject.toObject());
-		}
-	}
 
 private slots:
 	void pluralModelChanged();

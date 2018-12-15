@@ -134,9 +134,7 @@ void CheckableTestModel::printTo(QTextCursor &cursor) const
 
 void CheckableTestModel::printTableTo(QTextCursor &cursor) const
 {
-	QTextTableFormat tableFormat;
-	tableFormat.setCellPadding(2);
-	tableFormat.setCellSpacing(0);
+	QTextTableFormat tableFormat = defaultTableFormat();
 
 	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 20),
 	                                       QTextLength(QTextLength::PercentageLength, 9),
@@ -180,9 +178,7 @@ void CheckableTestModel::printTableTo(QTextCursor &cursor) const
 
 void CheckableTestModel::printSummaryTo(QTextCursor &cursor) const
 {
-	QTextTableFormat tableFormat;
-	tableFormat.setCellPadding(2);
-	tableFormat.setCellSpacing(0);
+	QTextTableFormat tableFormat = defaultTableFormat();
 
 	tableFormat.setColumnWidthConstraints({QTextLength(QTextLength::PercentageLength, 76),
 	                                       QTextLength(QTextLength::PercentageLength, 20),

@@ -1,10 +1,12 @@
 #pragma once
 
+#include "../PrintableModel.h"
 #include "CheckableTest.h"
+
 #include <QAbstractTableModel>
 #include <QTextCursor>
 
-class CheckableTestModel : public QAbstractTableModel
+class CheckableTestModel : public QAbstractTableModel, protected PrintableModel
 {
 	Q_OBJECT
 
@@ -28,7 +30,7 @@ public:
 
 	unsigned int getPoints() const;
 
-	virtual void printTo(QTextCursor &cursor) const;
+	void printTo(QTextCursor &cursor) const override;
 
 protected:
 	virtual bool isValidIndex(const QModelIndex &index) const;
