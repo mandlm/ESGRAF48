@@ -1,5 +1,7 @@
 #pragma once
 
+#include "PrintableModel.h"
+
 #include "MetaData/MetaDataModel.h"
 #include "GenusModel.h"
 #include "VerbEndModel.h"
@@ -12,9 +14,9 @@
 
 #include "ResultModel.h"
 
-#include <QJsonObject>
+#include <QPainter>
 
-class DataModel : public QObject
+class DataModel : public QObject, public PrintableModel
 {
 	Q_OBJECT
 
@@ -34,34 +36,13 @@ public:
 public:
 	DataModel(QObject *parent);
 
-	std::string toHtml() const;
-
 	void write(std::ostream &outStream) const;
 	void read(std::istream &inStream);
 
+	void printTo(QPainter &painter) const override;
+
 signals:
 	void modelChanged();
-
-private:
-	template <class ModelType>
-	void write(
-		const ModelType &model, QJsonObject &target, const char *name) const
-	{
-		QJsonObject jsonObject;
-		model.write(jsonObject);
-		target[name] = jsonObject;
-	}
-
-	template <class ModelType>
-	void read(
-		ModelType &model, const QJsonObject &source, const char *name) const
-	{
-		const auto &jsonObject = source[name];
-		if (jsonObject.isObject())
-		{
-			model.read(jsonObject.toObject());
-		}
-	}
 
 private slots:
 	void pluralModelChanged();

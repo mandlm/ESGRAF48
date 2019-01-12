@@ -59,28 +59,14 @@ void DataModel::read(std::istream &inStream)
 	m_genitiv.read(dataModel.lateskillsgenitiv());
 	m_passiv.read(dataModel.lateskillspassiv());
 }
-
-std::string DataModel::toHtml() const
+	
+void DataModel::printTo(QPainter &painter) const
 {
-	std::stringstream out;
+	painter.setFont(h1Font());
+	painter.drawText(0, painter.fontMetrics().lineSpacing(), "ESGRAF 4-8 Auswertungsbogen");
+	painter.translate(0, 3 * painter.fontMetrics().lineSpacing());
 
-	out << "<html>" << std::endl;
-	out << "<head>" << std::endl;
-	out << "<style>" << std::endl;
-	out << "body {" << std::endl;
-	out << "font-family:sans-serif;" << std::endl;
-	out << "}" << std::endl;
-	out << "</style>" << std::endl;
-	out << "</head>" << std::endl;
-	out << "<body>" << std::endl;
-	out << "<h2>ESGRAF 4-8 Auswertungsbogen</h2>" << std::endl;
-	out << "<p>" << std::endl;
-	out << m_metaData.toHtml();
-	out << "</p>" << std::endl;
-	out << "</body>" << std::endl;
-	out << "</html>" << std::endl;
-
-	return out.str();
+	m_metaData.printTo(painter);
 }
 
 void DataModel::pluralModelChanged()
