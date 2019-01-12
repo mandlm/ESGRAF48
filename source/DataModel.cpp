@@ -67,6 +67,7 @@ void DataModel::printTo(QPainter &painter) const
 	painter.translate(0, 3 * painter.fontMetrics().lineSpacing());
 
 	m_metaData.printTo(painter);
+	m_v2Svk.printTo(painter);
 }
 
 void DataModel::pluralModelChanged()

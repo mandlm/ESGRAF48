@@ -199,3 +199,104 @@ void V2SvkModel::read(const ESGRAF48::V2SvkModel &model)
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
+
+void V2SvkModel::printTo(QPainter &painter) const
+{
+	painter.setFont(h2Font());
+
+	painter.drawText(
+	    0, 0, "Subtest 1: Verbzweitstellungsregel (V2) und Subjekt-Verb-Kontrollregel (SVK)");
+
+	painter.translate(0, 1.5 * painter.fontMetrics().lineSpacing());
+
+	painter.setFont(tableFont());
+	painter.setPen(tablePen());
+
+	auto width = painter.device()->width();
+	auto height = 1.5 * painter.fontMetrics().lineSpacing();
+
+	auto drawTextSquare = [&](double left, double top, double width, double height,
+	                          const QString &text) {
+		painter.drawText(left, top, width, height, Qt::AlignCenter, text);
+		painter.drawLine(left, top, left + width, top);
+		painter.drawLine(left + width, top, left + width, top + height);
+		painter.drawLine(left + width, top + height, left, top + height);
+		painter.drawLine(left, top + height, left, top);
+	};
+
+	auto drawCheckSquare = [&](double left, double top, double width, double height, bool checked) {
+		drawTextSquare(left, top, width, height, checked ? "\u2612" : "\u2610");
+	};
+
+	auto drawResultSquare = [&](bool right, bool bold, unsigned int value, double y) {
+		double cellWidth = 0.03 * width;
+		double x = width - cellWidth - (right ? 0 : 0.04 * width);
+
+		drawTextSquare(x, y, cellWidth, height, QString::number(value));
+	};
+
+	auto drawGreySquare = [&](double left, double top, double width, double height) {
+		auto prevBrush = painter.brush();
+
+		painter.setBrush(QBrush(QColor(224, 224, 224)));
+		painter.drawRect(left, top, width, height);
+		
+		painter.setBrush(prevBrush);
+	};
+
+	auto x = 0.0;
+	auto y = 0.0;
+	auto cellWidth = 0.2 * width;
+	drawTextSquare(x, y, cellWidth, 2 * height, "W-Fragen");
+	x += cellWidth;
+	drawTextSquare(x, y, cellWidth, height, "Affe");
+	x += cellWidth;
+	drawTextSquare(x, y, cellWidth, height, "Schwein");
+	x += cellWidth;
+	drawTextSquare(x, y, cellWidth, height, "Gans");
+
+	x = 0.2 * width;
+	y += height;
+	cellWidth = 0.05 * width;
+	for (int i = 0; i < 12; ++i)
+	{
+		drawCheckSquare(x, y, cellWidth, height, true);
+		x += cellWidth;
+	}
+	drawResultSquare(false, false, 9, y);
+
+	x = 0;
+	y += height;
+	cellWidth = 0.2 * width;
+	drawTextSquare(x, y, cellWidth, height, "Verbtrennung");
+	x += cellWidth;
+	cellWidth = 0.05 * width;
+	drawGreySquare(x, y, cellWidth, height);
+	x += cellWidth;
+	drawCheckSquare(x, y, cellWidth, height, true);
+	x += cellWidth;
+	drawGreySquare(x, y, 5 * cellWidth, height);
+	x += 5 * cellWidth;
+	drawCheckSquare(x, y, cellWidth, height, true);
+	x += cellWidth;
+	drawGreySquare(x, y, 2 * cellWidth, height);
+	x += 2 * cellWidth;
+	drawCheckSquare(x, y, cellWidth, height, true);
+	x += cellWidth;
+	drawGreySquare(x, y, cellWidth, height);
+	x += cellWidth;
+	drawResultSquare(false, false, 2, y);
+
+	x = 0;
+	y += height;
+	cellWidth = 0.2 * width;
+	drawTextSquare(x, y, cellWidth, height, "SVK: /-st/");
+	x += cellWidth;
+	cellWidth = 0.05 * width;
+	for (int i = 0; i < 12; ++i)
+	{
+		drawCheckSquare(x, y, cellWidth, height, true);
+		x += cellWidth;
+	}
+	drawResultSquare(true, false, 8, y);
+}

@@ -163,4 +163,6 @@ void MetaDataModel::printTo(QPainter &painter) const
 
 	painter.drawText(0, 0, "Alter am Testtag");
 	painter.drawText(0.25 * width, 0, getAge().toString().c_str());
+
+	painter.translate(0, 2 * height);
 }

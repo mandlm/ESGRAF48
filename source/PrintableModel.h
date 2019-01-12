@@ -9,5 +9,8 @@ public:
 
 protected:
 	static QFont h1Font();
+	static QFont h2Font();
 	static QFont tableFont();
+
+	static QPen tablePen();
 };
