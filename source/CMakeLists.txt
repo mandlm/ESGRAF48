@@ -35,7 +35,6 @@ protobuf_generate_cpp(DataModel_PROTO_SRCS DataModel_PROTO_HDRS
 
 add_executable(${PROJECT_NAME} WIN32
 	ESGRAF48.cpp
-	PrintableModel.cpp
 	DataModel.cpp
 	mainwindow.cpp
 	${LOGO_TEST_UI}
@@ -61,6 +60,7 @@ target_link_libraries(${PROJECT_NAME}
 		CheckableItem
 		CheckableTest
 		CheckableTestModel
+		PrintableModel
 		MetaData
 		VerbEnd
 		Plural
@@ -78,6 +78,7 @@ add_subdirectory(Age)
 add_subdirectory(CheckableItem)
 add_subdirectory(CheckableTest)
 add_subdirectory(CheckableTestModel)
+add_subdirectory(PrintableModel)
 
 add_subdirectory(MetaData)
 add_subdirectory(SubTests)

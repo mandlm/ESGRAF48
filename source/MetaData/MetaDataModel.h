@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../PrintableModel.h"
+#include "PrintableModel.h"
 
 #include "Age.h"
 

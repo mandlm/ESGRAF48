@@ -42,6 +42,7 @@ target_link_libraries(${PROJECT_NAME}
 		CheckableItem
 		CheckableTest
 		CheckableTestModel
+		PrintableModel
 		Qt5::Widgets
 		${Protobuf_LIBRARIES}
 )

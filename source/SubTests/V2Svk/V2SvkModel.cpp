@@ -213,45 +213,6 @@ void V2SvkModel::printTo(QPainter &painter) const
 	auto width = painter.device()->width();
 	auto height = 1.5 * painter.fontMetrics().lineSpacing();
 
-	auto drawTextSquare = [&](double left, double top, double width, double height,
-	                          const QString &text) {
-		painter.drawText(left, top, width, height, Qt::AlignCenter, text);
-		painter.drawLine(left, top, left + width, top);
-		painter.drawLine(left + width, top, left + width, top + height);
-		painter.drawLine(left + width, top + height, left, top + height);
-		painter.drawLine(left, top + height, left, top);
-	};
-
-	auto drawCheckSquare = [&](double left, double top, double width, double height, bool checked) {
-		drawTextSquare(left, top, width, height, checked ? "\u2612" : "\u2610");
-	};
-
-	auto drawResultSquare = [&](bool right, unsigned int value, double y) {
-		double cellWidth = 0.03 * width;
-		double x = width - cellWidth - (right ? 0 : 0.04 * width);
-
-		drawTextSquare(x, y, cellWidth, height, QString::number(value));
-	};
-
-	auto drawGreySquare = [&](double left, double top, double width, double height) {
-		auto prevBrush = painter.brush();
-		auto prevPen = painter.pen();
-
-		painter.setBrush(QBrush(QColor(224, 224, 224)));
-		painter.setPen(QPen(Qt::NoPen));
-		QPointF points[4] = {{left, top}, {left + width, top}, {left + width, top + height}, {left, top + height}};
-		painter.drawPolygon(points, 4);
-
-		painter.setPen(tablePen());
-		painter.drawLine(left, top, left + width, top);
-		painter.drawLine(left + width, top, left + width, top + height);
-		painter.drawLine(left + width, top + height, left, top + height);
-		painter.drawLine(left, top + height, left, top);
-
-		painter.setBrush(prevBrush);
-		painter.setPen(prevPen);
-	};
-
 	std::set<unsigned int> blockStarters = {0, 3, 5, 7};
 	std::set<unsigned int> v2Tests = {0, 1, 3, 5, 7, 8};
 	std::set<unsigned int> svkTests = {2, 4, 6, 9, 10};
@@ -268,7 +229,7 @@ void V2SvkModel::printTo(QPainter &painter) const
 		if (blockStarters.find(testIndex) != blockStarters.end())
 		{
 			y += rowHeight;
-			drawTextSquare(x, y, rowHeaderWidth, 2 * rowHeight, test.name());
+			drawTextSquare(painter, {x, y, rowHeaderWidth, 2 * rowHeight}, test.name());
 			x += rowHeaderWidth;
 
 			std::vector<std::pair<std::string, unsigned int>> columnHeaders;
@@ -288,7 +249,7 @@ void V2SvkModel::printTo(QPainter &painter) const
 			for (const auto &columnHeader : columnHeaders)
 			{
 				double cellWidth = columnHeader.second * resultCellWidth;
-				drawTextSquare(x, y, cellWidth, rowHeight, columnHeader.first.c_str());
+				drawTextSquare(painter, {x, y, cellWidth, rowHeight}, columnHeader.first.c_str());
 				x += cellWidth;
 			}
 			x = rowHeaderWidth;
@@ -296,7 +257,7 @@ void V2SvkModel::printTo(QPainter &painter) const
 		}
 		else
 		{
-			drawTextSquare(x, y, rowHeaderWidth, rowHeight, test.name());
+			drawTextSquare(painter, {x, y, rowHeaderWidth, rowHeight}, test.name());
 			x += rowHeaderWidth;
 		}
 
@@ -311,30 +272,30 @@ void V2SvkModel::printTo(QPainter &painter) const
 			{
 				if (emptyItemsStack > 0)
 				{
-					drawGreySquare(x - emptyItemsStack * resultCellWidth, y,
-					               emptyItemsStack * resultCellWidth, rowHeight);
+					drawGreySquare(painter, {x - emptyItemsStack * resultCellWidth, y,
+					                         emptyItemsStack * resultCellWidth, rowHeight});
 					emptyItemsStack = 0;
 				}
 
-				drawCheckSquare(x, y, resultCellWidth, rowHeight, item.isChecked());
+				drawCheckSquare(painter, {x, y, resultCellWidth, rowHeight}, item.isChecked());
 			}
 			x += resultCellWidth;
 		}
 		if (emptyItemsStack > 0)
 		{
-			drawGreySquare(x - emptyItemsStack * resultCellWidth, y,
-			               emptyItemsStack * resultCellWidth, rowHeight);
+			drawGreySquare(painter, {x - emptyItemsStack * resultCellWidth, y,
+			                         emptyItemsStack * resultCellWidth, rowHeight});
 			emptyItemsStack = 0;
 		}
 
 		if (v2Tests.find(testIndex) != v2Tests.end())
 		{
-			drawResultSquare(false, test.getPoints(), y);
+			drawResultSquare(painter, y, false, test.getPoints());
 		}
 
 		if (svkTests.find(testIndex) != svkTests.end())
 		{
-			drawResultSquare(true, test.getPoints(), y);
+			drawResultSquare(painter, y, true, test.getPoints());
 		}
 
 		x = 0;
@@ -348,6 +309,6 @@ void V2SvkModel::printTo(QPainter &painter) const
 
 	painter.drawText(x, y, 0.85 * width, height, Qt::AlignRight | Qt::AlignVCenter,
 	                 "Rohwertpunkte Total:");
-	drawResultSquare(false, getV2Points(), y);
-	drawResultSquare(true, getSvkPoints(), y);
+	drawResultSquare(painter, y, false, getV2Points());
+	drawResultSquare(painter, y, true, getSvkPoints());
 }
