@@ -12,7 +12,7 @@ QFont PrintableModel::h2Font()
 
 QFont PrintableModel::tableFont()
 {
-	return QFont("Helvetica", 10);
+	return QFont("Helvetica", 8);
 }
 
 QPen PrintableModel::tablePen()

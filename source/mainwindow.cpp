@@ -153,7 +153,7 @@ void MainWindow::print() const
 {
 	QPrinter printer;
 	printer.setPaperSize(QPrinter::A4);
-	printer.setPageMargins(30, 20, 30, 20, QPrinter::Millimeter);
+	printer.setPageMargins(20, 20, 20, 20, QPrinter::Millimeter);
 
 	QPrintDialog dialog(&printer);
 	if (dialog.exec() != QDialog::Accepted)
@@ -215,7 +215,7 @@ void MainWindow::savePdf(const QString &filename)
 	QPrinter printer;
 	printer.setOutputFormat(QPrinter::PdfFormat);
 	printer.setPaperSize(QPrinter::A4);
-	printer.setPageMargins(30, 20, 30, 20, QPrinter::Millimeter);
+	printer.setPageMargins(20, 20, 20, 20, QPrinter::Millimeter);
 	printer.setOutputFileName(filename);
 
 	QPainter painter;

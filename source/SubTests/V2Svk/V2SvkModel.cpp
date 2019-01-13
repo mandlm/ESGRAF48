@@ -29,7 +29,7 @@ V2SvkModel::V2SvkModel(QObject *parent)
 	};
 }
 
-unsigned int V2SvkModel::getV2Points()
+unsigned int V2SvkModel::getV2Points() const
 {
 	unsigned int points = 0;
 
@@ -49,7 +49,7 @@ unsigned int V2SvkModel::getV2Points()
 	return points;
 }
 
-unsigned int V2SvkModel::getSvkPoints()
+unsigned int V2SvkModel::getSvkPoints() const
 {
 	unsigned int points = 0;
 
@@ -207,8 +207,6 @@ void V2SvkModel::printTo(QPainter &painter) const
 	painter.drawText(
 	    0, 0, "Subtest 1: Verbzweitstellungsregel (V2) und Subjekt-Verb-Kontrollregel (SVK)");
 
-	painter.translate(0, 1.5 * painter.fontMetrics().lineSpacing());
-
 	painter.setFont(tableFont());
 	painter.setPen(tablePen());
 
@@ -228,7 +226,7 @@ void V2SvkModel::printTo(QPainter &painter) const
 		drawTextSquare(left, top, width, height, checked ? "\u2612" : "\u2610");
 	};
 
-	auto drawResultSquare = [&](bool right, bool bold, unsigned int value, double y) {
+	auto drawResultSquare = [&](bool right, unsigned int value, double y) {
 		double cellWidth = 0.03 * width;
 		double x = width - cellWidth - (right ? 0 : 0.04 * width);
 
@@ -237,66 +235,119 @@ void V2SvkModel::printTo(QPainter &painter) const
 
 	auto drawGreySquare = [&](double left, double top, double width, double height) {
 		auto prevBrush = painter.brush();
+		auto prevPen = painter.pen();
 
 		painter.setBrush(QBrush(QColor(224, 224, 224)));
-		painter.drawRect(left, top, width, height);
-		
+		painter.setPen(QPen(Qt::NoPen));
+		QPointF points[4] = {{left, top}, {left + width, top}, {left + width, top + height}, {left, top + height}};
+		painter.drawPolygon(points, 4);
+
+		painter.setPen(tablePen());
+		painter.drawLine(left, top, left + width, top);
+		painter.drawLine(left + width, top, left + width, top + height);
+		painter.drawLine(left + width, top + height, left, top + height);
+		painter.drawLine(left, top + height, left, top);
+
 		painter.setBrush(prevBrush);
+		painter.setPen(prevPen);
 	};
 
-	auto x = 0.0;
-	auto y = 0.0;
-	auto cellWidth = 0.2 * width;
-	drawTextSquare(x, y, cellWidth, 2 * height, "W-Fragen");
-	x += cellWidth;
-	drawTextSquare(x, y, cellWidth, height, "Affe");
-	x += cellWidth;
-	drawTextSquare(x, y, cellWidth, height, "Schwein");
-	x += cellWidth;
-	drawTextSquare(x, y, cellWidth, height, "Gans");
+	std::set<unsigned int> blockStarters = {0, 3, 5, 7};
+	std::set<unsigned int> v2Tests = {0, 1, 3, 5, 7, 8};
+	std::set<unsigned int> svkTests = {2, 4, 6, 9, 10};
 
-	x = 0.2 * width;
-	y += height;
-	cellWidth = 0.05 * width;
-	for (int i = 0; i < 12; ++i)
+	double x = 0;
+	double y = 0;
+	auto testIndex = 0;
+	for (const auto &test : m_tests)
 	{
-		drawCheckSquare(x, y, cellWidth, height, true);
-		x += cellWidth;
+		double rowHeaderWidth = 0.2 * width;
+		double resultCellWidth = test.size() > 8 ? 0.05 * width : 0.1 * width;
+		double rowHeight = height;
+
+		if (blockStarters.find(testIndex) != blockStarters.end())
+		{
+			y += rowHeight;
+			drawTextSquare(x, y, rowHeaderWidth, 2 * rowHeight, test.name());
+			x += rowHeaderWidth;
+
+			std::vector<std::pair<std::string, unsigned int>> columnHeaders;
+			for (const auto &item : test.items())
+			{
+				const auto &itemText = item.getText();
+				if (!columnHeaders.empty() && columnHeaders.back().first == itemText)
+				{
+					columnHeaders.back().second++;
+				}
+				else
+				{
+					columnHeaders.emplace_back(itemText, 1);
+				}
+			}
+
+			for (const auto &columnHeader : columnHeaders)
+			{
+				double cellWidth = columnHeader.second * resultCellWidth;
+				drawTextSquare(x, y, cellWidth, rowHeight, columnHeader.first.c_str());
+				x += cellWidth;
+			}
+			x = rowHeaderWidth;
+			y += rowHeight;
+		}
+		else
+		{
+			drawTextSquare(x, y, rowHeaderWidth, rowHeight, test.name());
+			x += rowHeaderWidth;
+		}
+
+		unsigned int emptyItemsStack = 0;
+		for (const auto &item : test.items())
+		{
+			if (item.getText().empty())
+			{
+				emptyItemsStack++;
+			}
+			else
+			{
+				if (emptyItemsStack > 0)
+				{
+					drawGreySquare(x - emptyItemsStack * resultCellWidth, y,
+					               emptyItemsStack * resultCellWidth, rowHeight);
+					emptyItemsStack = 0;
+				}
+
+				drawCheckSquare(x, y, resultCellWidth, rowHeight, item.isChecked());
+			}
+			x += resultCellWidth;
+		}
+		if (emptyItemsStack > 0)
+		{
+			drawGreySquare(x - emptyItemsStack * resultCellWidth, y,
+			               emptyItemsStack * resultCellWidth, rowHeight);
+			emptyItemsStack = 0;
+		}
+
+		if (v2Tests.find(testIndex) != v2Tests.end())
+		{
+			drawResultSquare(false, test.getPoints(), y);
+		}
+
+		if (svkTests.find(testIndex) != svkTests.end())
+		{
+			drawResultSquare(true, test.getPoints(), y);
+		}
+
+		x = 0;
+		y += rowHeight;
+
+		testIndex++;
 	}
-	drawResultSquare(false, false, 9, y);
 
 	x = 0;
 	y += height;
-	cellWidth = 0.2 * width;
-	drawTextSquare(x, y, cellWidth, height, "Verbtrennung");
-	x += cellWidth;
-	cellWidth = 0.05 * width;
-	drawGreySquare(x, y, cellWidth, height);
-	x += cellWidth;
-	drawCheckSquare(x, y, cellWidth, height, true);
-	x += cellWidth;
-	drawGreySquare(x, y, 5 * cellWidth, height);
-	x += 5 * cellWidth;
-	drawCheckSquare(x, y, cellWidth, height, true);
-	x += cellWidth;
-	drawGreySquare(x, y, 2 * cellWidth, height);
-	x += 2 * cellWidth;
-	drawCheckSquare(x, y, cellWidth, height, true);
-	x += cellWidth;
-	drawGreySquare(x, y, cellWidth, height);
-	x += cellWidth;
-	drawResultSquare(false, false, 2, y);
 
-	x = 0;
-	y += height;
-	cellWidth = 0.2 * width;
-	drawTextSquare(x, y, cellWidth, height, "SVK: /-st/");
-	x += cellWidth;
-	cellWidth = 0.05 * width;
-	for (int i = 0; i < 12; ++i)
-	{
-		drawCheckSquare(x, y, cellWidth, height, true);
-		x += cellWidth;
-	}
-	drawResultSquare(true, false, 8, y);
+	painter.drawText(x, y, 0.85 * width, height, Qt::AlignRight | Qt::AlignVCenter,
+	                 "Rohwertpunkte Total:");
+	drawResultSquare(false, getV2Points(), y);
+	drawResultSquare(true, getSvkPoints(), y);
 }

@@ -12,8 +12,8 @@ class V2SvkModel : public CheckableTestModel, public PrintableModel
 public:
 	V2SvkModel(QObject *parent);
 
-	unsigned int getV2Points();
-	unsigned int getSvkPoints();
+	unsigned int getV2Points() const;
+	unsigned int getSvkPoints() const;
 
 	void write(ESGRAF48::V2SvkModel &model) const;
 	void read(const ESGRAF48::V2SvkModel &model);

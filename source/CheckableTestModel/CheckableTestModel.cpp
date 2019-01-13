@@ -107,30 +107,6 @@ QVariant CheckableTestModel::headerData(
     return QAbstractTableModel::headerData(section, orientation, role);
 }
 
-void CheckableTestModel::write(QJsonObject &json) const
-{
-	for (const auto &test : m_tests)
-	{
-		QJsonArray testData;
-		test.items().write(testData);
-		json[test.name()] = testData;
-	}
-}
-
-void CheckableTestModel::read(const QJsonObject &json)
-{
-	for (auto &test : m_tests)
-	{
-		auto testData = json[test.name()];
-		if (testData.isArray())
-		{
-			test.items().read(testData.toArray());
-		}
-	}
-
-	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
-}
-
 bool CheckableTestModel::isValidIndex(const QModelIndex &index) const
 {
 	if (index.row() < m_tests.size())
