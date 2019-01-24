@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "DataModel.h"
-
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QFile>
@@ -21,16 +19,46 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_dataModel(this)
 {
 	ui->setupUi(this);
+	setupUi();
+
+	newFile();
+}
+
+MainWindow::MainWindow(QWidget *parent, const QString &filename)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+    , m_dataModel(this)
+{
+	ui->setupUi(this);
+	setupUi();
+
+	openFile(filename);
+}
+
+void MainWindow::setupUi()
+{
+	ui->metaDataWidget->setModel(&m_dataModel.m_metaData);
+	ui->verbEndWidget->setModel(&m_dataModel.m_verbEnd);
+	ui->genusWidget->setModel(&m_dataModel.m_genus);
+	ui->pluralWidget->setModel(&m_dataModel.m_plural);
+	ui->akkusativDativWidget->setAkkusativModel(&m_dataModel.m_akkusativ);
+	ui->akkusativDativWidget->setDativModel(&m_dataModel.m_dativ);
+	ui->v2SvkWidget->setV2SvkModel(&m_dataModel.m_v2Svk);
+	ui->lateSkillsWidget->setPassivModel(&m_dataModel.m_passiv);
+	ui->lateSkillsWidget->setGenitivModel(&m_dataModel.m_genitiv);
+	ui->resultWidget->setModel(&m_dataModel.m_results);
 
 	connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newFile);
-	connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::openFile);
+	connect(ui->actionOpen, &QAction::triggered, this, qOverload<>(&MainWindow::openFile));
 	connect(ui->actionSave, &QAction::triggered, this, qOverload<>(&MainWindow::saveFile));
 	connect(ui->actionSave_as, &QAction::triggered, this, &MainWindow::saveFileAs);
 	connect(ui->actionPrint, &QAction::triggered, this, &MainWindow::print);
+	connect(ui->actionExport_PDF, &QAction::triggered, this, qOverload<>(&MainWindow::savePdf));
 
-	newFile();
+	connect(&m_dataModel, &DataModel::modelChanged, this, &MainWindow::dataModelChanged);
 }
 
 MainWindow::~MainWindow()
@@ -41,21 +69,6 @@ MainWindow::~MainWindow()
 void MainWindow::newFile()
 {
 	closeFile();
-
-	m_dataModel = std::make_unique<DataModel>(this);
-	ui->metaDataWidget->setModel(&m_dataModel->m_metaData);
-	ui->verbEndWidget->setModel(&m_dataModel->m_verbEnd);
-	ui->genusWidget->setModel(&m_dataModel->m_genus);
-	ui->pluralWidget->setModel(&m_dataModel->m_plural);
-	ui->akkusativDativWidget->setAkkusativModel(&m_dataModel->m_akkusativ);
-	ui->akkusativDativWidget->setDativModel(&m_dataModel->m_dativ);
-	ui->v2SvkWidget->setV2SvkModel(&m_dataModel->m_v2Svk);
-	ui->lateSkillsWidget->setPassivModel(&m_dataModel->m_passiv);
-	ui->lateSkillsWidget->setGenitivModel(&m_dataModel->m_genitiv);
-
-	ui->resultWidget->setModel(&m_dataModel->m_results);
-
-	connect(&*m_dataModel, &DataModel::modelChanged, this, &MainWindow::dataModelChanged);
 
 	setWindowModified(false);
 	setWindowTitle("untitled[*]");
@@ -72,10 +85,15 @@ void MainWindow::openFile()
 		return;
 	}
 
+	openFile(filename);
+}
+
+void MainWindow::openFile(const QString &filename)
+{
 	closeFile();
 
 	std::fstream protoInFile(filename.toStdString(), std::ios::in | std::ios::binary);
-	m_dataModel->read(protoInFile);
+	m_dataModel.read(protoInFile);
 
 	setWindowModified(false);
 	setWindowTitle(filename + "[*]");
@@ -133,7 +151,7 @@ void MainWindow::closeFile()
 void MainWindow::print() const
 {
 	//std::ofstream htmlfile("print.html");
-	//htmlfile << m_dataModel->toHtml();
+	//htmlfile << m_dataModel.toHtml();
 
 	QPrinter printer;
 
@@ -144,7 +162,7 @@ void MainWindow::print() const
 	}
 
 	QTextDocument printDoc;
-	printDoc.setHtml(QString::fromStdString(m_dataModel->toHtml()));
+	printDoc.setHtml(QString::fromStdString(m_dataModel.toHtml()));
 
 	printDoc.print(&printer);
 }
@@ -153,6 +171,22 @@ void MainWindow::dataModelChanged()
 {
 	m_saveOnClose = true;
 	setWindowModified(true);
+}
+
+void MainWindow::savePdf()
+{
+	QFileDialog saveFilenameDialog(this);
+	saveFilenameDialog.setDefaultSuffix("pdf");
+	saveFilenameDialog.setFileMode(QFileDialog::AnyFile);
+	saveFilenameDialog.setNameFilter("PDF File (*.pdf)");
+	saveFilenameDialog.setWindowTitle("Save file");
+
+	if (!saveFilenameDialog.exec())
+	{
+		return;
+	}
+
+	savePdf(saveFilenameDialog.selectedFiles().first());
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -164,7 +198,7 @@ void MainWindow::saveFile(const QString &filename)
 {
 	std::fstream protoOutFile(filename.toStdString(),
 	                          std::ios::out | std::ios::trunc | std::ios::binary);
-	m_dataModel->write(protoOutFile);
+	m_dataModel.write(protoOutFile);
 
 	qDebug() << "Wrote" << filename;
 
@@ -172,4 +206,17 @@ void MainWindow::saveFile(const QString &filename)
 	setWindowModified(false);
 	m_filename = filename;
 	m_saveOnClose = false;
+}
+
+void MainWindow::savePdf(const QString &filename)
+{
+	QPrinter printer;
+	printer.setOutputFormat(QPrinter::PdfFormat);
+	printer.setPaperSize(QPrinter::A4);
+	printer.setOutputFileName(filename);
+
+	QTextDocument printDoc;
+	printDoc.setHtml(QString::fromStdString(m_dataModel.toHtml()));
+
+	printDoc.print(&printer);
 }

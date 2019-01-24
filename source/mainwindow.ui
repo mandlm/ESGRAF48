@@ -133,6 +133,7 @@
     <addaction name="actionSave_as"/>
     <addaction name="separator"/>
     <addaction name="actionPrint"/>
+    <addaction name="actionExport_PDF"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -226,6 +227,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionExport_PDF">
+   <property name="text">
+    <string>Export PDF</string>
+   </property>
+   <property name="toolTip">
+    <string>Export as PDF file</string>
    </property>
   </action>
  </widget>
