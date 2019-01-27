@@ -6,14 +6,14 @@ message DativModel
 {
 	message TiereModel
 	{
-		bool Tiger = 1;
-		bool Katze = 2;
-		bool Affe = 3;
-		bool Gans = 4;
-		bool Baer = 5;
+		bool Affe = 1;
+		bool Gans = 2;
+		bool Tiger = 3;
+		bool Hund = 4;
+		bool Elefant = 5;
 		bool Pferd = 6;
-		bool Hund = 7;
-		bool Elefant = 8;
+		bool Baer = 7;
+		bool Katze = 8;
 	}
 
 	message VersteckeModel
@@ -28,19 +28,19 @@ message DativModel
 		bool Baum2 = 8;
 	}
 
-	message FutterModel
+	message NomTiereModel
 	{
-		bool Salat = 1;
-		bool Fleisch = 2;
-		bool Knochen = 3;
-		bool Banane = 4;
-		bool Apfel = 5;
-		bool Karotte = 6;
-		bool Honig = 7;
-		bool Zucker = 8;
+		bool Gans = 1;
+		bool Tiger = 2;
+		bool Hund = 3;
+		bool Affe = 4;
+		bool Elefant = 5;
+		bool Pferd = 6;
+		bool Baer = 7;
+		bool Katze = 8;
 	}
 
 	TiereModel Tiere = 1;
 	VersteckeModel Verstecke = 2;
-	FutterModel Futter = 3;
+	NomTiereModel NomTiere = 3;
 }
