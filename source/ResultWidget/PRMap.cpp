@@ -20,7 +20,7 @@ unsigned int PRMap::lookup(const Age &age, const unsigned int &points)
 
 		if (m_ages.back() < age)
 		{
-			return m_ages.size() - 1;
+			return m_ages.size() - 2;
 		}
 
 		for (size_t index = 1; index < m_ages.size(); ++index)
