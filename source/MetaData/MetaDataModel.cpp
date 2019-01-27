@@ -166,3 +166,8 @@ std::string MetaDataModel::toHtml() const
 
 	return out.str();
 }
+
+Age MetaDataModel::getAge() const
+{
+	return {m_dateOfBirth, m_dateOfTest};
+}
