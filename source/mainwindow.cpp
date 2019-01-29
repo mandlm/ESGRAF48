@@ -85,7 +85,15 @@ void MainWindow::openFile()
 		return;
 	}
 
-	openFile(filename);
+	try
+	{
+		openFile(filename);
+	}
+	catch (std::exception &e)
+	{
+		QString errorMessage = QString("Error loading \"") + filename + "\": " + e.what();
+		QMessageBox::critical(this, "Error", errorMessage);
+	}
 }
 
 void MainWindow::openFile(const QString &filename)
@@ -195,7 +203,16 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::saveFile(const QString &filename)
 {
-	m_dataModel.write(filename);
+	try
+	{
+		m_dataModel.write(filename);
+	}
+	catch (std::exception &e)
+	{
+		QString errorMessage = QString("Error saving \"") + filename + "\": " + e.what();
+		QMessageBox::critical(this, "Error", errorMessage);
+		return;
+	}
 
 	qDebug() << "Wrote" << filename;
 

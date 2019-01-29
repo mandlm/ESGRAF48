@@ -46,7 +46,7 @@ void DataModel::write(const QString &filename) const
 	QFile outFile(filename);
 	if (!outFile.open(QIODevice::WriteOnly))
 	{
-		return;
+		throw std::runtime_error("open failed");
 	}
 
 	dataModel.SerializeToFileDescriptor(outFile.handle());
@@ -57,7 +57,7 @@ void DataModel::read(const QString &filename)
 	QFile inFile(filename);
 	if (!inFile.open(QIODevice::ReadOnly))
 	{
-		return;
+		throw std::runtime_error("open failed");
 	}
 
 	ESGRAF48::DataModel dataModel;
