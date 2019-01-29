@@ -1,5 +1,6 @@
 [requires]
 protobuf/3.6.1@bincrafters/stable
+protoc_installer/3.6.1@bincrafters/stable
 catch2/2.4.2@bincrafters/stable
 
 [generators]
