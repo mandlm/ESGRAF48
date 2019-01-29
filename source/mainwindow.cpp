@@ -125,6 +125,7 @@ void MainWindow::saveFile()
 void MainWindow::saveFileAs()
 {
 	QFileDialog saveFilenameDialog(this);
+	saveFilenameDialog.setAcceptMode(QFileDialog::AcceptSave);
 	saveFilenameDialog.setDefaultSuffix("esgraf48");
 	saveFilenameDialog.setFileMode(QFileDialog::AnyFile);
 	saveFilenameDialog.setNameFilter("ESGRAF 4-8 (*.esgraf48)");
