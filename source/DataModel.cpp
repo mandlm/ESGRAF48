@@ -1,6 +1,8 @@
 #include "DataModel.h"
 #include "DataModel.pb.h"
 
+#include <QFile>
+
 #include <sstream>
 
 DataModel::DataModel(QObject *parent)
@@ -27,7 +29,7 @@ DataModel::DataModel(QObject *parent)
 	connect(&m_genitiv, &GenitivModel::dataChanged, this, &DataModel::genitivModelChanged);
 }
 
-void DataModel::write(std::ostream &outStream) const
+void DataModel::write(const QString &filename) const
 {
 	ESGRAF48::DataModel dataModel;
 
@@ -41,13 +43,25 @@ void DataModel::write(std::ostream &outStream) const
 	m_genitiv.write(*dataModel.mutable_lateskillsgenitiv());
 	m_passiv.write(*dataModel.mutable_lateskillspassiv());
 
-	dataModel.SerializeToOstream(&outStream);
+	QFile outFile(filename);
+	if (!outFile.open(QIODevice::WriteOnly))
+	{
+		return;
+	}
+
+	dataModel.SerializeToFileDescriptor(outFile.handle());
 }
 
-void DataModel::read(std::istream &inStream)
+void DataModel::read(const QString &filename)
 {
+	QFile inFile(filename);
+	if (!inFile.open(QIODevice::ReadOnly))
+	{
+		return;
+	}
+
 	ESGRAF48::DataModel dataModel;
-	dataModel.ParseFromIstream(&inStream);
+	dataModel.ParseFromFileDescriptor(inFile.handle());
 
 	m_metaData.read(dataModel.metadata());
 	m_v2Svk.read(dataModel.v2svk());

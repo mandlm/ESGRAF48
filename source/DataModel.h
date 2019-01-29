@@ -36,8 +36,8 @@ public:
 
 	std::string toHtml() const;
 
-	void write(std::ostream &outStream) const;
-	void read(std::istream &inStream);
+	void write(const QString &filename) const;
+	void read(const QString &filename);
 
 signals:
 	void modelChanged();
