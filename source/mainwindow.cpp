@@ -49,6 +49,7 @@ void MainWindow::setupUi()
 	ui->akkusativDativWidget->setAkkusativModel(&m_dataModel.m_akkusativ);
 	ui->akkusativDativWidget->setDativModel(&m_dataModel.m_dativ);
 	ui->v2SvkWidget->setV2SvkModel(&m_dataModel.m_v2Svk);
+	ui->v2SvkWidget->setTPeModel(&m_dataModel.m_tPeModel);
 	ui->lateSkillsWidget->setPassivModel(&m_dataModel.m_passiv);
 	ui->lateSkillsWidget->setGenitivModel(&m_dataModel.m_genitiv);
 	ui->resultWidget->setModel(&m_dataModel.m_results);

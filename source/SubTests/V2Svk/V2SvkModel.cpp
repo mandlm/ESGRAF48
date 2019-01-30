@@ -21,11 +21,6 @@ V2SvkModel::V2SvkModel(QObject *parent)
 
 	    {"Temporaladverb Präsens", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
 	    {"SKV: /-e/ o. Stamm", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
-
-	    {"Temporaladverb Perfekt", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
-	    {"Verbtrennung", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
-	    {"SVK: /-e/ o. Stamm", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
-	    {"Partizip", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
 	};
 }
 
@@ -33,7 +28,7 @@ unsigned int V2SvkModel::getV2Points()
 {
 	unsigned int points = 0;
 
-	for (auto testIndex : {0, 1, 3, 5, 7, 8})
+	for (auto testIndex : {0, 1, 3, 5})
 	{
 		const auto &test = m_tests.at(testIndex);
 
@@ -53,7 +48,7 @@ unsigned int V2SvkModel::getSvkPoints()
 {
 	unsigned int points = 0;
 
-	for (auto testIndex : {2, 4, 6, 9, 10})
+	for (auto testIndex : {2, 4, 6})
 	{
 		const auto &test = m_tests.at(testIndex);
 
@@ -77,10 +72,6 @@ bool V2SvkModel::isValidIndex(const QModelIndex &index) const
 			return index.column() == 1 || index.column() == 7 || index.column() == 10;
 		case 5:
 		case 6:
-		case 7:
-		case 8:
-		case 9:
-		case 10:
 			return index.column() < 6;
 		default:
 			return CheckableTestModel::isValidIndex(index);
@@ -141,10 +132,6 @@ void V2SvkModel::write(ESGRAF48::V2SvkModel &model) const
 	writeFourVals(model.mutable_svkstamm(), 4);
 	writeTwoVals(model.mutable_temppraes(), 5);
 	writeTwoVals(model.mutable_svke1(), 6);
-	writeTwoVals(model.mutable_tempperf(), 7);
-	writeTwoVals(model.mutable_verbtrennung2(), 8);
-	writeTwoVals(model.mutable_svke2(), 9);
-	writeTwoVals(model.mutable_partizip(), 10);
 }
 
 void V2SvkModel::read(const ESGRAF48::V2SvkModel &model)
@@ -192,10 +179,6 @@ void V2SvkModel::read(const ESGRAF48::V2SvkModel &model)
 	readFourVals(model.svkstamm(), 4);
 	readTwoVals(model.temppraes(), 5);
 	readTwoVals(model.svke1(), 6);
-	readTwoVals(model.tempperf(), 7);
-	readTwoVals(model.verbtrennung2(), 8);
-	readTwoVals(model.svke2(), 9);
-	readTwoVals(model.partizip(), 10);
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }

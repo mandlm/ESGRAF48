@@ -15,7 +15,16 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTableView" name="v2SvkTableView"/>
+    <widget class="QTableView" name="wfTableView"/>
+   </item>
+   <item>
+    <widget class="QTableView" name="otTableView"/>
+   </item>
+   <item>
+    <widget class="QTableView" name="tprTableView"/>
+   </item>
+   <item>
+    <widget class="QTableView" name="tpeTableView"/>
    </item>
   </layout>
  </widget>

@@ -15,6 +15,7 @@ DataModel::DataModel(QObject *parent)
     , m_akkusativ(this)
     , m_dativ(this)
     , m_v2Svk(this)
+	, m_tPeModel(this)
     , m_passiv(this)
     , m_genitiv(this)
 {
@@ -25,6 +26,7 @@ DataModel::DataModel(QObject *parent)
 	connect(&m_akkusativ, &AkkusativModel::dataChanged, this, &DataModel::akkusativModelChanged);
 	connect(&m_dativ, &DativModel::dataChanged, this, &DataModel::dativModelChanged);
 	connect(&m_v2Svk, &V2SvkModel::dataChanged, this, &DataModel::v2SvkModelChanged);
+	connect(&m_tPeModel, &TPeModel::dataChanged, this, &DataModel::v2SvkModelChanged);
 	connect(&m_passiv, &PassivModel::dataChanged, this, &DataModel::passivModelChanged);
 	connect(&m_genitiv, &GenitivModel::dataChanged, this, &DataModel::genitivModelChanged);
 }
@@ -35,6 +37,7 @@ void DataModel::write(const QString &filename) const
 
 	m_metaData.write(*dataModel.mutable_metadata());
 	m_v2Svk.write(*dataModel.mutable_v2svk());
+	m_tPeModel.write(*dataModel.mutable_v2svk());
 	m_verbEnd.write(*dataModel.mutable_verbend());
 	m_genus.write(*dataModel.mutable_genus());
 	m_akkusativ.write(*dataModel.mutable_akkusativ());
@@ -73,6 +76,7 @@ void DataModel::read(const QString &filename)
 
 	m_metaData.read(dataModel.metadata());
 	m_v2Svk.read(dataModel.v2svk());
+	m_tPeModel.read(dataModel.v2svk());
 	m_verbEnd.read(dataModel.verbend());
 	m_genus.read(dataModel.genus());
 	m_akkusativ.read(dataModel.akkusativ());
@@ -149,8 +153,8 @@ void DataModel::dativModelChanged()
 
 void DataModel::v2SvkModelChanged()
 {
-	m_results.setV2Result(m_v2Svk.getV2Points());
-	m_results.setSvkResult(m_v2Svk.getSvkPoints());
+	m_results.setV2Result(m_v2Svk.getV2Points() + m_tPeModel.getV2Points());
+	m_results.setSvkResult(m_v2Svk.getSvkPoints() + m_tPeModel.getSvkPoints());
 
 	emit modelChanged();
 }

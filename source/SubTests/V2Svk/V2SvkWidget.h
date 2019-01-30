@@ -3,6 +3,7 @@
 #include <QWidget>
 
 class V2SvkModel;
+class TPeModel;
 
 namespace Ui {
 class V2SvkWidget;
@@ -20,4 +21,5 @@ public:
 	~V2SvkWidget();
 
 	void setV2SvkModel(V2SvkModel *model);
+	void setTPeModel(TPeModel *model);
 };
