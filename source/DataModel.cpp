@@ -46,10 +46,14 @@ void DataModel::write(const QString &filename) const
 	QFile outFile(filename);
 	if (!outFile.open(QIODevice::WriteOnly))
 	{
-		throw std::runtime_error("open failed");
+		throw std::runtime_error("failed to open file");
 	}
 
-	dataModel.SerializeToFileDescriptor(outFile.handle());
+	bool success = dataModel.SerializeToFileDescriptor(outFile.handle());
+	if (success == false)
+	{
+		throw std::runtime_error("filed to write file");
+	}
 }
 
 void DataModel::read(const QString &filename)
@@ -57,11 +61,15 @@ void DataModel::read(const QString &filename)
 	QFile inFile(filename);
 	if (!inFile.open(QIODevice::ReadOnly))
 	{
-		throw std::runtime_error("open failed");
+		throw std::runtime_error("failed to read file");
 	}
 
 	ESGRAF48::DataModel dataModel;
-	dataModel.ParseFromFileDescriptor(inFile.handle());
+	bool success = dataModel.ParseFromFileDescriptor(inFile.handle());
+	if (success == false)
+	{
+		throw std::runtime_error("invalid file format");
+	}
 
 	m_metaData.read(dataModel.metadata());
 	m_v2Svk.read(dataModel.v2svk());
