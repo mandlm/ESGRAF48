@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "version.h"
+
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QFile>
@@ -57,6 +59,8 @@ void MainWindow::setupUi()
 	connect(ui->actionSave_as, &QAction::triggered, this, &MainWindow::saveFileAs);
 	connect(ui->actionPrint, &QAction::triggered, this, &MainWindow::print);
 	connect(ui->actionExport_PDF, &QAction::triggered, this, qOverload<>(&MainWindow::savePdf));
+
+	connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::aboutDialog);
 
 	connect(&m_dataModel, &DataModel::modelChanged, this, &MainWindow::dataModelChanged);
 }
@@ -234,4 +238,11 @@ void MainWindow::savePdf(const QString &filename)
 	printDoc.setHtml(QString::fromStdString(m_dataModel.toHtml()));
 
 	printDoc.print(&printer);
+}
+
+void MainWindow::aboutDialog()
+{
+	QString infoString =
+	    QString::fromUtf8(ESGRAF48_DESCRIPTION) + " Version " + QString::fromUtf8(ESGRAF48_VERSION);
+	QMessageBox::information(this, ESGRAF48_DESCRIPTION, infoString);
 }
