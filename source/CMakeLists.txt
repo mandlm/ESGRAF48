@@ -1,6 +1,24 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(ESGRAF48 LANGUAGES CXX)
+set(BUILD_VERSION_MAJOR_MINOR 0.1)
+
+if ($ENV{BUILD_NUMBER})
+	set(BUILD_VERSION_PATCH $ENV{BUILD_NUMBER})
+else()
+	set(BUILD_VERSION_PATCH 0)
+endif()
+
+project(ESGRAF48
+	VERSION ${BUILD_VERSION_MAJOR_MINOR}.${BUILD_VERSION_PATCH}
+	DESCRIPTION "ESGRAF 4-8"
+	LANGUAGES CXX
+)
+
+configure_file(
+	version.h.in
+	version.h
+)
+
 
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5PrintSupport REQUIRED)

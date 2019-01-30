@@ -1,15 +1,18 @@
 #include "mainwindow.h"
+
+#include "version.h"
+
 #include <QApplication>
 #include <QCommandLineParser>
 
 int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
-	QCoreApplication::setApplicationName("ESGRAF 4-8");
-	QCoreApplication::setApplicationVersion("0.1");
+	QCoreApplication::setApplicationName(ESGRAF48_DESCRIPTION);
+	QCoreApplication::setApplicationVersion(ESGRAF48_VERSION);
 
 	QCommandLineParser cmdParser;
-	cmdParser.setApplicationDescription("ESGRAF 4-8");
+	cmdParser.setApplicationDescription(ESGRAF48_DESCRIPTION);
 	cmdParser.addHelpOption();
 	cmdParser.addVersionOption();
 	cmdParser.addPositionalArgument("filename", "file to open");
