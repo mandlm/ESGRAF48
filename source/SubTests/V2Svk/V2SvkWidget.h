@@ -2,7 +2,10 @@
 
 #include <QWidget>
 
-class V2SvkModel;
+class WFModel;
+class OTModel;
+class TPrModel;
+class TPeModel;
 
 namespace Ui {
 class V2SvkWidget;
@@ -19,5 +22,8 @@ public:
 	V2SvkWidget(QWidget *parent = nullptr);
 	~V2SvkWidget();
 
-	void setV2SvkModel(V2SvkModel *model);
+	void setWFModel(WFModel *model);
+	void setOTModel(OTModel *model);
+	void setTPrModel(TPrModel *model);
+	void setTPeModel(TPeModel *model);
 };
