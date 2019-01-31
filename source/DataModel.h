@@ -6,8 +6,12 @@
 #include "PluralModel.h"
 #include "AkkusativModel.h"
 #include "DativModel.h"
-#include "V2SvkModel.h"
+
+#include "WFModel.h"
+#include "OTModel.h"
+#include "TPrModel.h"
 #include "TPeModel.h"
+
 #include "PassivModel.h"
 #include "GenitivModel.h"
 
@@ -27,7 +31,9 @@ public:
 	AkkusativModel m_akkusativ;
 	DativModel m_dativ;
 
-	V2SvkModel m_v2Svk;
+	WFModel m_wfModel;
+	OTModel m_otModel;
+	TPrModel m_tPrModel;
 	TPeModel m_tPeModel;
 
     PassivModel m_passiv;

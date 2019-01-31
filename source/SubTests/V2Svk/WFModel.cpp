@@ -1,6 +1,6 @@
-#include "V2SvkModel.h"
+#include "WFModel.h"
 
-V2SvkModel::V2SvkModel(QObject *parent)
+WFModel::WFModel(QObject *parent)
     : CheckableTestModel(parent)
 {
 	m_tests = {
@@ -11,24 +11,14 @@ V2SvkModel::V2SvkModel(QObject *parent)
 	    {"SVK: /-st/",
 	     {"Affe", "Affe", "Affe", "Affe", "Schwein", "Schwein", "Schwein", "Schwein", "Gans",
 	      "Gans", "Gans", "Gans"}},
-
-	    {"Objekt-Topikalisierung",
-	     {"Affe", "Affe", "Affe", "Affe", "Schwein", "Schwein", "Schwein", "Schwein", "Gans",
-	      "Gans", "Gans", "Gans"}},
-	    {"SVK: Stamm",
-	     {"Affe", "Affe", "Affe", "Affe", "Schwein", "Schwein", "Schwein", "Schwein", "Gans",
-	      "Gans", "Gans", "Gans"}},
-
-	    {"Temporaladverb Präsens", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
-	    {"SKV: /-e/ o. Stamm", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
 	};
 }
 
-unsigned int V2SvkModel::getV2Points()
+unsigned int WFModel::getV2Points()
 {
 	unsigned int points = 0;
 
-	for (auto testIndex : {0, 1, 3, 5})
+	for (auto testIndex : {0, 1})
 	{
 		const auto &test = m_tests.at(testIndex);
 
@@ -44,11 +34,11 @@ unsigned int V2SvkModel::getV2Points()
 	return points;
 }
 
-unsigned int V2SvkModel::getSvkPoints()
+unsigned int WFModel::getSvkPoints()
 {
 	unsigned int points = 0;
 
-	for (auto testIndex : {2, 4, 6})
+	for (auto testIndex : {2})
 	{
 		const auto &test = m_tests.at(testIndex);
 
@@ -64,21 +54,17 @@ unsigned int V2SvkModel::getSvkPoints()
 	return points;
 }
 
-bool V2SvkModel::isValidIndex(const QModelIndex &index) const
+bool WFModel::isValidIndex(const QModelIndex &index) const
 {
-	switch (index.row())
+	if (index.row() == 1)
 	{
-		case 1:
-			return index.column() == 1 || index.column() == 7 || index.column() == 10;
-		case 5:
-		case 6:
-			return index.column() < 6;
-		default:
-			return CheckableTestModel::isValidIndex(index);
+		return index.column() == 1 || index.column() == 7 || index.column() == 10;
 	}
+
+	return CheckableTestModel::isValidIndex(index);
 }
 
-void V2SvkModel::write(ESGRAF48::V2SvkModel &model) const
+void WFModel::write(ESGRAF48::V2SvkModel &model) const
 {
 	auto writeOneVal = [&](ESGRAF48::V2SvkModel::OneEach *modelData, int testIndex) {
 		if (modelData != nullptr)
@@ -88,20 +74,6 @@ void V2SvkModel::write(ESGRAF48::V2SvkModel &model) const
 			modelData->set_affe(testItems[1].isChecked());
 			modelData->set_schwein(testItems[7].isChecked());
 			modelData->set_gans(testItems[10].isChecked());
-		}
-	};
-
-	auto writeTwoVals = [&](ESGRAF48::V2SvkModel::TwoEach *modelData, int testIndex) {
-		if (modelData != nullptr)
-		{
-			const auto &testItems = m_tests.at(testIndex).items();
-
-			modelData->set_affe1(testItems[0].isChecked());
-			modelData->set_affe2(testItems[1].isChecked());
-			modelData->set_schwein1(testItems[2].isChecked());
-			modelData->set_schwein2(testItems[3].isChecked());
-			modelData->set_gans1(testItems[4].isChecked());
-			modelData->set_gans2(testItems[5].isChecked());
 		}
 	};
 
@@ -127,14 +99,9 @@ void V2SvkModel::write(ESGRAF48::V2SvkModel &model) const
 
 	writeFourVals(model.mutable_wfrage(), 0);
 	writeOneVal(model.mutable_verbtrennung1(), 1);
-	writeFourVals(model.mutable_svkst(), 2);
-	writeFourVals(model.mutable_objtop(), 3);
-	writeFourVals(model.mutable_svkstamm(), 4);
-	writeTwoVals(model.mutable_temppraes(), 5);
-	writeTwoVals(model.mutable_svke1(), 6);
 }
 
-void V2SvkModel::read(const ESGRAF48::V2SvkModel &model)
+void WFModel::read(const ESGRAF48::V2SvkModel &model)
 {
 	auto readOneVal = [&](const ESGRAF48::V2SvkModel::OneEach &modelData, int testIndex) {
 		auto &testItems = m_tests.at(testIndex).items();
@@ -142,17 +109,6 @@ void V2SvkModel::read(const ESGRAF48::V2SvkModel &model)
 		testItems[1].setState(modelData.affe());
 		testItems[7].setState(modelData.schwein());
 		testItems[10].setState(modelData.gans());
-	};
-
-	auto readTwoVals = [&](const ESGRAF48::V2SvkModel::TwoEach &modelData, int testIndex) {
-		auto &testItems = m_tests.at(testIndex).items();
-
-		testItems[0].setState(modelData.affe1());
-		testItems[1].setState(modelData.affe2());
-		testItems[2].setState(modelData.schwein1());
-		testItems[3].setState(modelData.schwein2());
-		testItems[4].setState(modelData.gans1());
-		testItems[5].setState(modelData.gans2());
 	};
 
 	auto readFourVals = [&](const ESGRAF48::V2SvkModel::FourEach &modelData, int testIndex) {
@@ -174,11 +130,6 @@ void V2SvkModel::read(const ESGRAF48::V2SvkModel &model)
 
 	readFourVals(model.wfrage(), 0);
 	readOneVal(model.verbtrennung1(), 1);
-	readFourVals(model.svkst(), 2);
-	readFourVals(model.objtop(), 3);
-	readFourVals(model.svkstamm(), 4);
-	readTwoVals(model.temppraes(), 5);
-	readTwoVals(model.svke1(), 6);
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
