@@ -5,13 +5,13 @@
 #include <QDebug>
 
 CheckableTestModel::CheckableTestModel(QObject *parent)
-	: QAbstractTableModel(parent)
+    : QAbstractTableModel(parent)
 {
 }
 
 int CheckableTestModel::rowCount(const QModelIndex &) const
 {
-    return static_cast<int>(m_tests.size());
+	return static_cast<int>(m_tests.size());
 }
 
 int CheckableTestModel::columnCount(const QModelIndex &) const
@@ -20,7 +20,7 @@ int CheckableTestModel::columnCount(const QModelIndex &) const
 
 	for (const auto &test : m_tests)
 	{
-        columnCount = std::max(columnCount, static_cast<int>(test.size()));
+		columnCount = std::max(columnCount, static_cast<int>(test.size()));
 	}
 
 	return columnCount;
@@ -37,17 +37,17 @@ QVariant CheckableTestModel::data(const QModelIndex &index, int role) const
 	{
 		auto &item = getItem(index);
 
-        switch (role)
-        {
-            case Qt::DisplayRole:
-            {
-                return item.getText().c_str();
-            }
-            case Qt::CheckStateRole:
-            {
-                return item.isChecked() ? Qt::Checked : Qt::Unchecked;
-            }
-        }
+		switch (role)
+		{
+			case Qt::DisplayRole:
+			{
+				return item.getText().c_str();
+			}
+			case Qt::CheckStateRole:
+			{
+				return item.isChecked() ? Qt::Checked : Qt::Unchecked;
+			}
+		}
 	}
 	catch (std::runtime_error &e)
 	{
@@ -67,8 +67,7 @@ Qt::ItemFlags CheckableTestModel::flags(const QModelIndex &index) const
 	return Qt::NoItemFlags;
 }
 
-bool CheckableTestModel::setData(
-	const QModelIndex &index, const QVariant &value, int role)
+bool CheckableTestModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
 	if (!isValidIndex(index))
 	{
@@ -93,18 +92,33 @@ bool CheckableTestModel::setData(
 	return false;
 }
 
-QVariant CheckableTestModel::headerData(
-	int section, Qt::Orientation orientation, int role) const
+QVariant CheckableTestModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-	if (role == Qt::DisplayRole && orientation == Qt::Vertical)
+	switch (orientation)
 	{
-		if (section < m_tests.size())
+		case Qt::Vertical:
 		{
-			return m_tests.at(section).name();
+			switch (role)
+			{
+				case Qt::DisplayRole:
+				{
+					if (section < m_tests.size())
+					{
+						return m_tests.at(section).name();
+					}
+				}
+				case Qt::SizeHintRole:
+				{
+					return QSize(200, 0);
+				}
+			}
+			break;
 		}
+		default:
+			break;
 	}
 
-    return QAbstractTableModel::headerData(section, orientation, role);
+	return QAbstractTableModel::headerData(section, orientation, role);
 }
 
 void CheckableTestModel::write(QJsonObject &json) const
@@ -151,8 +165,7 @@ CheckableItems &CheckableTestModel::getItems(const QModelIndex &index)
 	throw std::runtime_error("invalid index");
 }
 
-const CheckableItems &CheckableTestModel::getItems(
-	const QModelIndex &index) const
+const CheckableItems &CheckableTestModel::getItems(const QModelIndex &index) const
 {
 	if (index.row() < m_tests.size())
 	{
@@ -186,7 +199,7 @@ const CheckableItem &CheckableTestModel::getItem(const QModelIndex &index) const
 
 unsigned int CheckableTestModel::getPoints() const
 {
-    unsigned int points = 0;
+	unsigned int points = 0;
 
 	for (const auto &test : m_tests)
 	{

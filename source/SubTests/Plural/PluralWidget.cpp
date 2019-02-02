@@ -8,6 +8,8 @@ PluralWidget::PluralWidget(QWidget *parent)
 	, ui(new Ui::PluralWidget)
 {
 	ui->setupUi(this);
+
+	ui->pluralTableView->horizontalHeader()->hide();
 }
 
 PluralWidget::~PluralWidget()
@@ -18,5 +20,4 @@ PluralWidget::~PluralWidget()
 void PluralWidget::setModel(PluralModel *model)
 {
 	ui->pluralTableView->setModel(model);
-    ui->pluralTableView->resizeColumnsToContents();
 }
