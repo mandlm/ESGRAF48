@@ -19,9 +19,9 @@
 
 #include "ResultModel.h"
 
-#include <QPainter>
+#include <QPrinter>
 
-class DataModel : public QObject, public PrintableModel
+class DataModel : public QObject
 {
 	Q_OBJECT
 
@@ -49,7 +49,7 @@ public:
 	void write(const QString &filename) const;
 	void read(const QString &filename);
 
-	void printTo(QPainter &painter) const override;
+	void printTo(QPrinter &printer) const;
 
 signals:
 	void modelChanged();

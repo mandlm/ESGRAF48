@@ -19,6 +19,8 @@ target_include_directories(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
+	PUBLIC
+		CheckableTestModel
 	PRIVATE
 		Qt5::Core
 		Qt5::Widgets

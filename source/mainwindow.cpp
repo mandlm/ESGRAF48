@@ -178,12 +178,7 @@ void MainWindow::print() const
 		return;
 	}
 
-	QPainter painter;
-	painter.begin(&printer);
-
-	m_dataModel.printTo(painter);
-
-	painter.end();
+	m_dataModel.printTo(printer);
 }
 
 void MainWindow::dataModelChanged()
@@ -242,12 +237,7 @@ void MainWindow::savePdf(const QString &filename)
 	printer.setPageMargins(20, 20, 20, 20, QPrinter::Millimeter);
 	printer.setOutputFileName(filename);
 
-	QPainter painter;
-	painter.begin(&printer);
-
-	m_dataModel.printTo(painter);
-
-	painter.end();
+	m_dataModel.printTo(printer);
 }
 
 void MainWindow::aboutDialog()

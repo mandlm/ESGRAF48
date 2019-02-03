@@ -10,7 +10,7 @@
 #include <QString>
 #include <QDate>
 
-class MetaDataModel : public QAbstractTableModel, public PrintableModel
+class MetaDataModel : public PrintableModel
 {
 	Q_OBJECT
 

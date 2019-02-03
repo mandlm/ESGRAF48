@@ -1,17 +1,22 @@
 #pragma once
 
+#include "CheckableTestModel.h"
+
 #include <QPainter>
 #include <QFont>
 #include <QPen>
 #include <QRect>
 #include <QString>
 
-class PrintableModel
+class PrintableModel : public CheckableTestModel
 {
-public:
-	virtual void printTo(QPainter &painter) const = 0;
+	Q_OBJECT
 
-protected:
+public:
+	PrintableModel(QObject *parent);
+
+	virtual void printTo(QPainter &painter) const;
+
 	static QFont h1Font();
 	static QFont h2Font();
 	static QFont tableFont();
@@ -22,4 +27,11 @@ protected:
 	static void drawCheckSquare(QPainter &painter, const QRectF &cell, bool checked);
 	static void drawResultSquare(QPainter &painter, double y, bool rightCell, unsigned int value);
 	static void drawGreySquare(QPainter &painter, const QRectF &cell);
+
+protected:
+	static void drawHeader2(QPainter &painter, const QString &text);
+
+	virtual void printHeader(QPainter &painter) const;
+	virtual void printTests(QPainter &painter) const;
+	virtual void printSummary(QPainter &painter) const;
 };

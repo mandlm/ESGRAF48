@@ -99,15 +99,38 @@ void DataModel::read(const QString &filename)
 	m_genitiv.read(dataModel.lateskillsgenitiv());
 	m_passiv.read(dataModel.lateskillspassiv());
 }
-	
-void DataModel::printTo(QPainter &painter) const
+
+void DataModel::printTo(QPrinter &printer) const
 {
-	painter.setFont(h1Font());
+	QPainter painter;
+	painter.begin(&printer);
+
+
+	painter.setFont(PrintableModel::h1Font());
 	painter.drawText(0, painter.fontMetrics().lineSpacing(), "ESGRAF 4-8 Auswertungsbogen");
 	painter.translate(0, 3 * painter.fontMetrics().lineSpacing());
 
 	m_metaData.printTo(painter);
+
 	m_wfModel.printTo(painter);
+	m_otModel.printTo(painter);
+	m_tPrModel.printTo(painter);
+	m_tPeModel.printTo(painter);
+	V2SvkModel::printSummary(painter,
+	                         m_wfModel.getV2Points() + m_otModel.getV2Points()
+	                             + m_tPrModel.getV2Points() + m_tPeModel.getV2Points(),
+	                         m_wfModel.getSvkPoints() + m_otModel.getSvkPoints()
+	                             + m_tPrModel.getSvkPoints() + m_tPeModel.getSvkPoints());
+
+	m_verbEnd.printTo(painter);
+	m_genus.printTo(painter);
+
+	printer.newPage();
+	painter.resetTransform();
+
+	m_plural.printTo(painter);
+
+	painter.end();
 }
 
 void DataModel::pluralModelChanged()

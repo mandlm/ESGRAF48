@@ -1,8 +1,10 @@
 #include "VerbEndModel.h"
 
 VerbEndModel::VerbEndModel(QObject *parent)
-	: CheckableTestModel(parent)
+	: PrintableModel(parent)
 {
+	m_title = "Subtest 2: Verbendstellungsregel (VE)";
+
 	m_tests = { { "Telefonat",
 					{ "Kausal", "Kausal", "Relativ", "Kausal",
 						"Final", "Temporal", "Temporal" } },
@@ -98,3 +100,4 @@ void VerbEndModel::read(const ESGRAF48::VerbEndModel &model)
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
+	

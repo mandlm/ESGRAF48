@@ -1,7 +1,7 @@
 #include "TPeModel.h"
 
 TPeModel::TPeModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : V2SvkModel(parent)
 {
 	m_tests = {
 	    {"Temporaladverb Perfekt", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
@@ -11,7 +11,7 @@ TPeModel::TPeModel(QObject *parent)
 	};
 }
 
-unsigned int TPeModel::getV2Points()
+unsigned int TPeModel::getV2Points() const
 {
 	unsigned int points = 0;
 
@@ -31,7 +31,7 @@ unsigned int TPeModel::getV2Points()
 	return points;
 }
 
-unsigned int TPeModel::getSvkPoints()
+unsigned int TPeModel::getSvkPoints() const
 {
 	unsigned int points = 0;
 
@@ -93,3 +93,13 @@ void TPeModel::read(const ESGRAF48::V2SvkModel &model)
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
+
+std::set<int> TPeModel::v2Tests() const
+{
+	return {0, 1};
+};
+
+std::set<int> TPeModel::svkTests() const
+{
+	return {2, 3};
+};

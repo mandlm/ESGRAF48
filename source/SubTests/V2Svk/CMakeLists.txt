@@ -19,6 +19,7 @@ protobuf_generate_cpp(V2Svk_PROTO_SRCS V2Svk_PROTO_HDRS ${V2Svk_PROTO_FILES})
 
 add_library(${PROJECT_NAME}
 	V2SvkWidget.cpp
+	V2SvkModel.cpp
 	WFModel.cpp
 	OTModel.cpp
 	TPrModel.cpp
@@ -42,9 +43,6 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
-		CheckableItem
-		CheckableTest
-		CheckableTestModel
 		PrintableModel
 		Qt5::Widgets
 		${Protobuf_LIBRARIES}

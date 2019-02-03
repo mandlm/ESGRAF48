@@ -5,7 +5,7 @@
 #include <sstream>
 
 MetaDataModel::MetaDataModel(QObject *parent)
-    : QAbstractTableModel(parent)
+    : PrintableModel(parent)
 {
 	m_dateOfBirth = QDate::currentDate().addYears(-9);
 	m_dateOfTest = QDate::currentDate();

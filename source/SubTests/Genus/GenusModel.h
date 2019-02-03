@@ -1,9 +1,9 @@
 #pragma once
 
-#include "CheckableTestModel.h"
+#include "PrintableModel.h"
 #include "GenusModel.pb.h"
 
-class GenusModel : public CheckableTestModel
+class GenusModel : public PrintableModel
 {
 	Q_OBJECT
 

@@ -1,8 +1,10 @@
 #include "WFModel.h"
 
 WFModel::WFModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : V2SvkModel(parent)
 {
+	m_title = "Subtest 1: Verbzweitstellungsregel (V2) und Subjekt-Verb-Kontrollregel (SVK)";
+
 	m_tests = {
 	    {"W-Frage",
 	     {"Affe", "Affe", "Affe", "Affe", "Schwein", "Schwein", "Schwein", "Schwein", "Gans",
@@ -134,115 +136,12 @@ void WFModel::read(const ESGRAF48::V2SvkModel &model)
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
-void WFModel::printTo(QPainter &painter) const
+std::set<int> WFModel::v2Tests() const
 {
-	painter.setFont(h2Font());
+	return {0, 1};
+};
 
-	painter.drawText(
-	    0, 0, "Subtest 1: Verbzweitstellungsregel (V2) und Subjekt-Verb-Kontrollregel (SVK)");
-
-	painter.setFont(tableFont());
-	painter.setPen(tablePen());
-
-	auto width = painter.device()->width();
-	auto height = 1.5 * painter.fontMetrics().lineSpacing();
-
-	std::set<unsigned int> blockStarters = {0, 3, 5, 7};
-	std::set<unsigned int> v2Tests = {0, 1, 3, 5, 7, 8};
-	std::set<unsigned int> svkTests = {2, 4, 6, 9, 10};
-
-	double x = 0;
-	double y = 0;
-	auto testIndex = 0;
-	for (const auto &test : m_tests)
-	{
-		double rowHeaderWidth = 0.2 * width;
-		double resultCellWidth = test.size() > 8 ? 0.05 * width : 0.1 * width;
-		double rowHeight = height;
-
-		if (blockStarters.find(testIndex) != blockStarters.end())
-		{
-			y += rowHeight;
-			drawTextSquare(painter, {x, y, rowHeaderWidth, 2 * rowHeight}, test.name());
-			x += rowHeaderWidth;
-
-			std::vector<std::pair<std::string, unsigned int>> columnHeaders;
-			for (const auto &item : test.items())
-			{
-				const auto &itemText = item.getText();
-				if (!columnHeaders.empty() && columnHeaders.back().first == itemText)
-				{
-					columnHeaders.back().second++;
-				}
-				else
-				{
-					columnHeaders.emplace_back(itemText, 1);
-				}
-			}
-
-			for (const auto &columnHeader : columnHeaders)
-			{
-				double cellWidth = columnHeader.second * resultCellWidth;
-				drawTextSquare(painter, {x, y, cellWidth, rowHeight}, columnHeader.first.c_str());
-				x += cellWidth;
-			}
-			x = rowHeaderWidth;
-			y += rowHeight;
-		}
-		else
-		{
-			drawTextSquare(painter, {x, y, rowHeaderWidth, rowHeight}, test.name());
-			x += rowHeaderWidth;
-		}
-
-		unsigned int emptyItemsStack = 0;
-		for (const auto &item : test.items())
-		{
-			if (item.getText().empty())
-			{
-				emptyItemsStack++;
-			}
-			else
-			{
-				if (emptyItemsStack > 0)
-				{
-					drawGreySquare(painter, {x - emptyItemsStack * resultCellWidth, y,
-					                         emptyItemsStack * resultCellWidth, rowHeight});
-					emptyItemsStack = 0;
-				}
-
-				drawCheckSquare(painter, {x, y, resultCellWidth, rowHeight}, item.isChecked());
-			}
-			x += resultCellWidth;
-		}
-		if (emptyItemsStack > 0)
-		{
-			drawGreySquare(painter, {x - emptyItemsStack * resultCellWidth, y,
-			                         emptyItemsStack * resultCellWidth, rowHeight});
-			emptyItemsStack = 0;
-		}
-
-		if (v2Tests.find(testIndex) != v2Tests.end())
-		{
-			drawResultSquare(painter, y, false, test.getPoints());
-		}
-
-		if (svkTests.find(testIndex) != svkTests.end())
-		{
-			drawResultSquare(painter, y, true, test.getPoints());
-		}
-
-		x = 0;
-		y += rowHeight;
-
-		testIndex++;
-	}
-
-	x = 0;
-	y += height;
-
-	painter.drawText(x, y, 0.85 * width, height, Qt::AlignRight | Qt::AlignVCenter,
-	                 "Rohwertpunkte Total:");
-	drawResultSquare(painter, y, false, getV2Points());
-	drawResultSquare(painter, y, true, getSvkPoints());
-}
+std::set<int> WFModel::svkTests() const
+{
+	return {2};
+};

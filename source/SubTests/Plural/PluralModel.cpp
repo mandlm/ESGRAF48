@@ -3,8 +3,10 @@
 #include <QSize>
 
 PluralModel::PluralModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : PrintableModel(parent)
 {
+	m_title = "Subtest 5: Plural";
+
 	m_tests = {{"Plural",
 	            {"Fisch /-e/", "Banane /-n/", "Bonbon /-s/", "Ei /-er/", "Eimer /-ø/",
 	             "Korn UML+/-er/", "Nuss UML+/-e/", "Bär /-en/", "Apfel UML"}}};

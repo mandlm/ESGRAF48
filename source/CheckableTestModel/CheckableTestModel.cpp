@@ -187,3 +187,8 @@ unsigned int CheckableTestModel::getPoints() const
 
 	return points;
 }
+
+QString CheckableTestModel::getTitle() const
+{
+	return m_title;
+}
