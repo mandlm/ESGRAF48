@@ -5,12 +5,12 @@
 #include "CheckableTestModel.h"
 #include "V2SvkModel.pb.h"
 
-class V2SvkModel : public CheckableTestModel, public PrintableModel
+class WFModel : public CheckableTestModel, public PrintableModel
 {
 	Q_OBJECT
 
 public:
-	V2SvkModel(QObject *parent);
+	WFModel(QObject *parent);
 
 	unsigned int getV2Points() const;
 	unsigned int getSvkPoints() const;

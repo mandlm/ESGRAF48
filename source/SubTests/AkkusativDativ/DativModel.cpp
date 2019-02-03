@@ -4,11 +4,11 @@ DativModel::DativModel(QObject *parent)
     : CheckableTestModel(parent)
 {
 	m_tests = {{"Dativ Nominalphrase",
-	            {"Tiger", "Katze", "Affe", "Gans", "Bär", "Pferd", "Hund", "Elefant"}},
+	            {"Affe", "Gans", "Tiger", "Hund", "Elefant", "Pferd", "Bär", "Katze"}},
 	           {"Präpositionalphrase (Verstecke)",
 	            {"Vorhang", "Kiste", "Holz", "Kiste", "Baum", "Vorhang", "Holz", "Baum"}},
 	           {"Nominalphrase (Tiere)",
-	            {"Salat", "Fleisch", "Knochen", "Banane", "Apfel", "Karotte", "Honig", "Zucker"}}};
+	            {"Gans", "Tiger", "Hund", "Affe", "Elefant", "Pferd", "Bär", "Katze"}}};
 }
 
 void DativModel::read(const ESGRAF48::DativModel &model)
@@ -17,14 +17,14 @@ void DativModel::read(const ESGRAF48::DativModel &model)
 	{
 		auto &testItems = m_tests.at(0).items();
 
-		testItems[0].setState(tiereModel.tiger());
-		testItems[1].setState(tiereModel.katze());
-		testItems[2].setState(tiereModel.affe());
-		testItems[3].setState(tiereModel.gans());
-		testItems[4].setState(tiereModel.baer());
+		testItems[0].setState(tiereModel.affe());
+		testItems[1].setState(tiereModel.gans());
+		testItems[2].setState(tiereModel.tiger());
+		testItems[3].setState(tiereModel.hund());
+		testItems[4].setState(tiereModel.elefant());
 		testItems[5].setState(tiereModel.pferd());
-		testItems[6].setState(tiereModel.hund());
-		testItems[7].setState(tiereModel.elefant());
+		testItems[6].setState(tiereModel.baer());
+		testItems[7].setState(tiereModel.katze());
 	}
 
 	const auto &versteckeModel = model.verstecke();
@@ -41,18 +41,18 @@ void DativModel::read(const ESGRAF48::DativModel &model)
 		testItems[7].setState(versteckeModel.baum2());
 	}
 
-	const auto &futterModel = model.futter();
+	const auto &nomTiereModel = model.nomtiere();
 	{
 		auto &testItems = m_tests.at(2).items();
 
-		testItems[0].setState(futterModel.salat());
-		testItems[1].setState(futterModel.fleisch());
-		testItems[2].setState(futterModel.knochen());
-		testItems[3].setState(futterModel.banane());
-		testItems[4].setState(futterModel.apfel());
-		testItems[5].setState(futterModel.karotte());
-		testItems[6].setState(futterModel.honig());
-		testItems[7].setState(futterModel.zucker());
+		testItems[0].setState(nomTiereModel.gans());
+		testItems[1].setState(nomTiereModel.tiger());
+		testItems[2].setState(nomTiereModel.hund());
+		testItems[3].setState(nomTiereModel.affe());
+		testItems[4].setState(nomTiereModel.elefant());
+		testItems[5].setState(nomTiereModel.pferd());
+		testItems[6].setState(nomTiereModel.baer());
+		testItems[7].setState(nomTiereModel.katze());
 	}
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
@@ -65,14 +65,14 @@ void DativModel::write(ESGRAF48::DativModel &model) const
 	{
 		const auto &testItems = m_tests.at(0).items();
 
-		tiereModel->set_tiger(testItems[0].isChecked());
-		tiereModel->set_katze(testItems[1].isChecked());
-		tiereModel->set_affe(testItems[2].isChecked());
-		tiereModel->set_gans(testItems[3].isChecked());
-		tiereModel->set_baer(testItems[4].isChecked());
+		tiereModel->set_affe(testItems[0].isChecked());
+		tiereModel->set_gans(testItems[1].isChecked());
+		tiereModel->set_tiger(testItems[2].isChecked());
+		tiereModel->set_hund(testItems[3].isChecked());
+		tiereModel->set_elefant(testItems[4].isChecked());
 		tiereModel->set_pferd(testItems[5].isChecked());
-		tiereModel->set_hund(testItems[6].isChecked());
-		tiereModel->set_elefant(testItems[7].isChecked());
+		tiereModel->set_baer(testItems[6].isChecked());
+		tiereModel->set_katze(testItems[7].isChecked());
 	}
 
 	auto *versteckeModel = model.mutable_verstecke();
@@ -90,18 +90,18 @@ void DativModel::write(ESGRAF48::DativModel &model) const
 		versteckeModel->set_baum2(testItems[7].isChecked());
 	}
 
-	auto *futterModel = model.mutable_futter();
-	if (futterModel != nullptr)
+	auto *nomTiereModel = model.mutable_nomtiere();
+	if (nomTiereModel != nullptr)
 	{
 		const auto &testItems = m_tests.at(2).items();
 
-		futterModel->set_salat(testItems[0].isChecked());
-		futterModel->set_fleisch(testItems[1].isChecked());
-		futterModel->set_knochen(testItems[2].isChecked());
-		futterModel->set_banane(testItems[3].isChecked());
-		futterModel->set_apfel(testItems[4].isChecked());
-		futterModel->set_karotte(testItems[5].isChecked());
-		futterModel->set_honig(testItems[6].isChecked());
-		futterModel->set_zucker(testItems[7].isChecked());
+		nomTiereModel->set_gans(testItems[0].isChecked());
+		nomTiereModel->set_tiger(testItems[1].isChecked());
+		nomTiereModel->set_hund(testItems[2].isChecked());
+		nomTiereModel->set_affe(testItems[3].isChecked());
+		nomTiereModel->set_elefant(testItems[4].isChecked());
+		nomTiereModel->set_pferd(testItems[5].isChecked());
+		nomTiereModel->set_baer(testItems[6].isChecked());
+		nomTiereModel->set_katze(testItems[7].isChecked());
 	}
 }

@@ -1,6 +1,8 @@
 #include "DataModel.h"
 #include "DataModel.pb.h"
 
+#include <QFile>
+
 #include <sstream>
 
 DataModel::DataModel(QObject *parent)
@@ -12,7 +14,10 @@ DataModel::DataModel(QObject *parent)
     , m_results(this)
     , m_akkusativ(this)
     , m_dativ(this)
-    , m_v2Svk(this)
+    , m_wfModel(this)
+    , m_otModel(this)
+    , m_tPrModel(this)
+    , m_tPeModel(this)
     , m_passiv(this)
     , m_genitiv(this)
 {
@@ -22,17 +27,27 @@ DataModel::DataModel(QObject *parent)
 	connect(&m_verbEnd, &VerbEndModel::dataChanged, this, &DataModel::verbEndModelChanged);
 	connect(&m_akkusativ, &AkkusativModel::dataChanged, this, &DataModel::akkusativModelChanged);
 	connect(&m_dativ, &DativModel::dataChanged, this, &DataModel::dativModelChanged);
-	connect(&m_v2Svk, &V2SvkModel::dataChanged, this, &DataModel::v2SvkModelChanged);
+
+	connect(&m_wfModel, &WFModel::dataChanged, this, &DataModel::v2SvkModelChanged);
+	connect(&m_otModel, &OTModel::dataChanged, this, &DataModel::v2SvkModelChanged);
+	connect(&m_tPrModel, &TPrModel::dataChanged, this, &DataModel::v2SvkModelChanged);
+	connect(&m_tPeModel, &TPeModel::dataChanged, this, &DataModel::v2SvkModelChanged);
+
 	connect(&m_passiv, &PassivModel::dataChanged, this, &DataModel::passivModelChanged);
 	connect(&m_genitiv, &GenitivModel::dataChanged, this, &DataModel::genitivModelChanged);
 }
 
-void DataModel::write(std::ostream &outStream) const
+void DataModel::write(const QString &filename) const
 {
 	ESGRAF48::DataModel dataModel;
 
 	m_metaData.write(*dataModel.mutable_metadata());
-	m_v2Svk.write(*dataModel.mutable_v2svk());
+
+	m_wfModel.write(*dataModel.mutable_v2svk());
+	m_otModel.write(*dataModel.mutable_v2svk());
+	m_tPrModel.write(*dataModel.mutable_v2svk());
+	m_tPeModel.write(*dataModel.mutable_v2svk());
+
 	m_verbEnd.write(*dataModel.mutable_verbend());
 	m_genus.write(*dataModel.mutable_genus());
 	m_akkusativ.write(*dataModel.mutable_akkusativ());
@@ -41,16 +56,41 @@ void DataModel::write(std::ostream &outStream) const
 	m_genitiv.write(*dataModel.mutable_lateskillsgenitiv());
 	m_passiv.write(*dataModel.mutable_lateskillspassiv());
 
-	dataModel.SerializeToOstream(&outStream);
+	QFile outFile(filename);
+	if (!outFile.open(QIODevice::WriteOnly))
+	{
+		throw std::runtime_error("failed to open file");
+	}
+
+	bool success = dataModel.SerializeToFileDescriptor(outFile.handle());
+	if (success == false)
+	{
+		throw std::runtime_error("filed to write file");
+	}
 }
 
-void DataModel::read(std::istream &inStream)
+void DataModel::read(const QString &filename)
 {
+	QFile inFile(filename);
+	if (!inFile.open(QIODevice::ReadOnly))
+	{
+		throw std::runtime_error("failed to read file");
+	}
+
 	ESGRAF48::DataModel dataModel;
-	dataModel.ParseFromIstream(&inStream);
+	bool success = dataModel.ParseFromFileDescriptor(inFile.handle());
+	if (success == false)
+	{
+		throw std::runtime_error("invalid file format");
+	}
 
 	m_metaData.read(dataModel.metadata());
-	m_v2Svk.read(dataModel.v2svk());
+
+	m_wfModel.read(dataModel.v2svk());
+	m_otModel.read(dataModel.v2svk());
+	m_tPrModel.read(dataModel.v2svk());
+	m_tPeModel.read(dataModel.v2svk());
+
 	m_verbEnd.read(dataModel.verbend());
 	m_genus.read(dataModel.genus());
 	m_akkusativ.read(dataModel.akkusativ());
@@ -67,7 +107,7 @@ void DataModel::printTo(QPainter &painter) const
 	painter.translate(0, 3 * painter.fontMetrics().lineSpacing());
 
 	m_metaData.printTo(painter);
-	m_v2Svk.printTo(painter);
+	m_wfModel.printTo(painter);
 }
 
 void DataModel::pluralModelChanged()
@@ -114,8 +154,10 @@ void DataModel::dativModelChanged()
 
 void DataModel::v2SvkModelChanged()
 {
-	m_results.setV2Result(m_v2Svk.getV2Points());
-	m_results.setSvkResult(m_v2Svk.getSvkPoints());
+	m_results.setV2Result(m_wfModel.getV2Points() + m_otModel.getV2Points()
+	                      + m_tPrModel.getV2Points() + m_tPeModel.getV2Points());
+	m_results.setSvkResult(m_wfModel.getSvkPoints() + m_otModel.getSvkPoints()
+	                       + m_tPrModel.getSvkPoints() + m_tPeModel.getSvkPoints());
 
 	emit modelChanged();
 }

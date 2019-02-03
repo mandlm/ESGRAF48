@@ -39,6 +39,7 @@ public slots:
 	void print() const;
 	void dataModelChanged();
 	void savePdf();
+	void aboutDialog();
 
 protected:
 	void closeEvent(QCloseEvent *event) override;

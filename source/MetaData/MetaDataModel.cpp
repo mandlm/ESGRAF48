@@ -166,3 +166,8 @@ void MetaDataModel::printTo(QPainter &painter) const
 
 	painter.translate(0, 2 * height);
 }
+
+Age MetaDataModel::getAge() const
+{
+	return {m_dateOfBirth, m_dateOfTest};
+}

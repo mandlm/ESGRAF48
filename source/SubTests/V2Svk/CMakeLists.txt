@@ -19,7 +19,10 @@ protobuf_generate_cpp(V2Svk_PROTO_SRCS V2Svk_PROTO_HDRS ${V2Svk_PROTO_FILES})
 
 add_library(${PROJECT_NAME}
 	V2SvkWidget.cpp
-	V2SvkModel.cpp
+	WFModel.cpp
+	OTModel.cpp
+	TPrModel.cpp
+	TPeModel.cpp
 	${UI_HEADERS}
 	${V2Svk_PROTO_SRCS}
 	${V2Svk_PROTO_HDRS}

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "version.h"
+
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QFile>
@@ -47,7 +49,12 @@ void MainWindow::setupUi()
 	ui->pluralWidget->setModel(&m_dataModel.m_plural);
 	ui->akkusativDativWidget->setAkkusativModel(&m_dataModel.m_akkusativ);
 	ui->akkusativDativWidget->setDativModel(&m_dataModel.m_dativ);
-	ui->v2SvkWidget->setV2SvkModel(&m_dataModel.m_v2Svk);
+
+	ui->v2SvkWidget->setWFModel(&m_dataModel.m_wfModel);
+	ui->v2SvkWidget->setOTModel(&m_dataModel.m_otModel);
+	ui->v2SvkWidget->setTPrModel(&m_dataModel.m_tPrModel);
+	ui->v2SvkWidget->setTPeModel(&m_dataModel.m_tPeModel);
+
 	ui->lateSkillsWidget->setPassivModel(&m_dataModel.m_passiv);
 	ui->lateSkillsWidget->setGenitivModel(&m_dataModel.m_genitiv);
 	ui->resultWidget->setModel(&m_dataModel.m_results);
@@ -58,6 +65,8 @@ void MainWindow::setupUi()
 	connect(ui->actionSave_as, &QAction::triggered, this, &MainWindow::saveFileAs);
 	connect(ui->actionPrint, &QAction::triggered, this, &MainWindow::print);
 	connect(ui->actionExport_PDF, &QAction::triggered, this, qOverload<>(&MainWindow::savePdf));
+
+	connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::aboutDialog);
 
 	connect(&m_dataModel, &DataModel::modelChanged, this, &MainWindow::dataModelChanged);
 }
@@ -86,15 +95,22 @@ void MainWindow::openFile()
 		return;
 	}
 
-	openFile(filename);
+	try
+	{
+		openFile(filename);
+	}
+	catch (std::exception &e)
+	{
+		QString errorMessage = QString("Error loading \"") + filename + "\": " + e.what();
+		QMessageBox::critical(this, "Error", errorMessage);
+	}
 }
 
 void MainWindow::openFile(const QString &filename)
 {
 	closeFile();
 
-	std::fstream protoInFile(filename.toStdString(), std::ios::in | std::ios::binary);
-	m_dataModel.read(protoInFile);
+	m_dataModel.read(filename);
 
 	setWindowModified(false);
 	setWindowTitle(filename + "[*]");
@@ -119,6 +135,7 @@ void MainWindow::saveFile()
 void MainWindow::saveFileAs()
 {
 	QFileDialog saveFilenameDialog(this);
+	saveFilenameDialog.setAcceptMode(QFileDialog::AcceptSave);
 	saveFilenameDialog.setDefaultSuffix("esgraf48");
 	saveFilenameDialog.setFileMode(QFileDialog::AnyFile);
 	saveFilenameDialog.setNameFilter("ESGRAF 4-8 (*.esgraf48)");
@@ -198,9 +215,16 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::saveFile(const QString &filename)
 {
-	std::fstream protoOutFile(filename.toStdString(),
-	                          std::ios::out | std::ios::trunc | std::ios::binary);
-	m_dataModel.write(protoOutFile);
+	try
+	{
+		m_dataModel.write(filename);
+	}
+	catch (std::exception &e)
+	{
+		QString errorMessage = QString("Error saving \"") + filename + "\": " + e.what();
+		QMessageBox::critical(this, "Error", errorMessage);
+		return;
+	}
 
 	qDebug() << "Wrote" << filename;
 
@@ -224,4 +248,11 @@ void MainWindow::savePdf(const QString &filename)
 	m_dataModel.printTo(painter);
 
 	painter.end();
+}
+
+void MainWindow::aboutDialog()
+{
+	QString infoString =
+	    QString::fromUtf8(ESGRAF48_DESCRIPTION) + " Version " + QString::fromUtf8(ESGRAF48_VERSION);
+	QMessageBox::information(this, ESGRAF48_DESCRIPTION, infoString);
 }
