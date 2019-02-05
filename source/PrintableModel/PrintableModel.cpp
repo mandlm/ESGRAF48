@@ -1,5 +1,7 @@
 #include "PrintableModel.h"
 
+#include <regex>
+
 PrintableModel::PrintableModel(QObject *parent)
     : CheckableTestModel(parent)
 {
@@ -134,7 +136,10 @@ void PrintableModel::printTests(QPainter &painter) const
 	double y = 0;
 	for (const auto &test : m_tests)
 	{
-		drawTextSquare(painter, {0, y, headerWidth, 2 * rowHeight}, test.name());
+		QString testName = QString::fromStdString(
+		    std::regex_replace(test.name().toStdString(), std::regex("\\s"), "\n"));
+
+		drawTextSquare(painter, {0, y, headerWidth, 2 * rowHeight}, testName);
 		x = headerWidth;
 
 		for (const auto &item : test.items())
