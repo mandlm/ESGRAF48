@@ -1,7 +1,7 @@
 #include "DativModel.h"
 
 DativModel::DativModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : PrintableModel(parent)
 {
 	m_tests = {{"Dativ Nominalphrase",
 	            {"Affe", "Gans", "Tiger", "Hund", "Elefant", "Pferd", "Bär", "Katze"}},

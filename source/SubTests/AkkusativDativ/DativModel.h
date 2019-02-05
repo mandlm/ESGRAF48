@@ -1,9 +1,9 @@
 #pragma once
 
-#include "CheckableTestModel.h"
+#include "PrintableModel.h"
 #include "DativModel.pb.h"
 
-class DativModel : public CheckableTestModel
+class DativModel : public PrintableModel
 {
 	Q_OBJECT
 
@@ -12,4 +12,7 @@ public:
 
 	void read(const ESGRAF48::DativModel &model);
 	void write(ESGRAF48::DativModel &model) const;
+
+protected:
+	void printHeader(QPainter &) const override {};
 };

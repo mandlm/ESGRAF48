@@ -128,6 +128,8 @@ void DataModel::printTo(QPrinter &printer) const
 	printer.newPage();
 	painter.resetTransform();
 
+	m_akkusativ.printTo(painter);
+	m_dativ.printTo(painter);
 	m_plural.printTo(painter);
 
 	painter.end();
