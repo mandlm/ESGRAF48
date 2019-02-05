@@ -32,6 +32,11 @@ QPen PrintableModel::tablePen()
 	return QPen(Qt::black, 1, Qt::SolidLine);
 }
 
+QPen PrintableModel::resultPen()
+{
+	return QPen(Qt::black, 2, Qt::SolidLine);
+}
+
 void PrintableModel::drawTextSquare(QPainter &painter, const QRectF &cell, const QString &text)
 {
 	auto prevPen = painter.pen();
@@ -45,6 +50,19 @@ void PrintableModel::drawTextSquare(QPainter &painter, const QRectF &cell, const
 	painter.drawLine(cell.bottomLeft(), cell.topLeft());
 
 	painter.setPen(prevPen);
+}
+
+void PrintableModel::drawNumberSquare(QPainter &painter, double x, double y, int number)
+{
+	QRectF cell = {x, y, 0.03 * painter.device()->width(),
+	               1.5 * painter.fontMetrics().lineSpacing()};
+
+	painter.drawText(cell, Qt::AlignCenter, QString::number(number));
+
+	painter.drawLine(cell.topLeft(), cell.topRight());
+	painter.drawLine(cell.topRight(), cell.bottomRight());
+	painter.drawLine(cell.bottomRight(), cell.bottomLeft());
+	painter.drawLine(cell.bottomLeft(), cell.topLeft());
 }
 
 void PrintableModel::PrintableModel::drawCheckSquare(QPainter &painter, const QRectF &cell,
@@ -138,14 +156,14 @@ void PrintableModel::printTests(QPainter &painter) const
 void PrintableModel::printSummary(QPainter &painter) const
 {
 	painter.setFont(tableFont());
-	painter.setPen(tablePen());
 
 	auto width = painter.device()->width();
 	auto height = 1.5 * painter.fontMetrics().lineSpacing();
 
-	painter.drawText(0, 0, 0.85 * width, height, Qt::AlignRight | Qt::AlignVCenter,
+	painter.drawText(0, 0, 0.95 * width, height, Qt::AlignRight | Qt::AlignVCenter,
 	                 "Rohwertpunkte Total:");
-	drawResultSquare(painter, 0, true, getPoints());
+	painter.setPen(resultPen());
+	drawNumberSquare(painter, 0.97 * width, 0, getPoints());
 
 	painter.translate(0, 3 * height);
 }

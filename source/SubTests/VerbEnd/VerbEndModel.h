@@ -12,4 +12,9 @@ public:
 
 	void write(ESGRAF48::VerbEndModel &model) const;
 	void read(const ESGRAF48::VerbEndModel &model);
+
+	unsigned int getKausalPoints() const;
+
+protected:
+	void printSummary(QPainter &painter) const override;
 };

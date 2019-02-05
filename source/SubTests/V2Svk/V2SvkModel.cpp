@@ -116,10 +116,12 @@ void V2SvkModel::printSummary(QPainter &painter, unsigned int v2Points, unsigned
 	auto width = painter.device()->width();
 	auto height = 1.5 * painter.fontMetrics().lineSpacing();
 
-	painter.drawText(0, 0, 0.85 * width, height, Qt::AlignRight | Qt::AlignVCenter,
+	painter.drawText(0, 0, 0.91 * width, height, Qt::AlignRight | Qt::AlignVCenter,
 	                 "Rohwertpunkte Total:");
-	PrintableModel::drawResultSquare(painter, 0, false, v2Points);
-	PrintableModel::drawResultSquare(painter, 0, true, svkPoints);
+
+	painter.setPen(resultPen());
+	drawNumberSquare(painter, 0.93 * width, 0, v2Points);
+	drawNumberSquare(painter, 0.97 * width, 0, svkPoints);
 
 	painter.translate(0, 3 * height);
 }

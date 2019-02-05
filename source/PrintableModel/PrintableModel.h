@@ -22,8 +22,10 @@ public:
 	static QFont tableFont();
 
 	static QPen tablePen();
+	static QPen resultPen();
 
 	static void drawTextSquare(QPainter &painter, const QRectF &cell, const QString &text);
+	static void drawNumberSquare(QPainter &painter, double x, double y, int number);
 	static void drawCheckSquare(QPainter &painter, const QRectF &cell, bool checked);
 	static void drawResultSquare(QPainter &painter, double y, bool rightCell, unsigned int value);
 	static void drawGreySquare(QPainter &painter, const QRectF &cell);
