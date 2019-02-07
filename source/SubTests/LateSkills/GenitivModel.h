@@ -1,9 +1,9 @@
 #pragma once
 
-#include "CheckableTestModel.h"
+#include "LateSkillsModel.h"
 #include "LateSkillsGenitivModel.pb.h"
 
-class GenitivModel : public CheckableTestModel
+class GenitivModel : public LateSkillsModel
 {
 	Q_OBJECT
 
@@ -14,4 +14,7 @@ public:
 
 	void read(const ESGRAF48::LateSkillsGenitivModel &model);
 	void write(ESGRAF48::LateSkillsGenitivModel &model) const;
+
+protected:
+	void printHeader(QPainter &painter) const override;
 };

@@ -1,7 +1,7 @@
 #include "OTModel.h"
 
 OTModel::OTModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : V2SvkModel(parent)
 {
 	m_tests = {
 	    {"Objekt-Topikalisierung",
@@ -13,7 +13,7 @@ OTModel::OTModel(QObject *parent)
 	};
 }
 
-unsigned int OTModel::getV2Points()
+unsigned int OTModel::getV2Points() const
 {
 	unsigned int points = 0;
 
@@ -33,7 +33,7 @@ unsigned int OTModel::getV2Points()
 	return points;
 }
 
-unsigned int OTModel::getSvkPoints()
+unsigned int OTModel::getSvkPoints() const
 {
 	unsigned int points = 0;
 
@@ -103,3 +103,13 @@ void OTModel::read(const ESGRAF48::V2SvkModel &model)
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
+
+std::set<int> OTModel::v2Tests() const
+{
+	return {0};
+};
+
+std::set<int> OTModel::svkTests() const
+{
+	return {1};
+};

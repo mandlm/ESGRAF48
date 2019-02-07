@@ -1,8 +1,10 @@
 #include "WFModel.h"
 
 WFModel::WFModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : V2SvkModel(parent)
 {
+	m_title = "Subtest 1: Verbzweitstellungsregel (V2) und Subjekt-Verb-Kontrollregel (SVK)";
+
 	m_tests = {
 	    {"W-Frage",
 	     {"Affe", "Affe", "Affe", "Affe", "Schwein", "Schwein", "Schwein", "Schwein", "Gans",
@@ -14,7 +16,7 @@ WFModel::WFModel(QObject *parent)
 	};
 }
 
-unsigned int WFModel::getV2Points()
+unsigned int WFModel::getV2Points() const
 {
 	unsigned int points = 0;
 
@@ -34,7 +36,7 @@ unsigned int WFModel::getV2Points()
 	return points;
 }
 
-unsigned int WFModel::getSvkPoints()
+unsigned int WFModel::getSvkPoints() const
 {
 	unsigned int points = 0;
 
@@ -133,3 +135,13 @@ void WFModel::read(const ESGRAF48::V2SvkModel &model)
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
+
+std::set<int> WFModel::v2Tests() const
+{
+	return {0, 1};
+};
+
+std::set<int> WFModel::svkTests() const
+{
+	return {2};
+};

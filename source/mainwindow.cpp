@@ -13,6 +13,7 @@
 #include <QtPrintSupport/QPrinter>
 #include <QtPrintSupport/QPrintDialog>
 #include <QTextDocument>
+#include <QPainter>
 
 #include <QDebug>
 
@@ -167,10 +168,9 @@ void MainWindow::closeFile()
 
 void MainWindow::print() const
 {
-	//std::ofstream htmlfile("print.html");
-	//htmlfile << m_dataModel.toHtml();
-
 	QPrinter printer;
+	printer.setPaperSize(QPrinter::A4);
+	printer.setPageMargins(20, 20, 20, 20, QPrinter::Millimeter);
 
 	QPrintDialog dialog(&printer);
 	if (dialog.exec() != QDialog::Accepted)
@@ -178,10 +178,7 @@ void MainWindow::print() const
 		return;
 	}
 
-	QTextDocument printDoc;
-	printDoc.setHtml(QString::fromStdString(m_dataModel.toHtml()));
-
-	printDoc.print(&printer);
+	m_dataModel.printTo(printer);
 }
 
 void MainWindow::dataModelChanged()
@@ -237,12 +234,10 @@ void MainWindow::savePdf(const QString &filename)
 	QPrinter printer;
 	printer.setOutputFormat(QPrinter::PdfFormat);
 	printer.setPaperSize(QPrinter::A4);
+	printer.setPageMargins(20, 20, 20, 20, QPrinter::Millimeter);
 	printer.setOutputFileName(filename);
 
-	QTextDocument printDoc;
-	printDoc.setHtml(QString::fromStdString(m_dataModel.toHtml()));
-
-	printDoc.print(&printer);
+	m_dataModel.printTo(printer);
 }
 
 void MainWindow::aboutDialog()

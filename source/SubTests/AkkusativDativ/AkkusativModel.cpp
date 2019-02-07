@@ -1,7 +1,7 @@
 #include "AkkusativModel.h"
 
 AkkusativModel::AkkusativModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : PrintableModel(parent)
 {
 	m_tests = {{"Akkusativ Nominalphrase",
 	            {"Tiger", "Katze", "Affe", "Gans", "Bär", "Pferd", "Hund", "Elefant"}},
@@ -104,4 +104,9 @@ void AkkusativModel::write(ESGRAF48::AkkusativModel &model) const
 		futterModel->set_honig(testItems[6].isChecked());
 		futterModel->set_zucker(testItems[7].isChecked());
 	}
+}
+	
+void AkkusativModel::printHeader(QPainter &painter) const
+{
+	drawHeader2(painter, "Subtest 4: Akkusativ und Dativ");
 }

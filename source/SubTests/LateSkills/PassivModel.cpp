@@ -1,7 +1,7 @@
 #include "PassivModel.h"
 
 PassivModel::PassivModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : LateSkillsModel(parent)
 {
 	m_tests = {{"Passiv",
 	            {"Elefant (1)", "Elefant (2)", "Pferde (1)", "Pferde (2)", "Bälle (1)", "Bälle (2)",
@@ -64,4 +64,9 @@ void PassivModel::write(ESGRAF48::LateSkillsPassivModel &model) const
 	model.set_ball2(testItems[7].isChecked());
 	model.set_fleisch1(testItems[8].isChecked());
 	model.set_fleisch2(testItems[9].isChecked());
+}
+	
+void PassivModel::printHeader(QPainter &painter) const
+{
+	drawHeader2(painter, "Subtest 6: Späte Fähigkeiten (7;0-8;11)");
 }

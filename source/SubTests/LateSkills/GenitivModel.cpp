@@ -1,7 +1,7 @@
 #include "GenitivModel.h"
 
 GenitivModel::GenitivModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : LateSkillsModel(parent)
 {
 	m_tests = {
 	    {"Genitiv Präpositionen",
@@ -106,4 +106,9 @@ void GenitivModel::write(ESGRAF48::LateSkillsGenitivModel &model) const
 		attributierungModel->set_guertel1(testItems[8].isChecked());
 		attributierungModel->set_guertel2(testItems[9].isChecked());
 	}
+}
+	
+void GenitivModel::printHeader(QPainter &painter) const
+{
+	painter.translate(0, -1.5 * painter.fontMetrics().lineSpacing());
 }

@@ -22,6 +22,7 @@ protobuf_generate_cpp(LateSkills_PROTO_SRCS LateSkills_PROTO_HDRS
 
 add_library(${PROJECT_NAME}
 	LateSkillsWidget.cpp
+	LateSkillsModel.cpp
 	PassivModel.cpp
 	GenitivModel.cpp
 	${UI_HEADERS}
@@ -43,9 +44,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
-	CheckableItem
-	CheckableTest
-	CheckableTestModel
+	PrintableModel
 	Qt5::Widgets
 	${Protobuf_LIBRARIES}
 )

@@ -1,15 +1,14 @@
 #include "VerbEndModel.h"
 
 VerbEndModel::VerbEndModel(QObject *parent)
-	: CheckableTestModel(parent)
+    : PrintableModel(parent)
 {
-	m_tests = { { "Telefonat",
-					{ "Kausal", "Kausal", "Relativ", "Kausal",
-						"Final", "Temporal", "Temporal" } },
-		{ "Zaubertrick", { "Relativ", "Final", "Kausal", "Final",
-							 "Temporal", "Kausal", "Temporal" } },
-		{ "Zauberregel", { "Temporal", "Kausal", "Final", "Relativ",
-							 "Temporal", "Relativ" } } };
+	m_title = "Subtest 2: Verbendstellungsregel (VE)";
+
+	m_tests = {
+	    {"Telefonat", {"Kausal", "Kausal", "Relativ", "Kausal", "Final", "Temporal", "Temporal"}},
+	    {"Zaubertrick", {"Relativ", "Final", "Kausal", "Final", "Temporal", "Kausal", "Temporal"}},
+	    {"Zauberregel", {"Temporal", "Kausal", "Final", "Relativ", "Temporal", "Relativ"}}};
 }
 
 void VerbEndModel::write(ESGRAF48::VerbEndModel &model) const
@@ -97,4 +96,33 @@ void VerbEndModel::read(const ESGRAF48::VerbEndModel &model)
 	}
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
+}
+
+unsigned int VerbEndModel::getKausalPoints() const
+{
+	auto points = [&](unsigned int testId, unsigned int itemId) {
+		return m_tests.at(testId).items().at(itemId).points();
+	};
+
+	return points(0, 0) + points(0, 1) + points(0, 3) + points(1, 2) + points(1, 5) + points(2, 1);
+}
+
+void VerbEndModel::printSummary(QPainter &painter) const
+{
+	painter.setFont(tableFont());
+
+	auto width = painter.device()->width();
+	auto height = 1.5 * painter.fontMetrics().lineSpacing();
+
+	painter.drawText(0, 0, 0.71 * width, height, Qt::AlignRight | Qt::AlignVCenter,
+	                 "Rohwertpunkte Kausalsätze:");
+	painter.drawText(0, 0, 0.95 * width, height, Qt::AlignRight | Qt::AlignVCenter,
+	                 "Rohwertpunkte Total:");
+
+	drawNumberSquare(painter, 0.73 * width, 0, getKausalPoints());
+
+	painter.setPen(resultPen());
+	drawNumberSquare(painter, 0.97 * width, 0, getKausalPoints());
+
+	painter.translate(0, 3 * height);
 }

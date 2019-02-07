@@ -1,8 +1,10 @@
 #include "GenusModel.h"
 
 GenusModel::GenusModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : PrintableModel(parent)
 {
+	m_title = "Subtest 3: Genus";
+
 	m_tests = {{"Tiere", {"Tiger", "Bär", "Katze", "Pferd", "Gans", "Elefant", "Affe", "Hund"}},
 	           {"Futter",
 	            {"Salat", "Fleisch", "Knochen", "Banane", "Apfel", "Karotte", "Honig", "Zucker"}},

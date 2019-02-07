@@ -1,5 +1,7 @@
 #pragma once
 
+#include "PrintableModel.h"
+
 #include "Age.h"
 
 #include "MetaDataModel.pb.h"
@@ -7,9 +9,8 @@
 #include <QAbstractTableModel>
 #include <QString>
 #include <QDate>
-#include <QJsonObject>
 
-class MetaDataModel : public QAbstractTableModel
+class MetaDataModel : public PrintableModel
 {
 	Q_OBJECT
 
@@ -31,7 +32,7 @@ public:
 	void read(const ESGRAF48::MetaDataModel &model);
 	void write(ESGRAF48::MetaDataModel &model) const;
 
-	std::string toHtml() const;
+	void printTo(QPainter &painter) const override;
 
 	Age getAge() const;
 };

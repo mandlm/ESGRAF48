@@ -5,7 +5,7 @@
 #include <sstream>
 
 MetaDataModel::MetaDataModel(QObject *parent)
-    : QAbstractTableModel(parent)
+    : PrintableModel(parent)
 {
 	m_dateOfBirth = QDate::currentDate().addYears(-9);
 	m_dateOfTest = QDate::currentDate();
@@ -130,41 +130,41 @@ void MetaDataModel::write(ESGRAF48::MetaDataModel &model) const
 	model.set_remarks(m_remarks.toStdString());
 }
 
-std::string MetaDataModel::toHtml() const
+void MetaDataModel::printTo(QPainter &painter) const
 {
-	std::ostringstream out;
+	painter.setFont(tableFont());
 
-	out << "<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" frame=\"box\" rules=\"all\">"
-	    << std::endl;
-	out << "<tr>" << std::endl;
-	out << "<td width=\"25%\">Name, Vorname</td>" << std::endl;
-	out << "<td width=\"25%\">" << m_participant.toHtmlEscaped().toStdString() << "</td>"
-	    << std::endl;
-	out << "<td width=\"25%\">Untersucher(in)</td>" << std::endl;
-	out << "<td width=\"25%\">" << m_instructor.toHtmlEscaped().toStdString() << "</td>"
-	    << std::endl;
-	out << "</tr>" << std::endl;
-	out << "<tr>" << std::endl;
-	out << "<td>Geburtsdatum</td>" << std::endl;
-	out << "<td>" << m_dateOfBirth.toString("dd.MM.yyyy").toHtmlEscaped().toStdString() << "</td>"
-	    << std::endl;
-	out << "<td colspan=\"2\">Bemerkungen</td>" << std::endl;
-	out << "</tr>" << std::endl;
-	out << "<tr>" << std::endl;
-	out << "<td>Untersuchungsdatum</td>" << std::endl;
-	out << "<td>" << m_dateOfTest.toString("dd.MM.yyyy").toHtmlEscaped().toStdString() << "</td>"
-	    << std::endl;
-	out << "<td colspan=\"2\" rowspan=\"2\">"
-	    << m_remarks.trimmed().toHtmlEscaped().replace("\n", "<br>").toStdString() << "</td>"
-	    << std::endl;
-	out << "</tr>" << std::endl;
-	out << "<tr>" << std::endl;
-	out << "<td>Alter am Testtag</td>" << std::endl;
-	out << "<td>" << getAge().toString() << "</td>" << std::endl;
-	out << "</tr>" << std::endl;
-	out << "</table>" << std::endl;
+	auto width = painter.device()->width();
+	auto height = 1.5 * painter.fontMetrics().lineSpacing();
 
-	return out.str();
+	auto hasRemarks = !m_remarks.trimmed().isEmpty();
+
+	painter.drawText(0, 0, "Name, Vorname");
+	painter.drawText(0.25 * width, 0, m_participant);
+	painter.drawText(0.5 * width, 0, "Untersucher(in)");
+	painter.drawText(0.75 * width, 0, m_instructor);
+
+	painter.translate(0, height);
+
+	painter.drawText(0, 0, "Geburtsdatum");
+	painter.drawText(0.25 * width, 0, m_dateOfBirth.toString("dd.MM.yyyy"));
+	if (hasRemarks)
+	{
+		painter.drawText(0.5 * width, 0, "Bemerkungen:");
+		painter.drawText(QRect(0.5 * width, 0.5 * height, width, 2 * height), m_remarks);
+	}
+
+	painter.translate(0, height);
+
+	painter.drawText(0, 0, "Untersuchungsdatum");
+	painter.drawText(0.25 * width, 0, m_dateOfTest.toString("dd.MM.yyyy"));
+
+	painter.translate(0, height);
+
+	painter.drawText(0, 0, "Alter am Testtag");
+	painter.drawText(0.25 * width, 0, getAge().toString().c_str());
+
+	painter.translate(0, 2 * height);
 }
 
 Age MetaDataModel::getAge() const

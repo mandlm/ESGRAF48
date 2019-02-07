@@ -2,6 +2,8 @@
 
 #include <QJsonArray>
 
+#include <numeric>
+
 CheckableItems::CheckableItems(std::initializer_list<std::string> itemNames)
 {
 	for (const auto &itemName : itemNames)
@@ -10,27 +12,9 @@ CheckableItems::CheckableItems(std::initializer_list<std::string> itemNames)
 	}
 }
 
-void CheckableItems::write(QJsonArray &json) const
+unsigned int CheckableItems::getPoints() const
 {
-	for (const auto &item : *this)
-	{
-		QJsonObject itemObject;
-		item.write(itemObject);
-		json.append(itemObject);
-	}
-}
-
-void CheckableItems::read(const QJsonArray &json)
-{
-	clear();
-
-	for (const auto &itemObject : json)
-	{
-		if (itemObject.isObject())
-		{
-			CheckableItem item;
-			item.read(itemObject.toObject());
-			emplace_back(item);
-		}
-	}
+	return std::accumulate(begin(), end(), 0, [](int base, const CheckableItem &item) {
+		return base + item.points();
+	});
 }

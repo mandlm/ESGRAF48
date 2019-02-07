@@ -1,7 +1,7 @@
 #include "TPrModel.h"
 
 TPrModel::TPrModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : V2SvkModel(parent)
 {
 	m_tests = {
 	    {"Temporaladverb Präsens", {"Affe", "Affe", "Schwein", "Schwein", "Gans", "Gans"}},
@@ -9,7 +9,7 @@ TPrModel::TPrModel(QObject *parent)
 	};
 }
 
-unsigned int TPrModel::getV2Points()
+unsigned int TPrModel::getV2Points() const
 {
 	unsigned int points = 0;
 
@@ -29,7 +29,7 @@ unsigned int TPrModel::getV2Points()
 	return points;
 }
 
-unsigned int TPrModel::getSvkPoints()
+unsigned int TPrModel::getSvkPoints() const
 {
 	unsigned int points = 0;
 
@@ -87,3 +87,13 @@ void TPrModel::read(const ESGRAF48::V2SvkModel &model)
 
 	emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
+
+std::set<int> TPrModel::v2Tests() const
+{
+	return {0};
+};
+
+std::set<int> TPrModel::svkTests() const
+{
+	return {1};
+};

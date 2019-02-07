@@ -10,13 +10,14 @@
 #include "PassivPR.h"
 #include "GenitivPR.h"
 
+#include "PrintableModel.h"
+
 #include <QDebug>
 
 ResultModel::ResultModel(QObject *parent)
-	: QAbstractTableModel(parent)
+    : QAbstractTableModel(parent)
 {
-	m_results = { { "V2", "SVK", "VE", "Passiv", "Genus", "Akkusativ", "Dativ",
-		"Genitiv", "Plural" } };
+	m_results = {{"V2", "SVK", "VE", "Passiv", "Genus", "Akkusativ", "Dativ", "Genitiv", "Plural"}};
 }
 
 int ResultModel::rowCount(const QModelIndex &parent) const
@@ -81,8 +82,7 @@ QVariant ResultModel::data(const QModelIndex &index, int role) const
 	return {};
 }
 
-QVariant ResultModel::headerData(
-	int section, Qt::Orientation orientation, int role) const
+QVariant ResultModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	if (role != Qt::DisplayRole)
 	{
@@ -170,7 +170,7 @@ void ResultModel::setDativResult(unsigned int points)
 		emit dataChanged(index(0, 6), index(4, 6));
 	}
 }
-	
+
 void ResultModel::setV2Result(unsigned int points)
 {
 	if (m_results[0].points() != points)
@@ -193,20 +193,66 @@ void ResultModel::setSvkResult(unsigned int points)
 
 void ResultModel::setPassivResult(unsigned int points)
 {
-    if (m_results[3].points() != points)
-    {
-        m_results[3].setPoints(points);
-        m_results[3].setPR(PassivPR().lookup(m_age, points));
-        emit dataChanged(index(0, 3), index(4, 3));
-    }
+	if (m_results[3].points() != points)
+	{
+		m_results[3].setPoints(points);
+		m_results[3].setPR(PassivPR().lookup(m_age, points));
+		emit dataChanged(index(0, 3), index(4, 3));
+	}
 }
 
 void ResultModel::setGenitivResult(unsigned int points)
 {
-    if (m_results[7].points() != points)
-    {
-        m_results[7].setPoints(points);
-        m_results[7].setPR(GenitivPR().lookup(m_age, points));
-        emit dataChanged(index(0, 7), index(4, 7));
-    }
+	if (m_results[7].points() != points)
+	{
+		m_results[7].setPoints(points);
+		m_results[7].setPR(GenitivPR().lookup(m_age, points));
+		emit dataChanged(index(0, 7), index(4, 7));
+	}
+}
+
+void ResultModel::printTo(QPainter &painter) const
+{
+	PrintableModel::drawHeader2(painter, "Prozentränge (PR)");
+
+	painter.setFont(PrintableModel::tableFont());
+	painter.setPen(PrintableModel::tablePen());
+
+	auto width = painter.device()->width();
+	auto height = 1.5 * painter.fontMetrics().lineSpacing();
+
+	double cellWidth = width / (m_results.size() + 1);
+	double rowHeight = 2 * height;
+
+	double x = 0;
+	double y = 0;
+
+	PrintableModel::drawTextSquare(painter, {x, y + 0 * rowHeight, cellWidth, rowHeight}, "");
+	PrintableModel::drawTextSquare(painter, {x, y + 1 * rowHeight, cellWidth, rowHeight},
+	                               "\u2265 PR 84");
+	PrintableModel::drawTextSquare(painter, {x, y + 2 * rowHeight, cellWidth, rowHeight},
+	                               "< PR 84");
+
+	PrintableModel::drawGreySquare(painter, {x, y + 3 * rowHeight, cellWidth, rowHeight});
+	PrintableModel::drawTextSquare(painter, {x, y + 3 * rowHeight, cellWidth, rowHeight},
+	                               "\u2264 PR 16");
+
+	x += cellWidth;
+	for (const auto &result : m_results)
+	{
+		PrintableModel::drawTextSquare(painter, {x, y + 0 * rowHeight, cellWidth, rowHeight},
+		                               result.name());
+		const auto pr = result.pr();
+
+		PrintableModel::drawTextSquare(painter, {x, y + 1 * rowHeight, cellWidth, rowHeight},
+		                               pr >= 84 ? QString::number(pr) : "-");
+		PrintableModel::drawTextSquare(painter, {x, y + 2 * rowHeight, cellWidth, rowHeight},
+		                               pr < 84 && pr > 16 ? QString::number(pr) : "-");
+
+		PrintableModel::drawGreySquare(painter, {x, y + 3 * rowHeight, cellWidth, rowHeight});
+		PrintableModel::drawTextSquare(painter, {x, y + 3 * rowHeight, cellWidth, rowHeight},
+		                               pr <= 16 ? QString::number(pr) : "-");
+
+		x += cellWidth;
+	}
 }

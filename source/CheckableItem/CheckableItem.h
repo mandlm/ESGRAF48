@@ -24,7 +24,4 @@ public:
 	void setValue(unsigned int value);
 
 	unsigned int points() const;
-
-	void write(QJsonObject &json) const;
-	void read(const QJsonObject &json);
 };
