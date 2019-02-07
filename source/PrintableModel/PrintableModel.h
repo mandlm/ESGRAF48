@@ -24,6 +24,9 @@ public:
 	static QPen tablePen();
 	static QPen resultPen();
 
+	static double headerWidthFactor();
+	static double cellWidthFactor();
+
 	static void drawTextSquare(QPainter &painter, const QRectF &cell, const QString &text);
 	static void drawNumberSquare(QPainter &painter, double x, double y, int number);
 	static void drawCheckSquare(QPainter &painter, const QRectF &cell, bool checked);

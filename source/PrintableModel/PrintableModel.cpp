@@ -39,6 +39,16 @@ QPen PrintableModel::resultPen()
 	return QPen(Qt::black, 2, Qt::SolidLine);
 }
 
+double PrintableModel::headerWidthFactor()
+{
+	return 0.17;
+}
+
+double PrintableModel::cellWidthFactor()
+{
+	return 0.085;
+}
+
 void PrintableModel::drawTextSquare(QPainter &painter, const QRectF &cell, const QString &text)
 {
 	auto prevPen = painter.pen();
@@ -128,8 +138,8 @@ void PrintableModel::printTests(QPainter &painter) const
 	auto width = painter.device()->width();
 	auto height = 1.5 * painter.fontMetrics().lineSpacing();
 
-	double headerWidth = 0.2 * width;
-	double cellWidth = 0.08 * width;
+	double headerWidth = headerWidthFactor() * width;
+	double cellWidth = cellWidthFactor() * width;
 	double rowHeight = height;
 
 	double x = 0;

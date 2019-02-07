@@ -1,5 +1,7 @@
 #include "V2SvkModel.h"
 
+#include <regex>
+
 V2SvkModel::V2SvkModel(QObject *parent)
     : PrintableModel(parent)
 {
@@ -21,13 +23,20 @@ void V2SvkModel::printTests(QPainter &painter) const
 	auto testIndex = 0;
 	for (const auto &test : m_tests)
 	{
-		double rowHeaderWidth = 0.2 * width;
-		double resultCellWidth = test.size() > 8 ? 0.04 * width : 0.08 * width;
+		double rowHeaderWidth = headerWidthFactor() * width;
+		double resultCellWidth = (test.size() > 8 ? 0.5 : 1) * cellWidthFactor() * width;
 		double rowHeight = height;
+
+		QString testName = test.name();
+		if (testName.length() > 20)
+		{
+			testName = QString::fromStdString(
+			    std::regex_replace(testName.toStdString(), std::regex("[\\s-]"), "\n"));
+		}
 
 		if (testIndex == 0)
 		{
-			drawTextSquare(painter, {x, y, rowHeaderWidth, 2 * rowHeight}, test.name());
+			drawTextSquare(painter, {x, y, rowHeaderWidth, 2 * rowHeight}, testName);
 			x += rowHeaderWidth;
 
 			std::vector<std::pair<std::string, unsigned int>> columnHeaders;
@@ -55,7 +64,7 @@ void V2SvkModel::printTests(QPainter &painter) const
 		}
 		else
 		{
-			drawTextSquare(painter, {x, y, rowHeaderWidth, rowHeight}, test.name());
+			drawTextSquare(painter, {x, y, rowHeaderWidth, rowHeight}, testName);
 			x += rowHeaderWidth;
 		}
 
