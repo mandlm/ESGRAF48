@@ -78,6 +78,7 @@ target_link_libraries(${PROJECT_NAME}
 		CheckableItem
 		CheckableTest
 		CheckableTestModel
+		PrintableModel
 		MetaData
 		VerbEnd
 		Plural
@@ -95,6 +96,7 @@ add_subdirectory(Age)
 add_subdirectory(CheckableItem)
 add_subdirectory(CheckableTest)
 add_subdirectory(CheckableTestModel)
+add_subdirectory(PrintableModel)
 
 add_subdirectory(MetaData)
 add_subdirectory(SubTests)

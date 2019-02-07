@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
 #include <QString>
+#include <QFont>
 
 
 class DataModel;

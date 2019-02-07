@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Age.h"
+
 #include <QAbstractTableModel>
+#include <QPainter>
 
 class TestResult
 {
@@ -72,4 +74,6 @@ public:
 	void setSvkResult(unsigned int points);
     void setPassivResult(unsigned int points);
     void setGenitivResult(unsigned int points);
+
+	void printTo(QPainter &painter) const;
 };

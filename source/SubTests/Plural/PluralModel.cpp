@@ -2,9 +2,13 @@
 
 #include <QSize>
 
+#include <regex>
+
 PluralModel::PluralModel(QObject *parent)
-    : CheckableTestModel(parent)
+    : PrintableModel(parent)
 {
+	m_title = "Subtest 5: Plural";
+
 	m_tests = {{"Plural",
 	            {"Fisch /-e/", "Banane /-n/", "Bonbon /-s/", "Ei /-er/", "Eimer /-ø/",
 	             "Korn UML+/-er/", "Nuss UML+/-e/", "Bär /-en/", "Apfel UML"}}};
@@ -40,4 +44,40 @@ void PluralModel::write(ESGRAF48::PluralModel &model) const
 	model.set_nuss(testItems[6].isChecked());
 	model.set_baer(testItems[7].isChecked());
 	model.set_apfel(testItems[8].isChecked());
+}
+
+void PluralModel::printTests(QPainter &painter) const
+{
+	painter.setFont(tableFont());
+	painter.setPen(tablePen());
+
+	auto width = painter.device()->width();
+	auto height = 1.5 * painter.fontMetrics().lineSpacing();
+
+	double headerWidth = headerWidthFactor() * width;
+	double cellWidth = cellWidthFactor() * width;
+	double rowHeight = height;
+
+	double x = 0;
+	double y = 0;
+	for (const auto &test : m_tests)
+	{
+		drawTextSquare(painter, {0, y, headerWidth, 3 * rowHeight}, test.name());
+		x = headerWidth;
+
+		for (const auto &item : test.items())
+		{
+			QString itemText =
+			    QString::fromStdString(std::regex_replace(item.getText(), std::regex("\\s"), "\n"));
+
+			drawTextSquare(painter, {x, y, cellWidth, 2 * rowHeight}, itemText);
+			drawCheckSquare(painter, {x, y + 2 * rowHeight, cellWidth, rowHeight},
+			                item.isChecked());
+
+			x += cellWidth;
+		}
+		y += 2 * rowHeight;
+	}
+
+	painter.translate(0, y + 2 * rowHeight);
 }

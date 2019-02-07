@@ -1,20 +1,12 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(ResultWidget LANGUAGES CXX)
+project(PrintableModel LANGUAGES CXX)
 
+find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 
-set(CMAKE_AUTOMOC ON)
-
-qt5_wrap_ui(GENUS_UI
-        ResultWidget.ui
-)
-
 add_library(${PROJECT_NAME}
-        ResultWidget.cpp
-        ResultModel.cpp
-		PRMap.cpp
-	${GENUS_UI}
+	PrintableModel.cpp
 )
 
 set_target_properties(${PROJECT_NAME}
@@ -22,15 +14,14 @@ set_target_properties(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME}
-	PUBLIC
-		${CMAKE_CURRENT_SOURCE_DIR}
-	PRIVATE
-		${CMAKE_CURRENT_BINARY_DIR}
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
+	PUBLIC
+		CheckableTestModel
 	PRIVATE
-		PrintableModel
-		Age
+		Qt5::Core
 		Qt5::Widgets
 )

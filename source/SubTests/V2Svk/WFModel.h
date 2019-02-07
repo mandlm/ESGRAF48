@@ -1,20 +1,24 @@
 #pragma once
 
-#include "CheckableTestModel.h"
+#include "V2SvkModel.h"
 #include "V2SvkModel.pb.h"
 
-class WFModel : public CheckableTestModel
+class WFModel : public V2SvkModel
 {
 	Q_OBJECT
 
 public:
 	WFModel(QObject *parent);
 
-	unsigned int getV2Points();
-	unsigned int getSvkPoints();
+	unsigned int getV2Points() const override;
+	unsigned int getSvkPoints() const override;
 
-	void write(ESGRAF48::V2SvkModel &model) const;
-	void read(const ESGRAF48::V2SvkModel &model);
+	void write(ESGRAF48::V2SvkModel &model) const override;
+	void read(const ESGRAF48::V2SvkModel &model) override;
 
-	bool isValidIndex(const QModelIndex &index) const;
+protected:
+	std::set<int> v2Tests() const override;
+	std::set<int> svkTests() const override;
+
+	bool isValidIndex(const QModelIndex &index) const override;
 };

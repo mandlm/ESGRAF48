@@ -1,9 +1,9 @@
 #pragma once
 
-#include "CheckableTestModel.h"
+#include "PrintableModel.h"
 #include "VerbEndModel.pb.h"
 
-class VerbEndModel : public CheckableTestModel
+class VerbEndModel : public PrintableModel
 {
 	Q_OBJECT
 
@@ -12,4 +12,9 @@ public:
 
 	void write(ESGRAF48::VerbEndModel &model) const;
 	void read(const ESGRAF48::VerbEndModel &model);
+
+	unsigned int getKausalPoints() const;
+
+protected:
+	void printSummary(QPainter &painter) const override;
 };

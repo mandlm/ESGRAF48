@@ -1,9 +1,9 @@
 #pragma once
 
-#include "CheckableTestModel.h"
+#include "PrintableModel.h"
 #include "PluralModel.pb.h"
 
-class PluralModel : public CheckableTestModel
+class PluralModel : public PrintableModel
 {
 	Q_OBJECT
 
@@ -12,4 +12,7 @@ public:
 
 	void read(const ESGRAF48::PluralModel &model);
 	void write(ESGRAF48::PluralModel &model) const;
+
+protected:
+	virtual void printTests(QPainter &painter) const;
 };

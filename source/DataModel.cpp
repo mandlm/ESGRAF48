@@ -100,27 +100,43 @@ void DataModel::read(const QString &filename)
 	m_passiv.read(dataModel.lateskillspassiv());
 }
 
-std::string DataModel::toHtml() const
+void DataModel::printTo(QPrinter &printer) const
 {
-	std::stringstream out;
+	QPainter painter;
+	painter.begin(&printer);
 
-	out << "<html>" << std::endl;
-	out << "<head>" << std::endl;
-	out << "<style>" << std::endl;
-	out << "body {" << std::endl;
-	out << "font-family:sans-serif;" << std::endl;
-	out << "}" << std::endl;
-	out << "</style>" << std::endl;
-	out << "</head>" << std::endl;
-	out << "<body>" << std::endl;
-	out << "<h2>ESGRAF 4-8 Auswertungsbogen</h2>" << std::endl;
-	out << "<p>" << std::endl;
-	out << m_metaData.toHtml();
-	out << "</p>" << std::endl;
-	out << "</body>" << std::endl;
-	out << "</html>" << std::endl;
+	painter.setFont(PrintableModel::h1Font());
+	painter.drawText(0, painter.fontMetrics().lineSpacing(), "ESGRAF 4-8 Auswertungsbogen");
+	painter.translate(0, 3 * painter.fontMetrics().lineSpacing());
 
-	return out.str();
+	m_metaData.printTo(painter);
+
+	m_wfModel.printTo(painter);
+	m_otModel.printTo(painter);
+	m_tPrModel.printTo(painter);
+	m_tPeModel.printTo(painter);
+	V2SvkModel::printSummary(painter,
+	                         m_wfModel.getV2Points() + m_otModel.getV2Points()
+	                             + m_tPrModel.getV2Points() + m_tPeModel.getV2Points(),
+	                         m_wfModel.getSvkPoints() + m_otModel.getSvkPoints()
+	                             + m_tPrModel.getSvkPoints() + m_tPeModel.getSvkPoints());
+
+	m_verbEnd.printTo(painter);
+	m_genus.printTo(painter);
+
+	printer.newPage();
+	painter.resetTransform();
+
+	m_akkusativ.printTo(painter);
+	m_dativ.printTo(painter);
+	m_plural.printTo(painter);
+
+	m_passiv.printTo(painter);
+	m_genitiv.printTo(painter);
+
+	m_results.printTo(painter);
+
+	painter.end();
 }
 
 void DataModel::pluralModelChanged()

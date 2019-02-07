@@ -1,5 +1,7 @@
 #include "CheckableTest.h"
 
+#include <numeric>
+
 CheckableTest::CheckableTest(
 	const char *name, std::initializer_list<std::string> items)
 	: m_name(name)
@@ -25,4 +27,9 @@ const CheckableItems &CheckableTest::items() const
 CheckableItems &CheckableTest::items()
 {
 	return m_items;
+}
+	
+unsigned int CheckableTest::getPoints() const
+{
+	return m_items.getPoints();
 }
