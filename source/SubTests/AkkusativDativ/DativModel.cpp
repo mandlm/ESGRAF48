@@ -105,3 +105,8 @@ void DativModel::write(ESGRAF48::DativModel &model) const
 		nomTiereModel->set_katze(testItems[7].isChecked());
 	}
 }
+	
+void DativModel::printHeader(QPainter &painter) const
+{
+	painter.translate(0, -1.5 * painter.fontMetrics().lineSpacing());
+}

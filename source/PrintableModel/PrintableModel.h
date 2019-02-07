@@ -33,9 +33,9 @@ public:
 	static void drawResultSquare(QPainter &painter, double y, bool rightCell, unsigned int value);
 	static void drawGreySquare(QPainter &painter, const QRectF &cell);
 
-protected:
 	static void drawHeader2(QPainter &painter, const QString &text);
 
+protected:
 	virtual void printHeader(QPainter &painter) const;
 	virtual void printTests(QPainter &painter) const;
 	virtual void printSummary(QPainter &painter) const;

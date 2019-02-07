@@ -105,7 +105,6 @@ void DataModel::printTo(QPrinter &printer) const
 	QPainter painter;
 	painter.begin(&printer);
 
-
 	painter.setFont(PrintableModel::h1Font());
 	painter.drawText(0, painter.fontMetrics().lineSpacing(), "ESGRAF 4-8 Auswertungsbogen");
 	painter.translate(0, 3 * painter.fontMetrics().lineSpacing());
@@ -131,6 +130,11 @@ void DataModel::printTo(QPrinter &printer) const
 	m_akkusativ.printTo(painter);
 	m_dativ.printTo(painter);
 	m_plural.printTo(painter);
+
+	m_passiv.printTo(painter);
+	m_genitiv.printTo(painter);
+
+	m_results.printTo(painter);
 
 	painter.end();
 }

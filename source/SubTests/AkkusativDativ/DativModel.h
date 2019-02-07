@@ -14,5 +14,5 @@ public:
 	void write(ESGRAF48::DativModel &model) const;
 
 protected:
-	void printHeader(QPainter &) const override {};
+	void printHeader(QPainter &painter) const override;
 };

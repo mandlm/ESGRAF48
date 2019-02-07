@@ -46,7 +46,7 @@ double PrintableModel::headerWidthFactor()
 
 double PrintableModel::cellWidthFactor()
 {
-	return 0.085;
+	return headerWidthFactor() / 2;
 }
 
 void PrintableModel::drawTextSquare(QPainter &painter, const QRectF &cell, const QString &text)

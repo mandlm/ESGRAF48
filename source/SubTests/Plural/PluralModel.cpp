@@ -76,10 +76,7 @@ void PluralModel::printTests(QPainter &painter) const
 
 			x += cellWidth;
 		}
-		y += rowHeight;
-
-		drawResultSquare(painter, y, true, test.getPoints());
-		y += rowHeight;
+		y += 2 * rowHeight;
 	}
 
 	painter.translate(0, y + 2 * rowHeight);
