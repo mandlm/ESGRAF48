@@ -3,3 +3,6 @@ _*/
 build-*
 *.user
 tags
+*.esgraf48
+*.swp
+*.pdf
