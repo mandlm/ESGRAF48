@@ -229,13 +229,13 @@ void ResultModel::printTo(QPainter &painter) const
 
 	PrintableModel::drawTextSquare(painter, {x, y + 0 * rowHeight, cellWidth, rowHeight}, "");
 	PrintableModel::drawTextSquare(painter, {x, y + 1 * rowHeight, cellWidth, rowHeight},
-	                               "\u2265 PR 84");
+                                   u8"\u2265 PR 84");
 	PrintableModel::drawTextSquare(painter, {x, y + 2 * rowHeight, cellWidth, rowHeight},
 	                               "< PR 84");
 
 	PrintableModel::drawGreySquare(painter, {x, y + 3 * rowHeight, cellWidth, rowHeight});
 	PrintableModel::drawTextSquare(painter, {x, y + 3 * rowHeight, cellWidth, rowHeight},
-	                               "\u2264 PR 16");
+                                   u8"\u2264 PR 16");
 
 	x += cellWidth;
 	for (const auto &result : m_results)
