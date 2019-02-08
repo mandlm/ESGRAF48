@@ -80,7 +80,7 @@ void PrintableModel::drawNumberSquare(QPainter &painter, double x, double y, int
 void PrintableModel::PrintableModel::drawCheckSquare(QPainter &painter, const QRectF &cell,
                                                      bool checked)
 {
-	drawTextSquare(painter, cell, checked ? "\u2612" : "\u2610");
+    drawTextSquare(painter, cell, checked ? u8"\u2612" : u8"\u2610");
 }
 
 void PrintableModel::drawResultSquare(QPainter &painter, double y, bool rightCell,
