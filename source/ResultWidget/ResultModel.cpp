@@ -18,6 +18,7 @@ ResultModel::ResultModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
 	m_results = {{"V2", "SVK", "VE", "Passiv", "Genus", "Akkusativ", "Dativ", "Genitiv", "Plural"}};
+	m_results = {{"V2", "SVK", "VE", "Genus", "Akkusativ", "Dativ", "Plural", "Passiv", "Genitiv"}};
 }
 
 int ResultModel::rowCount(const QModelIndex &parent) const
@@ -123,21 +124,21 @@ void ResultModel::setAge(const Age &age)
 
 void ResultModel::setPluralResult(unsigned int points)
 {
-	if (m_results[8].points() != points)
+	if (m_results[6].points() != points)
 	{
-		m_results[8].setPoints(points);
-		m_results[8].setPR(PluralPR().lookup(m_age, points));
-		emit dataChanged(index(0, 8), index(4, 8));
+		m_results[6].setPoints(points);
+		m_results[6].setPR(PluralPR().lookup(m_age, points));
+		emit dataChanged(index(0, 6), index(4, 6));
 	}
 }
 
 void ResultModel::setGenusResult(unsigned int points)
 {
-	if (m_results[4].points() != points)
+	if (m_results[3].points() != points)
 	{
-		m_results[4].setPoints(points);
-		m_results[4].setPR(GenusPR().lookup(m_age, points));
-		emit dataChanged(index(0, 4), index(4, 4));
+		m_results[3].setPoints(points);
+		m_results[3].setPR(GenusPR().lookup(m_age, points));
+		emit dataChanged(index(0, 3), index(4, 3));
 	}
 }
 
@@ -153,21 +154,21 @@ void ResultModel::setVerbEndResult(unsigned int points)
 
 void ResultModel::setAkkusativResult(unsigned int points)
 {
-	if (m_results[5].points() != points)
+	if (m_results[4].points() != points)
 	{
-		m_results[5].setPoints(points);
-		m_results[5].setPR(AkkusativPR().lookup(m_age, points));
-		emit dataChanged(index(0, 5), index(4, 5));
+		m_results[4].setPoints(points);
+		m_results[4].setPR(AkkusativPR().lookup(m_age, points));
+		emit dataChanged(index(0, 4), index(4, 4));
 	}
 }
 
 void ResultModel::setDativResult(unsigned int points)
 {
-	if (m_results[6].points() != points)
+	if (m_results[5].points() != points)
 	{
-		m_results[6].setPoints(points);
-		m_results[6].setPR(DativPR().lookup(m_age, points));
-		emit dataChanged(index(0, 6), index(4, 6));
+		m_results[5].setPoints(points);
+		m_results[5].setPR(DativPR().lookup(m_age, points));
+		emit dataChanged(index(0, 5), index(4, 5));
 	}
 }
 
@@ -193,21 +194,21 @@ void ResultModel::setSvkResult(unsigned int points)
 
 void ResultModel::setPassivResult(unsigned int points)
 {
-	if (m_results[3].points() != points)
+	if (m_results[7].points() != points)
 	{
-		m_results[3].setPoints(points);
-		m_results[3].setPR(PassivPR().lookup(m_age, points));
-		emit dataChanged(index(0, 3), index(4, 3));
+		m_results[7].setPoints(points);
+		m_results[7].setPR(PassivPR().lookup(m_age, points));
+		emit dataChanged(index(0, 7), index(4, 7));
 	}
 }
 
 void ResultModel::setGenitivResult(unsigned int points)
 {
-	if (m_results[7].points() != points)
+	if (m_results[8].points() != points)
 	{
-		m_results[7].setPoints(points);
-		m_results[7].setPR(GenitivPR().lookup(m_age, points));
-		emit dataChanged(index(0, 7), index(4, 7));
+		m_results[8].setPoints(points);
+		m_results[8].setPR(GenitivPR().lookup(m_age, points));
+		emit dataChanged(index(0, 8), index(4, 8));
 	}
 }
 
