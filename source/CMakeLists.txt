@@ -92,6 +92,25 @@ target_link_libraries(${PROJECT_NAME}
 		${Protobuf_LIBRARIES}
 )
 
+if (WIN32)
+	get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
+	message(STATUS "_qmake_executable: ${_qmake_executable}")
+
+	get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
+	message(STATUS "_qt_bin_dir: ${_qt_bin_dir}")
+
+	find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
+
+	if (WINDEPLOYQT_EXECUTABLE)
+		message(STATUS "Found ${WINDEPLOYQT_EXECUTABLE}")
+	else()
+		message(FATAL_ERROR "Unable to find windeployqt")
+	endif()
+
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}>)
+endif()
+
 add_subdirectory(Age)
 add_subdirectory(CheckableItem)
 add_subdirectory(CheckableTest)
