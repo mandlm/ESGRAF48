@@ -10,3 +10,4 @@ cmake
 [options]
 protobuf:shared=False
 qt:qttools=True
+qt:qttranslations=True
