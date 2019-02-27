@@ -12,4 +12,4 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 add_subdirectory(source)
-#add_subdirectory(test)
+add_subdirectory(test)

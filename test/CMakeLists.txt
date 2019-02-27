@@ -7,6 +7,7 @@ add_executable(${PROJECT_NAME}
 	main.cpp
 	dummy.cpp
 	Age.cpp
+	loadfile.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
