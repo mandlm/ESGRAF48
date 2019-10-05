@@ -5,9 +5,9 @@
 class VerbEndPR : public PRMap
 {
 public:
-	VerbEndPR()
-	{
-		// clang-format off
+    VerbEndPR()
+    {
+        // clang-format off
 		m_ages = {
 			{ 4, 0 },
 			{ 4, 6 },
@@ -39,7 +39,6 @@ public:
 			{ 85, 79, 74, 65 },
 			{ 100, 100, 100, 100, 100 },
 		};
-		// clang-format on
-	}
+        // clang-format on
+    }
 };
-

@@ -5,9 +5,9 @@
 class GenusPR : public PRMap
 {
 public:
-	GenusPR()
-	{
-		// clang-format off
+    GenusPR()
+    {
+        // clang-format off
 		m_ages = {
 			{ 4, 0 },
 			{ 5, 0 },
@@ -40,7 +40,6 @@ public:
 			{ 94, 75, 49, 37, 27 },
 			{ 100, 100, 100, 100, 100 },
 		};
-		// clang-format on
-	}
+        // clang-format on
+    }
 };
-

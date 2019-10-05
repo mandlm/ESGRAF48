@@ -5,9 +5,9 @@
 class PluralPR : public PRMap
 {
 public:
-	PluralPR()
-	{
-		// clang-format off
+    PluralPR()
+    {
+        // clang-format off
 		m_ages = {
 			{ 4, 0 },
 			{ 4, 6 },
@@ -27,6 +27,6 @@ public:
 			{ 79, 56, 27 },
 			{ 100, 100, 100 }
 		};
-		// clang-format on
-	}
+        // clang-format on
+    }
 };

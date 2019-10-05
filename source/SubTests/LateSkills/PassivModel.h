@@ -5,15 +5,15 @@
 
 class PassivModel : public LateSkillsModel
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	PassivModel(QObject *parent);
-	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+    PassivModel(QObject* parent);
+    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
 
-	void read(const ESGRAF48::LateSkillsPassivModel &model);
-	void write(ESGRAF48::LateSkillsPassivModel &model) const;
+    void read(const ESGRAF48::LateSkillsPassivModel& model);
+    void write(ESGRAF48::LateSkillsPassivModel& model) const;
 
 protected:
-	void printHeader(QPainter &painter) const override;
+    void printHeader(QPainter& painter) const override;
 };

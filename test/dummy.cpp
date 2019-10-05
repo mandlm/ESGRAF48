@@ -2,6 +2,5 @@
 
 TEST_CASE("Dummy")
 {
-	REQUIRE(true == true);
+    REQUIRE(true == true);
 }
-

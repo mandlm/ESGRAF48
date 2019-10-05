@@ -5,9 +5,9 @@
 class V2PR : public PRMap
 {
 public:
-	V2PR()
-	{
-		// clang-format off
+    V2PR()
+    {
+        // clang-format off
 		m_ages = {
 			{ 4, 0 },
 			{ 5, 0 },
@@ -63,6 +63,6 @@ public:
 			{ 69, 52, 37 },
 			{ 100, 100, 100 }
 		};
-		// clang-format on
-	}
+        // clang-format on
+    }
 };

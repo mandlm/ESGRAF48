@@ -10,14 +10,14 @@ class PluralWidget;
 
 class PluralWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 private:
-	Ui::PluralWidget *ui;
+    Ui::PluralWidget* ui;
 
 public:
-	PluralWidget(QWidget *parent = nullptr);
-	~PluralWidget();
+    PluralWidget(QWidget* parent = nullptr);
+    ~PluralWidget();
 
-	void setModel(PluralModel *model);
+    void setModel(PluralModel* model);
 };

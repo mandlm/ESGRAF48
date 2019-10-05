@@ -5,14 +5,14 @@
 
 class DativModel : public PrintableModel
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	DativModel(QObject *parent);
+    DativModel(QObject* parent);
 
-	void read(const ESGRAF48::DativModel &model);
-	void write(ESGRAF48::DativModel &model) const;
+    void read(const ESGRAF48::DativModel& model);
+    void write(ESGRAF48::DativModel& model) const;
 
 protected:
-	void printHeader(QPainter &painter) const override;
+    void printHeader(QPainter& painter) const override;
 };

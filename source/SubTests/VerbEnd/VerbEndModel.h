@@ -5,16 +5,16 @@
 
 class VerbEndModel : public PrintableModel
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	VerbEndModel(QObject *parent);
+    VerbEndModel(QObject* parent);
 
-	void write(ESGRAF48::VerbEndModel &model) const;
-	void read(const ESGRAF48::VerbEndModel &model);
+    void write(ESGRAF48::VerbEndModel& model) const;
+    void read(const ESGRAF48::VerbEndModel& model);
 
-	unsigned int getKausalPoints() const;
+    unsigned int getKausalPoints() const;
 
 protected:
-	void printSummary(QPainter &painter) const override;
+    void printSummary(QPainter& painter) const override;
 };

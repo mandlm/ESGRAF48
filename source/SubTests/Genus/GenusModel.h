@@ -5,11 +5,11 @@
 
 class GenusModel : public PrintableModel
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	GenusModel(QObject *parent);
+    GenusModel(QObject* parent);
 
-	void read(const ESGRAF48::GenusModel &model);
-	void write(ESGRAF48::GenusModel &model) const;
+    void read(const ESGRAF48::GenusModel& model);
+    void write(ESGRAF48::GenusModel& model) const;
 };

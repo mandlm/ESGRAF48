@@ -5,9 +5,9 @@
 class PassivPR : public PRMap
 {
 public:
-        PassivPR()
-	{
-		// clang-format off
+    PassivPR()
+    {
+        // clang-format off
 		m_ages = {
                         { 7, 0 },
                         { 8, 6 },
@@ -27,6 +27,6 @@ public:
                         { 94, 84 },
                         { 100, 100 }
 		};
-		// clang-format on
-	}
+        // clang-format on
+    }
 };

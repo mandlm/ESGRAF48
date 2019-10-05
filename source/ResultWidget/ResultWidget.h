@@ -10,14 +10,14 @@ class ResultWidget;
 
 class ResultWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 private:
-        Ui::ResultWidget *ui;
+    Ui::ResultWidget* ui;
 
 public:
-        ResultWidget(QWidget *parent = nullptr);
-        ~ResultWidget();
+    ResultWidget(QWidget* parent = nullptr);
+    ~ResultWidget();
 
-		void setModel(ResultModel *model);
+    void setModel(ResultModel* model);
 };

@@ -5,11 +5,11 @@
 
 class LateSkillsModel : public PrintableModel
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	LateSkillsModel(QObject *parent);
+    LateSkillsModel(QObject* parent);
 
 protected:
-	void printTests(QPainter &painter) const override;
+    void printTests(QPainter& painter) const override;
 };

@@ -3,21 +3,21 @@
 
 #include "GenusModel.h"
 
-GenusWidget::GenusWidget(QWidget *parent)
-	: QWidget(parent)
-	, ui(new Ui::GenusWidget)
+GenusWidget::GenusWidget(QWidget* parent)
+    : QWidget(parent)
+    , ui(new Ui::GenusWidget)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
 
-	ui->genusTableView->horizontalHeader()->hide();
+    ui->genusTableView->horizontalHeader()->hide();
 }
 
 GenusWidget::~GenusWidget()
 {
-	delete ui;
+    delete ui;
 }
 
-void GenusWidget::setModel(GenusModel *model)
+void GenusWidget::setModel(GenusModel* model)
 {
-	ui->genusTableView->setModel(model);
+    ui->genusTableView->setModel(model);
 }

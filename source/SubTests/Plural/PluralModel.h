@@ -5,14 +5,14 @@
 
 class PluralModel : public PrintableModel
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	PluralModel(QObject *parent);
+    PluralModel(QObject* parent);
 
-	void read(const ESGRAF48::PluralModel &model);
-	void write(ESGRAF48::PluralModel &model) const;
+    void read(const ESGRAF48::PluralModel& model);
+    void write(ESGRAF48::PluralModel& model) const;
 
 protected:
-	virtual void printTests(QPainter &painter) const;
+    virtual void printTests(QPainter& painter) const;
 };

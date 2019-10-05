@@ -3,19 +3,19 @@
 
 #include "ResultModel.h"
 
-ResultWidget::ResultWidget(QWidget *parent)
-	: QWidget(parent)
+ResultWidget::ResultWidget(QWidget* parent)
+    : QWidget(parent)
     , ui(new Ui::ResultWidget)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
 }
 
 ResultWidget::~ResultWidget()
 {
-	delete ui;
+    delete ui;
 }
-		
-void ResultWidget::setModel(ResultModel *model)
+
+void ResultWidget::setModel(ResultModel* model)
 {
-	ui->resultTableView->setModel(model);
+    ui->resultTableView->setModel(model);
 }

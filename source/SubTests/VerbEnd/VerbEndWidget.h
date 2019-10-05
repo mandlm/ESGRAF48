@@ -10,14 +10,14 @@ class VerbEndWidget;
 
 class VerbEndWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 private:
-	Ui::VerbEndWidget *ui;
+    Ui::VerbEndWidget* ui;
 
 public:
-	VerbEndWidget(QWidget *parent = nullptr);
-	~VerbEndWidget();
+    VerbEndWidget(QWidget* parent = nullptr);
+    ~VerbEndWidget();
 
-	void setModel(VerbEndModel *model);
+    void setModel(VerbEndModel* model);
 };

@@ -11,15 +11,15 @@ class AkkusativDativWidget;
 
 class AkkusativDativWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 private:
-	Ui::AkkusativDativWidget *ui;
+    Ui::AkkusativDativWidget* ui;
 
 public:
-	AkkusativDativWidget(QWidget *parent = nullptr);
-	~AkkusativDativWidget();
+    AkkusativDativWidget(QWidget* parent = nullptr);
+    ~AkkusativDativWidget();
 
-	void setAkkusativModel(AkkusativModel *model);
-	void setDativModel(DativModel *model);
+    void setAkkusativModel(AkkusativModel* model);
+    void setDativModel(DativModel* model);
 };

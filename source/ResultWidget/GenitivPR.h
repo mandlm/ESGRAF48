@@ -5,9 +5,9 @@
 class GenitivPR : public PRMap
 {
 public:
-        GenitivPR()
-	{
-		// clang-format off
+    GenitivPR()
+    {
+        // clang-format off
 		m_ages = {
                         { 7, 0 },
                         { 7, 6 },
@@ -34,6 +34,6 @@ public:
                         { 96, 92, 87 },
                         { 100, 100, 100 }
 		};
-		// clang-format on
-	}
+        // clang-format on
+    }
 };

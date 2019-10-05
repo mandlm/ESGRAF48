@@ -13,17 +13,17 @@ class V2SvkWidget;
 
 class V2SvkWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 private:
-	Ui::V2SvkWidget *ui;
+    Ui::V2SvkWidget* ui;
 
 public:
-	V2SvkWidget(QWidget *parent = nullptr);
-	~V2SvkWidget();
+    V2SvkWidget(QWidget* parent = nullptr);
+    ~V2SvkWidget();
 
-	void setWFModel(WFModel *model);
-	void setOTModel(OTModel *model);
-	void setTPrModel(TPrModel *model);
-	void setTPeModel(TPeModel *model);
+    void setWFModel(WFModel* model);
+    void setOTModel(OTModel* model);
+    void setTPrModel(TPrModel* model);
+    void setTPeModel(TPeModel* model);
 };

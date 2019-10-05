@@ -5,9 +5,9 @@
 class DativPR : public PRMap
 {
 public:
-	DativPR()
-	{
-		// clang-format off
+    DativPR()
+    {
+        // clang-format off
 		m_ages = {
 			{ 4, 0 },
 			{ 5, 0 },
@@ -44,6 +44,6 @@ public:
 			{ 92, 87, 76, 68, 60 },
 			{ 100, 100, 100, 100, 100 }
 		};
-		// clang-format on
-	}
+        // clang-format on
+    }
 };

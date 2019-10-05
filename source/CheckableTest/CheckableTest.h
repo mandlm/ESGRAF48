@@ -7,18 +7,18 @@
 class CheckableTest
 {
 private:
-	CheckableItems m_items;
-	QString m_name;
+    CheckableItems m_items;
+    QString m_name;
 
 public:
-	CheckableTest(const char *name, std::initializer_list<std::string> items);
+    CheckableTest(const char* name, std::initializer_list<std::string> items);
 
-	size_t size() const;
-	const QString &name() const;
-	const CheckableItems &items() const;
-	CheckableItems &items();
+    size_t size() const;
+    const QString& name() const;
+    const CheckableItems& items() const;
+    CheckableItems& items();
 
-	unsigned int getPoints() const;
+    unsigned int getPoints() const;
 };
 
 using CheckableTests = std::vector<CheckableTest>;

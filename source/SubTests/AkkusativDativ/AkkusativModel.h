@@ -5,14 +5,14 @@
 
 class AkkusativModel : public PrintableModel
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	AkkusativModel(QObject *parent);
+    AkkusativModel(QObject* parent);
 
-	void read(const ESGRAF48::AkkusativModel &model);
-	void write(ESGRAF48::AkkusativModel &model) const;
+    void read(const ESGRAF48::AkkusativModel& model);
+    void write(ESGRAF48::AkkusativModel& model) const;
 
 protected:
-	void printHeader(QPainter &painter) const override;
+    void printHeader(QPainter& painter) const override;
 };

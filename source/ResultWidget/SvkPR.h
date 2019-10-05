@@ -5,9 +5,9 @@
 class SvkPR : public PRMap
 {
 public:
-	SvkPR()
-	{
-		// clang-format off
+    SvkPR()
+    {
+        // clang-format off
 		m_ages = {
 			{ 4, 0 },
 			{ 5, 0 },
@@ -60,6 +60,6 @@ public:
 			{ 71, 50, 36 },
 			{ 100, 100, 100 }
 		};
-		// clang-format on
-	}
+        // clang-format on
+    }
 };

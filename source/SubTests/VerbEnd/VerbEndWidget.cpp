@@ -3,21 +3,21 @@
 
 #include "VerbEndModel.h"
 
-VerbEndWidget::VerbEndWidget(QWidget *parent)
-	: QWidget(parent)
-	, ui(new Ui::VerbEndWidget)
+VerbEndWidget::VerbEndWidget(QWidget* parent)
+    : QWidget(parent)
+    , ui(new Ui::VerbEndWidget)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
 
-	ui->verbEndTableView->horizontalHeader()->hide();
+    ui->verbEndTableView->horizontalHeader()->hide();
 }
 
 VerbEndWidget::~VerbEndWidget()
 {
-	delete ui;
+    delete ui;
 }
 
-void VerbEndWidget::setModel(VerbEndModel *model)
+void VerbEndWidget::setModel(VerbEndModel* model)
 {
-	ui->verbEndTableView->setModel(model);
+    ui->verbEndTableView->setModel(model);
 }

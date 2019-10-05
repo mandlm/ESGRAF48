@@ -2,34 +2,33 @@
 
 #include <numeric>
 
-CheckableTest::CheckableTest(
-	const char *name, std::initializer_list<std::string> items)
-	: m_name(name)
-	, m_items(items)
+CheckableTest::CheckableTest(const char* name, std::initializer_list<std::string> items)
+    : m_name(name)
+    , m_items(items)
 {
 }
 
 size_t CheckableTest::size() const
 {
-	return m_items.size();
+    return m_items.size();
 }
 
-const QString &CheckableTest::name() const
+const QString& CheckableTest::name() const
 {
-	return m_name;
+    return m_name;
 }
 
-const CheckableItems &CheckableTest::items() const
+const CheckableItems& CheckableTest::items() const
 {
-	return m_items;
+    return m_items;
 }
 
-CheckableItems &CheckableTest::items()
+CheckableItems& CheckableTest::items()
 {
-	return m_items;
+    return m_items;
 }
-	
+
 unsigned int CheckableTest::getPoints() const
 {
-	return m_items.getPoints();
+    return m_items.getPoints();
 }

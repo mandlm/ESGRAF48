@@ -5,33 +5,33 @@
 #include <QApplication>
 #include <QCommandLineParser>
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-	QApplication app(argc, argv);
-	QCoreApplication::setApplicationName(ESGRAF48_DESCRIPTION);
-	QCoreApplication::setApplicationVersion(ESGRAF48_VERSION);
+    QApplication app(argc, argv);
+    QCoreApplication::setApplicationName(ESGRAF48_DESCRIPTION);
+    QCoreApplication::setApplicationVersion(ESGRAF48_VERSION);
 
-	QCommandLineParser cmdParser;
-	cmdParser.setApplicationDescription(ESGRAF48_DESCRIPTION);
-	cmdParser.addHelpOption();
-	cmdParser.addVersionOption();
-	cmdParser.addPositionalArgument("filename", "file to open");
+    QCommandLineParser cmdParser;
+    cmdParser.setApplicationDescription(ESGRAF48_DESCRIPTION);
+    cmdParser.addHelpOption();
+    cmdParser.addVersionOption();
+    cmdParser.addPositionalArgument("filename", "file to open");
 
-	cmdParser.process(app);
+    cmdParser.process(app);
 
-	const QStringList args = cmdParser.positionalArguments();
+    const QStringList args = cmdParser.positionalArguments();
 
-	std::unique_ptr<MainWindow> mainWindow;
-	if (args.empty())
-	{
-		mainWindow = std::make_unique<MainWindow>(nullptr);
-	}
-	else
-	{
-		mainWindow = std::make_unique<MainWindow>(nullptr, args.at(0));
-	}
+    std::unique_ptr<MainWindow> mainWindow;
+    if (args.empty())
+    {
+        mainWindow = std::make_unique<MainWindow>(nullptr);
+    }
+    else
+    {
+        mainWindow = std::make_unique<MainWindow>(nullptr, args.at(0));
+    }
 
-	mainWindow->show();
+    mainWindow->show();
 
-	return app.exec();
+    return app.exec();
 }

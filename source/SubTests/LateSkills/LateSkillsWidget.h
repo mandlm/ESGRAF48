@@ -11,15 +11,15 @@ class LateSkillsWidget;
 
 class LateSkillsWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 private:
-        Ui::LateSkillsWidget *ui;
+    Ui::LateSkillsWidget* ui;
 
 public:
-        LateSkillsWidget(QWidget *parent = nullptr);
-        ~LateSkillsWidget();
+    LateSkillsWidget(QWidget* parent = nullptr);
+    ~LateSkillsWidget();
 
-        void setPassivModel(PassivModel *model);
-        void setGenitivModel(GenitivModel *model);
+    void setPassivModel(PassivModel* model);
+    void setGenitivModel(GenitivModel* model);
 };

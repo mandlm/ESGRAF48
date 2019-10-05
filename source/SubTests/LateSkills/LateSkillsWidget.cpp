@@ -4,26 +4,26 @@
 #include "PassivModel.h"
 #include "GenitivModel.h"
 
-LateSkillsWidget::LateSkillsWidget(QWidget *parent)
-	: QWidget(parent)
+LateSkillsWidget::LateSkillsWidget(QWidget* parent)
+    : QWidget(parent)
     , ui(new Ui::LateSkillsWidget)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
     ui->passivTableView->horizontalHeader()->hide();
     ui->genitivTableView->horizontalHeader()->hide();
 }
 
 LateSkillsWidget::~LateSkillsWidget()
 {
-	delete ui;
+    delete ui;
 }
 
-void LateSkillsWidget::setPassivModel(PassivModel *model)
+void LateSkillsWidget::setPassivModel(PassivModel* model)
 {
     ui->passivTableView->setModel(model);
 }
-	
-void LateSkillsWidget::setGenitivModel(GenitivModel *model)
+
+void LateSkillsWidget::setGenitivModel(GenitivModel* model)
 {
     ui->genitivTableView->setModel(model);
 }

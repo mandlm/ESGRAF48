@@ -5,9 +5,9 @@
 class AkkusativPR : public PRMap
 {
 public:
-	AkkusativPR()
-	{
-		// clang-format off
+    AkkusativPR()
+    {
+        // clang-format off
 		m_ages = {
 			{ 4, 0 },
 			{ 5, 0 },
@@ -44,6 +44,6 @@ public:
 			{ 95, 89, 76, 74, 69 },
 			{ 100, 100, 100, 100, 100 }
 		};
-		// clang-format on
-	}
+        // clang-format on
+    }
 };
